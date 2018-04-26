@@ -9,11 +9,25 @@ test_that("A basic entity is rendered",{
     test_entity$render()
   },
   {
-    '<a-box  position="0 0 0" rotation="0 0 0" ></a-box>'
+    '<a-box position="0 0 0" rotation="0 0 0"></a-box>'
   }
   )
 
 })
+
+test_that("underscore components are converted to dashes",{
+  expect_equal(
+  {
+    entity1 <- a_entity(tag = "camera",
+                        wasd_controls = list(acceleration = 100, fly = TRUE),
+                        an_extremely_long_component_name = NULL)
+    entity1$render()
+  },
+  {
+   '<a-camera wasd-controls="acceleration: 100; fly: true;" an-extremely-long-component-name></a-camera>'
+  }
+  )
+}) 
 
 test_that("a nested entity is rendered", {
   expect_equal(
@@ -26,8 +40,20 @@ test_that("a nested entity is rendered", {
     my_entity$render()
   },
   {
-    '<a-box  id=\"mine\" position=\"0 0 0\" scale=\"0 0 0\" material="shader: flat; sides: double;" ></a-box>'
+    '<a-box id=\"mine\" position=\"0 0 0\" scale=\"0 0 0\" material="shader: flat; sides: double;"></a-box>'
   }
   )
 
+})
+
+test_that("An entity renders it's assets", {
+  entity1 <-
+    A_Entity$new(id = "tst", gltf_model = a_asset(id = "monster", src = "/inst/monster.gltf"), animation_mixer = NULL)
+  expect_equal(
+  {
+    entity1$render()
+  },
+  {
+    '<a-entity id="tst" gltf-model="#monster" animation-mixer></a-entity>' 
+  })
 })
