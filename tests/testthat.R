@@ -1,4 +1,4 @@
 library(testthat)
-library(aftool)
+library(r2vr)
 
-test_check("aftool")
+test_check("r2vr")
