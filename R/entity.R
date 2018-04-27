@@ -98,7 +98,12 @@ A_Entity <-
               ## convert underscores('_') in keys to dashes ('-') 
               key <- gsub( x = key, pattern = "_", replacement = "-")
 
-              if(is.null(value)){
+              if(is(value, "A_Asset")){
+                ## Special handling if it's an asset.
+                ## Assets know how to render themselves
+                paste0(key,'=\"',value$reference(),'"')
+              }
+              else if(is.null(value)){
                 ## just a component with no config.
                 key
               }
@@ -116,21 +121,19 @@ A_Entity <-
                 props = purrr::map2(names(value), value, self$render_property)
                 paste0(key,'="',paste0(props, collapse = " "),'"')
               }
-              else if(is(value, "A_Asset")){
-                ## Special handling if it's an asset.
-                ## Assets know how to render themselves
-                paste0(key,'=\"',value$reference(),'"')
-              }
             }, # should be private
 
             render_property = function(key, value){
               ## convert underscores('_') in keys to dashes ('-') 
               key <- gsub( x = key, pattern = "_", replacement = "-")
 
-              if(is.na(value)){
+              if(is(value, "A_Asset")){
+                paste0(key,": ",value$reference(),";")
+              }
+              else if(is.na(value)){
                 stop("tried to render NA value for ", key, "in property list")
               }
-              if(is.character(value)){
+              else if(is.character(value)){
                 paste0(key,": ",value,";")
               }
               else if(is.logical(value)){
@@ -139,13 +142,10 @@ A_Entity <-
               else if(is.numeric(value)){
                 paste0(key,": ",paste(value, collapse = " "),";")
               }
-              else if(is(value, "A_Asset")){
-                paste0(key,": ",value$reference(),";")
-              }
             }, # should be private
 
             render_id = function(){
-              if(is.null(self$id)) "" else self$id
+              if(is.null(self$id)) "" else paste0('id="',self$id,'"')
             }, # should be private
 
             find_assets = function(){
