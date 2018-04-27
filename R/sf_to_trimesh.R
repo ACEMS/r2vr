@@ -1,5 +1,3 @@
-
-
 sf_to_trimesh <- function(a_mulitpoly_sf, n_tris = NULL){
   
   if(!is(a_mulitpoly_sf, "sfc_MULTIPOLYGON")){

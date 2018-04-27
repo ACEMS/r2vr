@@ -70,7 +70,8 @@ A_Asset <-
 ##' @param tag the tag text to use in the asset block. Defaults to `a-asset-item`.
 ##' @param src the location of the asset
 ##' @param inline boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.
-##' @return
+##' @return an asset object.
+##' @export
 a_asset <- function(...){ 
   A_Asset$new(...)
 }

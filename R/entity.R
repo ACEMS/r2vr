@@ -129,7 +129,7 @@ A_Entity <-
 ##'   will be automatically be sourced in the html header by the parent scene.
 ##' @param ... components to be added to the entity. See description.
 ##' @return A_Entity object
+##' @export
 a_entity <- function(...){
   A_Entity$new(...)
 }
-

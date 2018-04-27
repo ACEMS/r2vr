@@ -15,6 +15,9 @@ a_asset(...)
 
 \item{inline}{boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.}
 }
+\value{
+an asset object.
+}
 \description{
 Create an A-Frame asset
 }
