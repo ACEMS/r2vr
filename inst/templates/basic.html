@@ -2,22 +2,28 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title> ${title} </title>
-    <meta name="description" content= "${title}">
-    <script crossorigin src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
-    <script crossorigin src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.loaders.js"></script>
-    <script crossorigin src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.controls.js"></script>
+    <title> A test model</title>
+    <meta name="description" content= "A three js json model">
+    <script crossorigin src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script crossorigin src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js"></script>
+    <script crossorigin src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js"></script>
+    <script crossorigin src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js"></script>
+    ${sources}
   </head>
   <body>
     <a-scene>
       <a-assets>
+      ${assets}
       </a-assets>
-      <a-camera universal-controls = "fly: true; movementEasingY: 15"></a-camera>
-      <a-entity position="0 30 0" light="intensity:0.80;type:point"></a-entity>
+      <a-camera movement-controls="fly: true; easingY: 15" position="0 1.8 0"
+      rotation="0 0 0"></a-camera>
+      <a-entity position="0 100 -30" light="intensity:0.80;type:point"></a-entity>
 
-      <!-- Primitives. -->
-      <a-entity json-model="src: _object.json; crossorigin: true" position="0 0 -4" rotation="-90 0 0" scale="${scale}"></a-entity>
+      <!-- Entities added in R -->
+      ${enitites}
 
+      <!-- Ground -->
+      <a-grid geometry='height: 10; width: 10'></a-grid>
     </a-scene>
   </body>
 </html>
