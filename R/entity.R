@@ -7,33 +7,92 @@ A_Entity <-
             children = NULL,
             tag = NULL,
             id = NULL,
-            initialize = function(tag = "entity", sources = "", ...){
-              components = list(...)
+            initialize = function(tag = "entity", sources = NULL, id = NULL,
+                                  children = NULL, ...){
+              components <- list(...)
               self$tag <- tag
               self$components <- list(...)
-              self$sources <- sources
+              self$sources <- c(list(), sources)
 
               ## fetch and add assets
               self$assets <- self$find_assets()
+
+              ## Add children. It's imporant to do this after settting up assets
+              ## and sources, since adding children will update these lists.
+              self$children <- list()
+              if(!is.null(children)){
+                if(!is.list(children)){
+                  stop("children must be of type list or NULL.")
+                }
+                ## There are child entities to add.
+                ## We call add_children on ourselves, but since it is setup to
+                ## take ... we lift it to take list.
+                purrr::lift_dl(self$add_children)(children)
+              }
+
+              if(!is.null(id) && !is.character(id)){
+                stop("id must be of type character or NULL")
+              }
+              self$id <- id
             },
 
             render = function(){
+              ## Prepare render of my components
               component_expansion <- purrr::map2(names(self$components),
                                         self$components,
                                         self$render_component)
 
-              paste0(
-                    paste0("<a-", self$tag),' ',
-                    ifelse(!is.null(self$id), paste0(self$render_id(),' '), ''),
-                    paste(component_expansion, collapse = " "),
-                    paste0("></a-", self$tag,">")) # At some point children will get added in here
+              open_tag <- paste0(
+                paste0("<a-", self$tag),' ',                                     # <a-tagtext
+                    ifelse(!is.null(self$id), paste0(self$render_id(),' '), ''), # id="" 
+                    paste(component_expansion, collapse = " "),                  # comp1="val"
+                    ">")                                                         # >
+
+
+              if (length(self$children) > 0){
+                ## We have children to nest. Add a newline to the end of the open_tag.
+                open_tag <- paste0(open_tag,"\n")
+
+                ## Tell all the children to render themselves
+                child_tags <- purrr::map_chr(self$children, ~.$render())
+
+                ## Add indentation to start of line in each tag
+                child_tags <- gsub("^", "  ", child_tags)
+              } else {
+                 child_tags <- NULL
+              }
+
+              closing_tag <- paste0("</a-", self$tag,">\n")
+
+              ## Render all the html
+              paste0(open_tag,
+                     child_tags,
+                     closing_tag)
             },
 
             get_assests = function(){},
 
             get_sources = function(){},
 
-            add_child = function(){},
+            add_children = function(...){
+              children <- list(...)
+
+              ## Add the child to my list
+              if(purrr::some(children, ~!is(., "A_Entity"))){
+                stop("Only entity objects can be added as children to entities.")
+              }
+              purrr::walk(children, function(child){
+                if(!is.null(child$id)){
+                  self$children[[child$id]] <- child
+                }
+                else {
+                  self$children[[length(self$children)+1]] <- child
+                }
+                ## Add the child's sources to my sources and assets to my assets
+                self$sources <- c(self$sources, child$sources)
+                self$assets <- c(self$assets, child$assets)
+              })
+            },
 
             render_component = function(key, value){
               ## convert underscores('_') in keys to dashes ('-') 
