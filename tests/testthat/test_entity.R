@@ -27,7 +27,21 @@ test_that("underscore components are converted to dashes",{
    '<a-camera wasd-controls="acceleration: 100; fly: true;" an-extremely-long-component-name></a-camera>\n'
   }
   )
-}) 
+})
+
+test_that("an entity with no components can render",{
+  my_entity <-
+    A_Entity$new()
+
+  expect_equal(
+  {
+   my_entity$render() 
+  },
+  {
+    "<a-entity ></a-entity>\n"
+  })
+
+})
 
 test_that("an enitity with nested components is rendered", {
   expect_equal(
@@ -104,4 +118,14 @@ test_that("An entity with a nested entites with assets and sources exposes these
   {
     list("one.js", "two.js", "three.js")
   })
+  expect_equal(
+  {
+    purrr::map(my_entity1$assets, ~.$src) %>%
+      setNames(NULL)
+  },
+  { 
+    list("treebark.jpg", "ground.jpg")
+  })
 })
+
+
