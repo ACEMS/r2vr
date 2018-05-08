@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+    <head>
     <meta charset="utf-8">
     <title> A test model</title>
     <meta name="description" content= "A three js json model">
@@ -9,21 +9,21 @@
     <script crossorigin src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js"></script>
     <script crossorigin src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js"></script>
     ${sources}
-  </head>
-  <body>
-    <a-scene>
-      <a-assets>
-      ${assets}
-      </a-assets>
-      <a-camera movement-controls="fly: true; easingY: 15" position="0 1.8 0"
-      rotation="0 0 0"></a-camera>
-      <a-entity position="0 100 -30" light="intensity:0.80;type:point"></a-entity>
+    </head>
+    <body>
+        <a-scene ${scene_components}>
+            <a-assets>
+                ${assets}
+            </a-assets>
+            <a-camera movement-controls="fly: true; easingY: 15" position="0 1.8 0"
+                      rotation="0 0 0"></a-camera>
+            <a-entity position="0 100 -30" light="intensity:0.80;type:point"></a-entity>
+            
+            <!-- Entities added in R -->
+            ${entities}
 
-      <!-- Entities added in R -->
-      ${enitites}
-
-      <!-- Ground -->
-      <a-grid geometry='height: 10; width: 10'></a-grid>
-    </a-scene>
-  </body>
+            <!-- Ground -->
+            <a-grid geometry='height: 10; width: 10'></a-grid>
+        </a-scene>
+    </body>
 </html>
