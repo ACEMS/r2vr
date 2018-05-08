@@ -20,8 +20,8 @@ A_Entity <-
               ## Add children. It's imporant to do this after settting up assets
               ## and sources, since adding children will update these lists.
               self$children <- list()
-              if(!is.null(children)){
-                if(!is.list(children)){
+              if (!is.null(children)){
+                if (!is.list(children)){
                   stop("children must be of type list or NULL.")
                 }
                 ## There are child entities to add.
@@ -30,7 +30,7 @@ A_Entity <-
                 purrr::lift_dl(self$add_children)(children)
               }
 
-              if(!is.null(id) && !is.character(id)){
+              if (!is.null(id) && !is.character(id)){
                 stop("id must be of type character or NULL")
               }
               self$id <- id
@@ -38,16 +38,14 @@ A_Entity <-
 
             render = function(){
               ## Prepare render of my components
-              component_expansion <- purrr::map2(names(self$components),
-                                        self$components,
-                                        self$render_component)
+              component_expansion <- paste0(self$render_component_list(), collapse = " ")
 
               open_tag <- paste0(
-                paste0("<a-", self$tag),' ',                                     # <a-tagtext
-                    ifelse(!is.null(self$id), paste0(self$render_id(),' '), ''), # id="" 
-                    paste(component_expansion, collapse = " "),                  # comp1="val"
-                    ">")                                                         # >
-
+                paste0("<a-", self$tag), # <a-tagtext
+                    ifelse(!is.null(self$id), paste0(' ',self$render_id()), ''), # id="" 
+                    ifelse(length(component_expansion) > 0,
+                       paste0(' ', component_expansion), ''), # comp1=""
+                    ">")
 
               if (length(self$children) > 0){
                 ## We have children to nest. Add a newline to the end of the open_tag.
@@ -71,7 +69,7 @@ A_Entity <-
             },
 
             get_assests = function(){},
-
+ 
             get_sources = function(){},
 
             add_children = function(...){
@@ -82,7 +80,7 @@ A_Entity <-
                 stop("Only entity objects can be added as children to entities.")
               }
               purrr::walk(children, function(child){
-                if(!is.null(child$id)){
+                if (!is.null(child$id)){
                   self$children[[child$id]] <- child
                 }
                 else {
@@ -94,29 +92,35 @@ A_Entity <-
               })
             },
 
+            render_component_list = function(){
+              purrr::map2(names(self$components),
+                          self$components,
+                          self$render_component)
+            },
+
             render_component = function(key, value){
               ## convert underscores('_') in keys to dashes ('-') 
               key <- gsub( x = key, pattern = "_", replacement = "-")
 
-              if(is(value, "A_Asset")){
+              if (is(value, "A_Asset")){
                 ## Special handling if it's an asset.
                 ## Assets know how to render themselves
                 paste0(key,'=\"',value$reference(),'"')
               }
-              else if(is.null(value)){
+              else if (is.null(value)){
                 ## just a component with no config.
                 key
               }
-              else if(is.character(value)){
+              else if (is.character(value)){
                 paste0(key,'=\"',value,'"')
               }
-              else if(is.logical(value)){
+              else if (is.logical(value)){
                 paste0(key,'=\"',tolower(value),'"')
               }
-              else if(is.numeric(value)){
+              else if (is.numeric(value)){
                 paste0(key,'=\"',paste(value, collapse = " "),'"')
               }
-              else if(is.list(value)){
+              else if (is.list(value)){
                 # for vectors of ints or numerics
                 props = purrr::map2(names(value), value, self$render_property)
                 paste0(key,'="',paste0(props, collapse = " "),'"')
@@ -127,19 +131,19 @@ A_Entity <-
               ## convert underscores('_') in keys to dashes ('-') 
               key <- gsub( x = key, pattern = "_", replacement = "-")
 
-              if(is(value, "A_Asset")){
+              if (is(value, "A_Asset")){
                 paste0(key,": ",value$reference(),";")
               }
-              else if(is.na(value)){
+              else if (is.na(value)){
                 stop("tried to render NA value for ", key, "in property list")
               }
-              else if(is.character(value)){
+              else if (is.character(value)){
                 paste0(key,": ",value,";")
               }
-              else if(is.logical(value)){
+              else if (is.logical(value)){
                 paste0(key,": ",tolower(value),";")
               }
-              else if(is.numeric(value)){
+              else if (is.numeric(value)){
                 paste0(key,": ",paste(value, collapse = " "),";")
               }
             }, # should be private
@@ -152,7 +156,7 @@ A_Entity <-
               assets <- purrr::keep(self$components, ~is(., "A_Asset")) 
               nested_assets <-
                 purrr::keep(self$components, is.list) %>%
-                purrr::map(~purrr::keep(., ~is(., "A-Asset"))) %>%
+                purrr::map(~purrr::keep(., ~is(., "A_Asset"))) %>%
                 purrr::flatten()
               c(assets, nested_assets)
             }
