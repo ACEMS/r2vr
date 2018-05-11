@@ -95,3 +95,36 @@ A_Scene <-
                 write = function(){}
               )
               )
+
+
+##' Create an A-Frame Scene 
+##'
+##' This function creates an object that represents an A-Frame scene. A scene is
+##' a special type of A-Frame entity that is the root entity of the WebVR scene.
+##' Like regular entities it can have components added to it that change its
+##' behaviour.
+##'
+##' A scene has a html representation that is based off a template supplied in
+##' the `template` argument. The template is a partially filled out A-Frame html
+##' that contains some Javascript sources, and potentially some convenient
+##' entities, for example: a flat plane that forms the 'ground' of the scene in
+##' the included "basic" template.
+##'
+##' A scene can render itself and all its child entities and assets to a single
+##' html file that defines a WebVR scene that can be viewed in a browser. In
+##' addition to this a scene can also be called upon to serve itself so that it
+##' can be viewed immediately.
+##'
+##' Scene components are expressed as ... arguments passed to this function.
+##'
+##' Child entities are passed as list in the `children` argument.
+##' 
+##' @title
+##' @param template
+##' @param children
+##' @param ... 
+##' @return 
+##' @export
+a_scene <- function(...){
+  A_Scene$new(...)
+}
