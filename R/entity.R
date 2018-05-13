@@ -56,6 +56,9 @@ A_Entity <-
 
                 ## Add indentation to start of line in each tag
                 child_tags <- gsub("^", "  ", child_tags)
+
+                ## Combine into 1 string.
+                child_tags <- paste0(child_tags, collapse = "")
               } else {
                  child_tags <- NULL
               }

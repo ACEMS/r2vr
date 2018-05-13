@@ -62,7 +62,7 @@ test_that("A scene can render the basic template",{
                                   sources = list("./entitysource.js"))),
                          sources = list("./toplevelsource.js"))
 
-    my_scene$render()
+    cat(my_scene$render())
   }
  ,{
 ### Interpolated HTML
@@ -70,5 +70,37 @@ test_that("A scene can render the basic template",{
  }
  )
   ## with nested entities using assets and sources
+  expect_equal(
+  {
+    my_scene  <- a_scene(template = "basic",
+                         fog = NULL, stats = NULL,
+                         children = list(
+                         a_entity(tag = "avatar",
+                                  wasd_controls = list(acceleration = 100, fly = TRUE),
+                                  an_extremely_long_component_name = NULL,
+                                  children = list(
+                                    a_entity(id = "mine", tag = "box",
+                                             position = c(0,0,0),
+                                             scale="0 0 0",
+                                             material = list(shader = "flat", sides = "double")),
+                                    a_entity(id = "tst",
+                                             gltf_model = a_asset(id = "monster",
+                                                                  src = "/inst/monster.gltf"),
+                                             animation_mixer = NULL,
+                                             sources = list("./entitysource.js"),
+                                             children = list(
+                                               a_entity(gltf_model =
+                                                          a_asset(
+                                                            id = "mask",
+                                                            src = "/inst/mask.gltf"))
+                                             )
+                                             )))),
+                         sources = list("./toplevelsource.js"))
 
+    my_scene$render()
+    cat(my_scene$render())
+  }
+ ,{
+### Interpolated HTML
+ }) 
 })

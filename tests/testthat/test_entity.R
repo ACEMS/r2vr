@@ -128,4 +128,21 @@ test_that("An entity with a nested entites with assets and sources exposes these
   })
 })
 
+test_that("An entity with two nested entities defined inline is rendered correctly.", {
+  my_entity1 <- a_entity(tag = "camera", wasd_controls = list(acceleration = 100, fly = TRUE),
+                         an_extremely_long_component_name = NULL,
+                         children = list(
+                           a_entity(tag = "a-sphere", color = "red", radius = 0.5),
+                           a_entity(tag = "a-sphere", color = "blue", radius = 0.5)
+                         ))
+  expect_equal(
+  {
+    my_entity1$render()
+  },
+  {
+    "<a-camera wasd-controls=\"acceleration: 100; fly: true;\" an-extremely-long-component-name>\n  <a-a-sphere color=\"red\" radius=\"0.5\"></a-a-sphere>\n</a-camera>\n  <a-a-sphere color=\"blue\" radius=\"0.5\"></a-a-sphere>\n</a-camera>\n"
+    
+  })
 
+  
+})
