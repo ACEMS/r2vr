@@ -26,9 +26,9 @@ A_Scene <-
                   template_env <- new.env()
 
                   ## scene components
-                  if (length(self$components > 0)) {
+                  if (length(self$components) > 0) {
                     template_env$scene_components <-
-                      paste0(self_render_component_list(), collapse = " ")
+                      paste0(self$render_component_list(), collapse = " ")
                   } else {
                     template_env$scene_components <- ""
                   }
@@ -37,12 +37,12 @@ A_Scene <-
                   if (length(self$children) > 0){
                     ## ask children to render
                     child_tags <-
-                      purrr::map(self$children, ~.render())
+                      purrr::map(self$children, ~.$render())
 
                     ## indent them to correct position in template
                     ## paste into single block
                     template_env$entities <-
-                      indent_to_level(paste0(child_tags, collapse = "\n"),
+                      self$indent_to_level(paste0(child_tags, collapse = ""),
                                       "entities")
 
                   } else {
@@ -50,26 +50,26 @@ A_Scene <-
                   }
 
                   ## assets
-                  if(length(self$assets > 0)){
+                  if(length(self$assets) > 0){
                     ## ask assets to render
                     asset_tags <-
                       purrr::map(self$assets, ~.$render())
 
                     template_env$assets <-
-                      indent_to_level(paste0(asset_tags, collapse = "\n"),
+                      self$indent_to_level(paste0(asset_tags, collapse = "\n"),
                                       "assets")
                   } else {
                     template_env$assets <- ""
                   }
 
                   ## sources
-                  if(length(self$sources > 0)){
+                  if(length(self$sources) > 0){
                     source_tags <-
                       paste0("<script crossorigin src=\"", self$sources,"\"></script>",
                              collapse = "\n")
 
-                    template_env$assets <-
-                      indent_level(source_tags, "sources")
+                    template_env$sources <-
+                      self$indent_to_level(source_tags, "sources")
                   } else{
                     template_env$sources <- ""
                   }
@@ -81,7 +81,7 @@ A_Scene <-
                   ## find the indent level of the template element
                   regex <- paste0("\\n\\s*\\$\\{",element,"\\}")
                   elem_line <- stringr::str_extract(self$template, regex)
-                  indent_level <- stringr::str_count(elem_line,"\\s")
+                  indent_level <- stringr::str_count(elem_line," ")
 
                   ## insert indents after every newline in text.
                   replacement <- paste0("\n",strrep(" ", indent_level))
@@ -119,7 +119,7 @@ A_Scene <-
 ##'
 ##' Child entities are passed as list in the `children` argument.
 ##' 
-##' @title
+##' @title a_scene
 ##' @param template
 ##' @param children
 ##' @param ... 
