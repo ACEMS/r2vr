@@ -6,16 +6,25 @@ A_Asset <-
                 id = NULL,
                 src = NULL,
                 inline = NULL,
+                content_type = NULL,
 
-                initialize = function(id = "", src, tag = "a-asset-item", inline=FALSE){
-                  if(!inline){
+                initialize = function(id = "", src, tag = "a-asset-item", inline=FALSE,
+                                      content_type = ""){
+                  if (!inline){
                     if(!is.character(id) | length(id) != 1 | !nzchar(id)){
                       stop("An asset id is a length 1, non-empty character vector. Got:", id)
                     }
                   }
-                  if(!is.character(src) | length(src) != 1 | !nzchar(src)){
+                  if (!is.character(src) | length(src) != 1 | !nzchar(src)){
                     stop("An asset src needs to be a url or path in a
                           length 1 character vector. Got:", src)
+                  }
+
+                  if (!nzchar(content_type)){
+                    ## Take content type from the file extension if none supplied.
+                    self$content_type <- tolower(stringr::str_extract(src, '(?<=\\.)[A-Za-z]+$'))
+                  } else {
+                    self$content_type <- content_type
                   }
                   self$id <- id
                   self$src <- src
@@ -24,7 +33,7 @@ A_Asset <-
                 },
 
                 render = function(){
-                  if(!self$inline){
+                  if (!self$inline){
                     paste0('<',self$tag,' ',
                            paste(self$render_id(), self$render_src()),
                            '></',self$tag,'>')
@@ -35,11 +44,19 @@ A_Asset <-
                 },
 
                 reference = function(){
-                  if(self$inline){
+                  if (self$inline){
                     paste0('src="url(',self$src,')"')
-                  }
-                  else{
+                  } else {
                   paste0('#',self$id)
+                  }
+                },
+
+                get_content = function(){
+                  ## provide content to be served by scene server
+                  if(self$content_type %in% c("html","json","javascript","text")){
+                    readr::read_file(self$src)
+                  } else {
+                    readr::read_file_raw(self$src)
                   }
                 },
 
