@@ -90,14 +90,57 @@ A_Scene <-
                                            replacement = replacement)
                 },
 
-                serve = function(){},
+                serve = function(port = 8000){
+                  ## This function sets up a fiery server with routes to the
+                  ## html scene html file and all the assets
 
+                  ## Render Scene
+                  scene_html <- self$render()
+
+                  ## Create route for scene
+                  root_route <- routr::Route$new()
+                  root_route$add_handler('get', '/',
+                                         function(request, response, keys, ...){
+                                           response$status <- 200L
+                                           response$type <- 'html'
+                                           response$body <- scene_html
+                                           return(FALSE)
+                                         })
+
+                  ## Create a route stack and add scene
+                  route_stack <- routr::RouteStack$new()
+                  route_stack$add_route(root_route, "root")
+
+                  ## Deal with assets
+                  if (length(self$assets) > 0){
+                    ## Generate routes for assests
+                    ## Compile routes in route stack
+                    walk(self$assets, function(asset){
+                      route_stack$add_route(self$generate_asset_route(asset), asset$id)
+                    })
+                  }
+
+                  ## Serve the scene
+                  app <- fiery::Fire$new(port = port)
+                  app$attach(route_stack)
+                  app$ignite(block = FALSE)
+                },
+                ## TODO cache the assets somehow.
+                generate_asset_route = function(asset){
+                  asset_route <- routr::Route$new()
+                  asset_route$add_handler('get', asset$src,
+                          function(request, response, keys, ...){
+                            response$status <- 200L
+                            response$type <- asset$content_type
+                            response$body <- asset$get_content()
+                          }
+                          )
+                },
                 write = function(){}
-              )
-              )
+              ))
 
 
-##' Create an A-Frame Scene 
+##' Create an A-Frame Scene
 ##'
 ##' This function creates an object that represents an A-Frame scene. A scene is
 ##' a special type of A-Frame entity that is the root entity of the WebVR scene.
@@ -118,12 +161,12 @@ A_Scene <-
 ##' Scene components are expressed as ... arguments passed to this function.
 ##'
 ##' Child entities are passed as list in the `children` argument.
-##' 
+##'
 ##' @title a_scene
 ##' @param template
 ##' @param children
-##' @param ... 
-##' @return 
+##' @param ...
+##' @return
 ##' @export
 a_scene <- function(...){
   A_Scene$new(...)
