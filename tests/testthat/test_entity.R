@@ -133,15 +133,17 @@ test_that("An entity with two nested entities defined inline is rendered correct
                          an_extremely_long_component_name = NULL,
                          children = list(
                            a_entity(tag = "a-sphere", color = "red", radius = 0.5),
-                           a_entity(tag = "a-sphere", color = "blue", radius = 0.5)
+                           a_entity(tag = "a-sphere", color = "blue", radius = 0.5,
+                                    children = list(
+                                      a_entity(tag = "a-sphere", color = "green", radius = 0.5)))
                          ))
   expect_equal(
   {
     my_entity1$render()
   },
   {
-    "<a-camera wasd-controls=\"acceleration: 100; fly: true;\" an-extremely-long-component-name>\n  <a-a-sphere color=\"red\" radius=\"0.5\"></a-a-sphere>\n</a-camera>\n  <a-a-sphere color=\"blue\" radius=\"0.5\"></a-a-sphere>\n</a-camera>\n"
-    
+   ### Nice nested html
+    "<a-camera wasd-controls=\"acceleration: 100; fly: true;\" an-extremely-long-component-name>\n  <a-a-sphere color=\"red\" radius=\"0.5\"></a-a-sphere>\n  <a-a-sphere color=\"blue\" radius=\"0.5\">\n    <a-a-sphere color=\"green\" radius=\"0.5\"></a-a-sphere>\n  </a-a-sphere>\n</a-camera>\n"
   })
 
   

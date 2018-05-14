@@ -55,7 +55,8 @@ A_Entity <-
                 child_tags <- purrr::map_chr(self$children, ~.$render())
 
                 ## Add indentation to start of line in each tag
-                child_tags <- gsub("^", "  ", child_tags)
+                child_tags <- gsub("(^|\\n(?!$))", "\\1  ", child_tags,
+                                   perl = TRUE)
 
                 ## Combine into 1 string.
                 child_tags <- paste0(child_tags, collapse = "")
