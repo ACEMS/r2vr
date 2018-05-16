@@ -3,6 +3,7 @@ A_Scene <-
               inherit = A_Entity,
               public = list(
                 template = NULL,
+                scene = NULL,
                 initialize = function(template = "basic", ...){
 
                   ## If template is not a file, assume it is a built-in
@@ -115,28 +116,59 @@ A_Scene <-
                   if (length(self$assets) > 0){
                     ## Generate routes for assests
                     ## Compile routes in route stack
-                    walk(self$assets, function(asset){
+                    purrr::walk(self$assets, function(asset){
                       route_stack$add_route(self$generate_asset_route(asset), asset$id)
                     })
                   }
 
-                  ## Serve the scene
-                  app <- fiery::Fire$new(port = port)
-                  app$attach(route_stack)
-                  app$ignite(block = FALSE)
+                  ## Add and Serve the scene
+                  self$scene <- fiery::Fire$new(port = port)
+                  self$scene$attach(route_stack)
+                  self$scene$ignite(block = FALSE)
+                  
                 },
+
                 ## TODO cache the assets somehow.
                 generate_asset_route = function(asset){
                   asset_route <- routr::Route$new()
-                  asset_route$add_handler('get', asset$src,
+
+                  ## sanitise asset src
+                  src <- gsub("^\\.+", "", asset$src)
+
+                  ## Add get route
+                  asset_route$add_handler('get', src,
                           function(request, response, keys, ...){
                             response$status <- 200L
                             response$type <- asset$content_type
                             response$body <- asset$get_content()
+                            return(FALSE)
                           }
                           )
+                  asset_route$add_handler('head', src,
+                          function(request, response, keys, ...){
+                            response$status <- 304L
+                            response$type <- asset$content_type
+                            response$body <- ""
+                            return(FALSE)
+                          }
+                          )
+                          
                 },
-                write = function(){}
+
+                stop = function(){
+                  if (is.null(self$scene)){
+                   stop("Cannot stop serving scene. Not currently serving scene.")
+                  }
+                  else {
+                    self$scene$extinguish()
+                    self$scene <- NULL
+                  }
+                },
+
+                write = function(filename){
+                  scene <- self$render()
+                  readr::write_file(x =scene, path = filename)
+                }
               ))
 
 
