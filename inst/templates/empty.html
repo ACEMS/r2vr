@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="description" content= "${description}">
+    <script crossorigin src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    ${sources}
+    </head>
+    <body>
+        <a-scene ${scene_components}>
+            <a-assets>
+                ${assets}
+            </a-assets>
+            
+            <!-- Entities added in R -->
+            ${entities}
+
+            <!-- Ground -->
+            <a-grid geometry='height: 10; width: 10'></a-grid>
+        </a-scene>
+    </body>
+</html>
