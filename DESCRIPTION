@@ -14,4 +14,5 @@ Imports:
     purrr,
     magrittr,
     routr,
-    fiery
+    fiery,
+    readr
