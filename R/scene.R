@@ -4,7 +4,12 @@ A_Scene <-
               public = list(
                 template = NULL,
                 scene = NULL,
-                initialize = function(template = "basic", ...){
+                title = NULL,
+                description = NULL,
+                initialize = function(template = "basic",
+                                      title = "A-Frame VR scene created with r2vr",
+                                      description = title,
+                                      ...){
 
                   ## If template is not a file, assume it is a built-in
                   if (!file.exists(template)){
@@ -19,12 +24,21 @@ A_Scene <-
                   }
                   self$template <- readr::read_file(template_file_path)
 
+                  self$title <- title
+                  self$description <- description
+
                   ## Call constructor for A_Entity
                   super$initialize(...)
                 },
 
                 render = function(){
                   template_env <- new.env()
+
+                  ## title
+                  template_env$title <- self$title
+
+                  ## description
+                  template_env$description <- self$description
 
                   ## scene components
                   if (length(self$components) > 0) {
@@ -196,6 +210,8 @@ A_Scene <-
 ##'
 ##' @title a_scene
 ##' @param template
+##' @param title
+##' @param description
 ##' @param children
 ##' @param ...
 ##' @return

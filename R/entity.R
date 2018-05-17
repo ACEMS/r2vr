@@ -42,10 +42,10 @@ A_Entity <-
 
               open_tag <- paste0(
                 paste0("<a-", self$tag), # <a-tagtext
-                    ifelse(!is.null(self$id), paste0(' ',self$render_id()), ''), # id="" 
-                    ifelse(length(component_expansion) > 0,
+                ifelse(!is.null(self$id), paste0(' ',self$render_id()), ''), # id="" 
+                ifelse(length(component_expansion) > 0,
                        paste0(' ', component_expansion), ''), # comp1=""
-                    ">")
+                ">")
 
               if (length(self$children) > 0){
                 ## We have children to nest. Add a newline to the end of the open_tag.
