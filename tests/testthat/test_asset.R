@@ -36,14 +36,22 @@ test_that("An inline asset ouputs a url reference and no tag.",{
 
 })
 
-test_that("Content types are extracted from the extension if not supplied",{
-  my_asset <- A_Asset$new(id = "sky", src = "sky.jpg", inline = TRUE)
-  my_asset2 <- a_asset(id = "monster", src = "./files/monster.gltf")
+test_that("Asset data reflects assets and parts",{
+  my_asset <- a_asset(id = "kangaroo", src = test_path("Kangaroo_01.gltf"),
+                       parts = test_path("Kangaroo_01.bin"))
+  my_asset_data <- my_asset$get_asset_data()
+
   expect_equal({
-    c(my_asset$content_type, my_asset2$content_type)
+    my_asset_data$accessor[[1]]()
   },
   {
-    c("jpg","gltf")
+    readr::read_file_raw(test_path("Kangaroo_01.gltf"))
+  })
+
+  expect_equal({
+    my_asset_data$accessor[[2]]()
+  },
+  {
+    readr::read_file_raw(test_path("Kangaroo_01.bin"))
   })
 })
-

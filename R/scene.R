@@ -131,7 +131,7 @@ A_Scene <-
                     ## Generate routes for assests
                     ## Compile routes in route stack
                     purrr::walk(self$assets, function(asset){
-                      route_stack$add_route(self$generate_asset_route(asset), asset$id)
+                      route_stack$add_route(self$generate_asset_routes(asset), asset$id)
                     })
                   }
 
@@ -139,34 +139,51 @@ A_Scene <-
                   self$scene <- fiery::Fire$new(port = port)
                   self$scene$attach(route_stack)
                   self$scene$ignite(block = FALSE)
-                  
+
                 },
 
                 ## TODO cache the assets somehow.
-                generate_asset_route = function(asset){
-                  asset_route <- routr::Route$new()
+                generate_asset_routes = function(asset){
+                  asset_routes <- routr::Route$new()
 
-                  ## sanitise asset src
-                  src <- gsub("^\\.+", "", asset$src)
+                  ## Get Asset Data
+                  asset_data <- asset$get_asset_data()
+                  ## Format of asset data:
+                  ## path, content_type, accessor
 
-                  ## Add get route
-                  asset_route$add_handler('get', src,
-                          function(request, response, keys, ...){
-                            response$status <- 200L
-                            response$type <- asset$content_type
-                            response$body <- asset$get_content()
-                            return(FALSE)
-                          }
-                          )
-                  asset_route$add_handler('head', src,
-                          function(request, response, keys, ...){
-                            response$status <- 304L
-                            response$type <- asset$content_type
-                            response$body <- ""
-                            return(FALSE)
-                          }
-                          )
-                          
+                  ## Add routes for each row in asset_data
+                  purrr::pwalk(asset_data, function(path, content_type, accessor){
+                    ## sanitise path
+                    ## remove a leading '.'
+                    path <- gsub("^\\.+", "", path)
+
+                    ## Ensure path starts with '/' and so is routable
+                    ## Ugly regex: replace any string of chars not equal to '/'
+                    ## at start of string with that same string of chars with
+                    ## '/' prefixed
+                    path <- gsub("(^[^/]+)", "/\\1", path)
+
+                    ## Add get route
+                    asset_routes$add_handler('get', path,
+                                     function(request, response, keys, ...){
+                                       response$status <- 200L
+                                       response$type <- content_type
+                                       response$body <- accessor()
+                                       return(FALSE)
+                                     }
+                                     )
+                    ## Add head route
+                    asset_routes$add_handler('head', path,
+                                       function(request, response, keys, ...){
+                                         response$status <- 304L
+                                         response$type <- content_type
+                                         response$body <- ""
+                                         return(FALSE)
+                                       }
+                                       )
+                  })
+
+                  asset_routes
                 },
 
                 stop = function(){

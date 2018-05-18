@@ -134,25 +134,41 @@ test_that("A scene can serve itself and some assets", {
     raw_image
   })
 
+
+
   my_scene$stop()
 })
 
-test_that("A scene can serve itself and 3D models", {
+test_that("A scene can serve itself and glTF models", {
 
   my_scene <-
     a_scene(template = "empty",
             children = list(
-              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
-                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+              a_entity(tag = "gltf-model", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(id = "kangaroo", src = test_path("Kangaroo_01.gltf"),
+                                     parts = test_path("Kangaroo_01.bin")))
             ))
   my_scene$serve()
 
   expect_equal({
-    response1 <- my_scene$scene$test_request(fiery::fake_request(url = "https://127.0.0.1:8000/"))
+    response1 <-
+      my_scene$scene$test_request(
+                       fiery::fake_request(url = paste0("https://127.0.0.1:8000/",
+                                                        test_path("Kangaroo_01.gltf"))))
     response1$body
   },
   {
-    my_scene$render()
+    readr::read_file_raw(test_path("Kangaroo_01.gltf"))
+  })
+  expect_equal({
+    response1 <-
+      my_scene$scene$test_request(
+                       fiery::fake_request(url = paste0("https://127.0.0.1:8000/",
+                                                        test_path("Kangaroo_01.bin"))))
+    response1$body
+  },
+  {
+    readr::read_file_raw(test_path("Kangaroo_01.bin"))
   })
 
   my_scene$stop()

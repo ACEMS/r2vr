@@ -72,7 +72,7 @@ test_that("An entity renders it's assets", {
   })
 })
 
-test_that("An entity with a nested entity defined inline is rendered correctly.", 
+test_that("An entity with a nested entity defined inline is rendered correctly.", {
   my_entity1 <- a_entity(tag = "camera", wasd_controls = list(acceleration = 100, fly = TRUE),
                          an_extremely_long_component_name = NULL,
                          children = list(

@@ -5,11 +5,10 @@ A_Asset <-
                 tag = NULL,
                 id = NULL,
                 src = NULL,
+                parts = NULL,
                 inline = NULL,
-                content_type = NULL,
-
-                initialize = function(id = "", src, tag = "a-asset-item", inline=FALSE,
-                                      content_type = ""){
+                initialize = function(id = "", src, parts = NULL,
+                                      tag = "a-asset-item", inline = FALSE){
                   if (!inline){
                     if(!is.character(id) | length(id) != 1 | !nzchar(id)){
                       stop("An asset id is a length 1, non-empty character vector. Got:", id)
@@ -20,11 +19,11 @@ A_Asset <-
                           length 1 character vector. Got:", src)
                   }
 
-                  if (!nzchar(content_type)){
-                    ## Take content type from the file extension if none supplied.
-                    self$content_type <- tolower(stringr::str_extract(src, '(?<=\\.)[A-Za-z]+$'))
-                  } else {
-                    self$content_type <- content_type
+                  if (!is.null(parts)) {
+                    if (!is.character(parts) | !nzchar(parts)){
+                      stop("parts must be a character vector of files.")
+                    }
+                    self$parts <- parts
                   }
                   self$id <- id
                   self$src <- src
@@ -32,6 +31,7 @@ A_Asset <-
                   self$inline <- inline
                 },
 
+                ## called by a_entity
                 render = function(){
                   if (!self$inline){
                     paste0('<',self$tag,' ',
@@ -49,15 +49,36 @@ A_Asset <-
                   } else {
                   paste0('#',self$id)
                   }
-                },
+                }, 
 
-                get_content = function(){
-                  ## provide content to be served by scene server
-                  if(self$content_type %in% c("html","json","javascript","text")){
-                    readr::read_file(self$src)
-                  } else {
-                    readr::read_file_raw(self$src)
-                  }
+                ## called by a_scene
+                get_asset_data = function(){
+                  ## provide asset content to be served by scene server
+
+                  ## get all paths
+                  paths <- c(self$src, self$parts)
+
+                  ## guess content type of each
+                  content_types <- mime::guess_type(paths)
+
+                  ## Create an accessor function for each bit of content
+                  ## This is handed off to the scene which calls it when it need
+                  ## to serve the content
+                  accessors <- purrr::map2(paths, content_types,
+                                           function(path, content_type){
+                                             if (grepl("text/", content_type)){
+                                               function(){readr::read_file(path)}
+                                             } else {
+                                               function(){readr::read_file_raw(path)}
+                                             }
+                                           })
+
+                  ## combine into a tibble
+                  tibble::tibble(
+                            path = paths,
+                            content_type = content_types,
+                            accessor = accessors
+                          )
                 },
 
                 render_id = function(){
@@ -80,12 +101,15 @@ A_Asset <-
 ##' in a component configuratuion. It knows how to render itself for both of
 ##' these differnt contexts. It can also be called with `inline=TRUE` which has
 ##' the effect of omitting it from the <a-assets> block and inserting a direct
-##' link into the component configuratuion.
+##' link into the component configuration.
 ##'
 ##' @title a_asset
 ##' @param id an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.
 ##' @param tag the tag text to use in the asset block. Defaults to `a-asset-item`.
 ##' @param src the location of the asset
+##' @param parts the location(s) of files referred to in the `src` file that need
+##'   to be served with it. Examples are `.bin` files that accompany glTF models
+##'   or texture images that accompany `.mtl` files.
 ##' @param inline boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.
 ##' @return an asset object.
 ##' @export

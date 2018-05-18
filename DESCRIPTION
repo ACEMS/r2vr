@@ -15,4 +15,5 @@ Imports:
     magrittr,
     routr,
     fiery,
-    readr
+    readr,
+    mime
