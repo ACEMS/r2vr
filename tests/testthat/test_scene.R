@@ -9,7 +9,7 @@ test_that("Scenes can read a built-in template",{
   },
   {
     ## the basic.html template
-    "<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title> A test model</title>\n    <meta name=\"description\" content= \"A three js json model\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.0/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js\"></script>\n    ${sources}\n    </head>\n    <body>\n        <a-scene ${scene_components}>\n            <a-assets>\n                ${assets}\n            </a-assets>\n            <a-camera movement-controls=\"fly: true; easingY: 15\" position=\"0 1.8 0\"\n                      rotation=\"0 0 0\"></a-camera>\n            <a-entity position=\"0 100 -30\" light=\"intensity:0.80;type:point\"></a-entity>\n            \n            <!-- Entities added in R -->\n            ${entities}\n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
+    "<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title> A test model</title>\n    <meta name=\"description\" content= \"A three js json model\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.0/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js\"></script>\n    ${js_sources}\n    </head>\n    <body>\n        <a-scene ${scene_components}>\n            <a-assets>\n                ${assets}\n            </a-assets>\n            <a-camera movement-controls=\"fly: true; easingY: 15\" position=\"0 1.8 0\"\n                      rotation=\"0 0 0\"></a-camera>\n            <a-entity position=\"0 100 -30\" light=\"intensity:0.80;type:point\"></a-entity>\n            \n            <!-- Entities added in R -->\n            ${entities}\n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
   }
   )
 
@@ -40,7 +40,7 @@ test_that("A scene can render the basic template",{
     ## The basic.html temple with blanks where the placeholders are.
     "<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title> A test model</title>\n    <meta name=\"description\" content= \"A three js json model\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.0/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js\"></script>\n    \n    </head>\n    <body>\n        <a-scene >\n            <a-assets>\n                \n            </a-assets>\n            <a-camera movement-controls=\"fly: true; easingY: 15\" position=\"0 1.8 0\"\n                      rotation=\"0 0 0\"></a-camera>\n            <a-entity position=\"0 100 -30\" light=\"intensity:0.80;type:point\"></a-entity>\n            \n            <!-- Entities added in R -->\n            \n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
   })
-  ## with simple entities using assets and sources
+  ## with simple entities using assets and js_sources
   expect_equal(
   {
     my_scene  <- a_scene(template = "basic",
@@ -58,8 +58,8 @@ test_that("A scene can render the basic template",{
                                   gltf_model = a_asset(id = "monster",
                                                        src = "/inst/monster.gltf"),
                                   animation_mixer = NULL,
-                                  sources = list("./entitysource.js"))),
-                         sources = list("./toplevelsource.js"))
+                                  js_sources = list("./entitysource.js"))),
+                         js_sources = list("./toplevelsource.js"))
 
     my_scene$render()
   }
@@ -68,7 +68,7 @@ test_that("A scene can render the basic template",{
 "<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title> A test model</title>\n    <meta name=\"description\" content= \"A three js json model\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.0/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js\"></script>\n    <script crossorigin src=\"./toplevelsource.js\"></script>\n    <script crossorigin src=\"./entitysource.js\"></script>\n    </head>\n    <body>\n        <a-scene fog stats>\n            <a-assets>\n                <a-asset-item id=\"monster\" src=\"/inst/monster.gltf\"></a-asset-item>\n            </a-assets>\n            <a-camera movement-controls=\"fly: true; easingY: 15\" position=\"0 1.8 0\"\n                      rotation=\"0 0 0\"></a-camera>\n            <a-entity position=\"0 100 -30\" light=\"intensity:0.80;type:point\"></a-entity>\n            \n            <!-- Entities added in R -->\n            <a-avatar wasd-controls=\"acceleration: 100; fly: true;\" an-extremely-long-component-name></a-avatar>\n            <a-box id=\"mine\" position=\"0 0 0\" scale=\"0 0 0\" material=\"shader: flat; sides: double;\"></a-box>\n            <a-entity id=\"tst\" gltf-model=\"#monster\" animation-mixer></a-entity>\n            \n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
  }
  )
-  ## with nested entities using assets and sources
+  ## with nested entities using assets and js_sources
   expect_equal(
   {
     my_scene  <- a_scene(template = "basic",
@@ -86,7 +86,7 @@ test_that("A scene can render the basic template",{
                                              gltf_model = a_asset(id = "monster",
                                                                   src = "/inst/monster.gltf"),
                                              animation_mixer = NULL,
-                                             sources = list("./entitysource.js"),
+                                             js_sources = list("./entitysource.js"),
                                              children = list(
                                                a_entity(gltf_model =
                                                           a_asset(
@@ -94,7 +94,7 @@ test_that("A scene can render the basic template",{
                                                             src = "/inst/mask.gltf"))
                                              )
                                              )))),
-                         sources = list("./toplevelsource.js"))
+                         js_sources = list("./toplevelsource.js"))
 
     my_scene$render()
   }
@@ -135,6 +135,25 @@ test_that("A scene can serve itself and some assets", {
   })
 
   my_scene$stop()
-
 })
 
+test_that("A scene can serve itself and 3D models", {
+
+  my_scene <-
+    a_scene(template = "empty",
+            children = list(
+              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+            ))
+  my_scene$serve()
+
+  expect_equal({
+    response1 <- my_scene$scene$test_request(fiery::fake_request(url = "https://127.0.0.1:8000/"))
+    response1$body
+  },
+  {
+    my_scene$render()
+  })
+
+  my_scene$stop()
+})

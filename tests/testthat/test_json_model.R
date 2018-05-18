@@ -11,7 +11,7 @@ test_that("JSON model can render correctly and be served", {
   })
 
   expect_equal({
-    my_model$sources
+    my_model$js_sources
   },
   {
     list("https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js")

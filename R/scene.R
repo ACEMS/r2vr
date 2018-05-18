@@ -77,16 +77,16 @@ A_Scene <-
                     template_env$assets <- ""
                   }
 
-                  ## sources
-                  if(length(self$sources) > 0){
+                  ## js_sources
+                  if(length(self$js_sources) > 0){
                     source_tags <-
-                      paste0("<script crossorigin src=\"", self$sources,"\"></script>",
+                      paste0("<script crossorigin src=\"", self$js_sources,"\"></script>",
                              collapse = "\n")
 
-                    template_env$sources <-
-                      self$indent_to_level(source_tags, "sources")
+                    template_env$js_sources <-
+                      self$indent_to_level(source_tags, "js_sources")
                   } else{
-                    template_env$sources <- ""
+                    template_env$js_sources <- ""
                   }
 
                   stringr::str_interp(self$template, template_env)
@@ -195,7 +195,7 @@ A_Scene <-
 ##'
 ##' A scene has a html representation that is based off a template supplied in
 ##' the `template` argument. The template is a partially filled out A-Frame html
-##' that contains some Javascript sources, and potentially some convenient
+##' that contains some Javascript js_sources, and potentially some convenient
 ##' entities, for example: a flat plane that forms the 'ground' of the scene in
 ##' the included "basic" template.
 ##'

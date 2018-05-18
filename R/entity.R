@@ -2,23 +2,23 @@ A_Entity <-
   R6::R6Class("A_Entity",
           public = list(
             assets = NULL,
-            sources = NULL,
+            js_sources = NULL,
             components = NULL,
             children = NULL,
             tag = NULL,
             id = NULL,
-            initialize = function(tag = "entity", sources = NULL, id = NULL,
+            initialize = function(tag = "entity", js_sources = NULL, id = NULL,
                                   children = NULL, ...){
               components <- list(...)
               self$tag <- tag
               self$components <- list(...)
-              self$sources <- c(list(), sources)
+              self$js_sources <- c(list(), js_sources)
 
               ## fetch and add assets
               self$assets <- self$find_assets()
 
               ## Add children. It's imporant to do this after settting up assets
-              ## and sources, since adding children will update these lists.
+              ## and js_sources, since adding children will update these lists.
               self$children <- list()
               if (!is.null(children)){
                 if (!is.list(children)){
@@ -74,7 +74,7 @@ A_Entity <-
 
             get_assests = function(){},
  
-            get_sources = function(){},
+            get_js_sources = function(){},
 
             add_children = function(...){
               children <- list(...)
@@ -90,8 +90,8 @@ A_Entity <-
                 else {
                   self$children[[length(self$children)+1]] <- child
                 }
-                ## Add the child's sources to my sources and assets to my assets
-                self$sources <- c(self$sources, child$sources)
+                ## Add the child's js_sources to my js_sources and assets to my assets
+                self$js_sources <- c(self$js_sources, child$js_sources)
                 self$assets <- c(self$assets, child$assets)
               })
             },
@@ -191,7 +191,7 @@ A_Entity <-
 ##' @param id an optional id for the entity, useful if you want to later add children to it.
 ##' @param tag text for the entity tag. The default is "a-entity", but it can be
 ##'   used to create any of the A-Frame built-ins for example using "a-sphere"
-##' @param sources a vector of links to Javascript files this entity depends on.
+##' @param js_sources a vector of links to Javascript files this entity depends on.
 ##'   Useful if adding a community-made component to an entity. The script file
 ##'   will be automatically be sourced in the html header by the parent scene.
 ##' @param ... components to be added to the entity. See description.
