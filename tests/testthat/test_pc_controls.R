@@ -1,3 +1,5 @@
+context("test PC Controls Class")
+
 test_that("PC controlled camera can render correctly", {
 
   my_cam <- a_pc_control_camera(position = c(0,0,-2))

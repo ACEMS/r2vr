@@ -1,4 +1,4 @@
-context("Test entity class")
+context("test entity class")
 
 test_that("A basic entity is rendered",{
   expect_equal(

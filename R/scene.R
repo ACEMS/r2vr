@@ -6,7 +6,7 @@ A_Scene <-
                 scene = NULL,
                 title = NULL,
                 description = NULL,
-                initialize = function(template = "basic",
+                initialize = function(template = "basic_map",
                                       title = "A-Frame VR scene created with r2vr",
                                       description = title,
                                       ...){
@@ -214,7 +214,7 @@ A_Scene <-
 ##' the `template` argument. The template is a partially filled out A-Frame html
 ##' that contains some Javascript js_sources, and potentially some convenient
 ##' entities, for example: a flat plane that forms the 'ground' of the scene in
-##' the included "basic" template.
+##' the included "basic_map" template.
 ##'
 ##' A scene can render itself and all its child entities and assets to a single
 ##' html file that defines a WebVR scene that can be viewed in a browser. In
@@ -233,6 +233,10 @@ A_Scene <-
 ##' @param ...
 ##' @return
 ##' @export
-a_scene <- function(...){
-  A_Scene$new(...)
+a_scene <- function(template = "basic_map",
+                    title = "A-Frame VR scene created with r2vr",
+                    description = title,
+                    ...){
+  A_Scene$new(template = template, title = title,
+              description = title, ...)
 }

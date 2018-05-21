@@ -1,3 +1,5 @@
+context("test JSON model class")
+
 test_that("JSON model can render correctly and be served", {
 
   my_model <- a_json_model(src = a_asset(id = "cube", src = test_path("cube.json")),
@@ -7,7 +9,7 @@ test_that("JSON model can render correctly and be served", {
     my_model$render()
   },
   {
-    "<a-entity json-model=\"src: #cube;\"></a-entity>\n"
+    "<a-entity json-model=\"src: #cube;\" position=\"0 0 -2\" scale=\"0.2 0.2 0.2\"></a-entity>\n"
   })
 
   expect_equal({
@@ -21,9 +23,10 @@ test_that("JSON model can render correctly and be served", {
                       children = list(my_model))
   expect_equal({
     my_scene$render()
+    my_scene$render()
   },
   {
-    "<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title>A-Frame VR scene created with r2vr</title>\n    <meta name=\"description\" content= \"A-Frame VR scene created with r2vr\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.0/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    </head>\n    <body>\n        <a-scene >\n            <a-assets>\n                <a-asset-item id=\"cube\" src=\"tests/testthat/cube.json\"></a-asset-item>\n            </a-assets>\n            \n            <!-- Entities added in R -->\n            <a-entity json-model=\"src: #cube;\"></a-entity>\n            \n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
+"<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title>A-Frame VR scene created with r2vr</title>\n    <meta name=\"description\" content= \"A-Frame VR scene created with r2vr\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.0/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    </head>\n    <body>\n        <a-scene >\n            <a-assets>\n                <a-asset-item id=\"cube\" src=\"cube.json\"></a-asset-item>\n            </a-assets>\n            \n            <!-- Entities added in R -->\n            <a-entity json-model=\"src: #cube;\" position=\"0 0 -2\" scale=\"0.2 0.2 0.2\"></a-entity>\n            \n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
   })
 
   my_scene$serve()
@@ -36,7 +39,7 @@ test_that("JSON model can render correctly and be served", {
     response$body
   },
   {
-    readr::read_file(test_path("cube.json"))
+    readr::read_file_raw(test_path("cube.json"))
   })
 
   my_scene$stop()
