@@ -113,6 +113,8 @@ A_Asset <-
 ##' @param inline boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.
 ##' @return an asset object.
 ##' @export
-a_asset <- function(...){ 
-  A_Asset$new(...)
+a_asset <- function(id = "", src, parts = NULL,
+                    tag = "a-asset-item", inline = FALSE, ...){ 
+  A_Asset$new(id = id, src = src, parts = parts, tag = tag, inline = inline,
+              ...)
 }

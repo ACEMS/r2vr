@@ -197,6 +197,7 @@ A_Entity <-
 ##' @param ... components to be added to the entity. See description.
 ##' @return A_Entity object
 ##' @export
-a_entity <- function(...){
-  A_Entity$new(...)
+a_entity <- function(tag = "entity", js_sources = NULL, id = NULL,
+                     children = NULL, ...){
+  A_Entity$new(tag = tag, js_sources = js_sources, id = id, children = children, ...)
 }
