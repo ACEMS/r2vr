@@ -14,7 +14,6 @@
 ##'   list("https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js")
 ##' @param ... other components to be added to the JSON model. Passed to a_entity. 
 ##' @return An entity object describing a JSON model.
-##' @author Miles McBain
 a_json_model <- function(src,
                          js_sources = list("https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js"),
                          ...){
