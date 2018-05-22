@@ -14,7 +14,7 @@ A_Scene <-
                   ## If template is not a file, assume it is a built-in
                   if (!file.exists(template)){
                     template_file <-
-                      paste0(file.path("inst","templates",template),".html")
+                      paste0(file.path("templates",template),".html")
                     template_file_path <- system.file(template_file, package = "r2vr")
                     if (!file.exists(template_file_path)){
                       stop("A-Frame Scene template: ", template ,", not found")
