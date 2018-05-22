@@ -4,14 +4,19 @@
 \alias{a_asset}
 \title{a_asset}
 \usage{
-a_asset(...)
+a_asset(id = "", src, parts = NULL, tag = "a-asset-item",
+  inline = FALSE, ...)
 }
 \arguments{
 \item{id}{an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.}
 
-\item{tag}{the tag text to use in the asset block. Defaults to `a-asset-item`.}
-
 \item{src}{the location of the asset}
+
+\item{parts}{the location(s) of files referred to in the `src` file that need
+to be served with it. Examples are `.bin` files that accompany glTF models
+or texture images that accompany `.mtl` files.}
+
+\item{tag}{the tag text to use in the asset block. Defaults to `a-asset-item`.}
 
 \item{inline}{boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.}
 }
@@ -29,5 +34,5 @@ references to the asset: one in the <a-assets> block and the second refernce
 in a component configuratuion. It knows how to render itself for both of
 these differnt contexts. It can also be called with `inline=TRUE` which has
 the effect of omitting it from the <a-assets> block and inserting a direct
-link into the component configuratuion.
+link into the component configuration.
 }

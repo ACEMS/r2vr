@@ -4,10 +4,8 @@
 \alias{a_scene}
 \title{a_scene}
 \usage{
-a_scene(...)
-}
-\arguments{
-\item{...}{}
+a_scene(template = "basic_map",
+  title = "A-Frame VR scene created with r2vr", description = title, ...)
 }
 \description{
 Create an A-Frame Scene
@@ -20,9 +18,9 @@ behaviour.
 
 A scene has a html representation that is based off a template supplied in
 the `template` argument. The template is a partially filled out A-Frame html
-that contains some Javascript sources, and potentially some convenient
+that contains some Javascript js_sources, and potentially some convenient
 entities, for example: a flat plane that forms the 'ground' of the scene in
-the included "basic" template.
+the included "basic_map" template.
 
 A scene can render itself and all its child entities and assets to a single
 html file that defines a WebVR scene that can be viewed in a browser. In

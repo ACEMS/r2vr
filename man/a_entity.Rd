@@ -4,19 +4,20 @@
 \alias{a_entity}
 \title{a_entity}
 \usage{
-a_entity(...)
+a_entity(tag = "entity", js_sources = NULL, id = NULL, children = NULL,
+  ...)
 }
 \arguments{
-\item{...}{components to be added to the entity. See description.}
-
-\item{id}{an optional id for the entity, useful if you want to later add children to it.}
-
 \item{tag}{text for the entity tag. The default is "a-entity", but it can be
 used to create any of the A-Frame built-ins for example using "a-sphere"}
 
-\item{sources}{a vector of links to Javascript files this entity depends on.
+\item{js_sources}{a vector of links to Javascript files this entity depends on.
 Useful if adding a community-made component to an entity. The script file
 will be automatically be sourced in the html header by the parent scene.}
+
+\item{id}{an optional id for the entity, useful if you want to later add children to it.}
+
+\item{...}{components to be added to the entity. See description.}
 }
 \value{
 A_Entity object
