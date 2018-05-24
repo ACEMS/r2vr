@@ -9,6 +9,7 @@ A_Scene <-
                 initialize = function(template = "basic_map",
                                       title = "A-Frame VR scene created with r2vr",
                                       description = title,
+                                      children = NULL,
                                       ...){
 
                   ## If template is not a file, assume it is a built-in
@@ -28,7 +29,7 @@ A_Scene <-
                   self$description <- description
 
                   ## Call constructor for A_Entity
-                  super$initialize(...)
+                  super$initialize(chilren, ...)
                 },
 
                 render = function(){
@@ -226,17 +227,18 @@ A_Scene <-
 ##' Child entities are passed as list in the `children` argument.
 ##'
 ##' @title a_scene
-##' @param template
-##' @param title
-##' @param description
-##' @param children
+##' @param template A name of a built in template or a path to a custom html template.
+##' @param title Title of the scene passed into the HTML
+##' @param description meta description of the scene passed into the HTML
+##' @param children a list of child A-Frame entities of this scene.
 ##' @param ...
 ##' @return
 ##' @export
 a_scene <- function(template = "basic_map",
                     title = "A-Frame VR scene created with r2vr",
                     description = title,
+                    childen = NULL,
                     ...){
   A_Scene$new(template = template, title = title,
-              description = title, ...)
+              description = title, chilren = children, ...)
 }
