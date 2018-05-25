@@ -15,7 +15,12 @@ a_scene(template = "basic_map",
 
 \item{description}{meta description of the scene passed into the HTML}
 
+\item{...}{components to be added to the scene.}
+
 \item{children}{a list of child A-Frame entities of this scene.}
+}
+\value{
+An R6 object representing an A-Frame scene.
 }
 \description{
 Create an A-Frame Scene

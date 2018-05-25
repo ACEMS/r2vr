@@ -8,7 +8,8 @@
 ##' @param js_sources Defaults to version 4.0.2 of the controls. 
 ##' @param easingY Easing rate of movement in the y direction (up).
 ##' @param acceleration Acceleration of movement in forward, backward, left, and right directions.
-##' @return An entity object describing a camera controlled by keyboard and mouse. 
+##' @return An entity object describing a camera controlled by keyboard and mouse.
+##' @export
 a_pc_control_camera <- function(js_sources = list("https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js"),
                           easingY = 15,
                           acceleration = 100,

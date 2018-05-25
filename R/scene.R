@@ -231,8 +231,8 @@ A_Scene <-
 ##' @param title Title of the scene passed into the HTML
 ##' @param description meta description of the scene passed into the HTML
 ##' @param children a list of child A-Frame entities of this scene.
-##' @param ...
-##' @return
+##' @param ... components to be added to the scene.
+##' @return An R6 object representing an A-Frame scene.
 ##' @export
 a_scene <- function(template = "basic_map",
                     title = "A-Frame VR scene created with r2vr",

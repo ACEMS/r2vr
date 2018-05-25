@@ -3,5 +3,7 @@
 export("%>%")
 export(a_asset)
 export(a_entity)
+export(a_json_model)
+export(a_pc_control_camera)
 export(a_scene)
 importFrom(magrittr,"%>%")
