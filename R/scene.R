@@ -237,8 +237,8 @@ A_Scene <-
 a_scene <- function(template = "basic_map",
                     title = "A-Frame VR scene created with r2vr",
                     description = title,
-                    childen = NULL,
+                    children = NULL,
                     ...){
   A_Scene$new(template = template, title = title,
-              description = title, chilren = children, ...)
+              description = title, children = children, ...)
 }
