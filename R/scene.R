@@ -29,7 +29,7 @@ A_Scene <-
                   self$description <- description
 
                   ## Call constructor for A_Entity
-                  super$initialize(children, ...)
+                  super$initialize(children = children, ...)
                 },
 
                 render = function(){
