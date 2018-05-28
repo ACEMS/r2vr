@@ -60,3 +60,13 @@ that will allow you to serve HTML that looks like this:
     </body>
 </html>
 ```
+
+To serve the scene, using the [Fiery webserver framework](https://github.com/thomasp85/fiery):
+
+```
+my_scene$serve()
+
+# Fire started at 127.0.0.1:8000
+```
+
+To stop serving use `my_scene$stop()`.
