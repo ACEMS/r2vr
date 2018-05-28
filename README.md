@@ -24,8 +24,8 @@ library(r2vr)
                         a_entity(tag = "gltf-model", position = c(2, 2, -3), 
                                  height = 1, width = 1,
                                  src = a_asset(id = "kangaroo", 
-                                               src = test_path("Kangaroo_01.gltf"),
-                                               parts = test_path("Kangaroo_01.bin")))
+                                               src = "./Kangaroo_01.gltf",
+                                               parts = "./Kangaroo_01.bin"))
                           ))
   my_scene$render()
 ```
@@ -46,7 +46,7 @@ that will allow you to serve HTML that looks like this:
         <a-scene >
             <a-assets>
                 <a-asset-item id="cube" src="./cube.json"></a-asset-item>
-                <a-asset-item id="kangaroo" src="tests/testthat/Kangaroo_01.gltf"></a-asset-item>
+                <a-asset-item id="kangaroo" src="./Kangaroo_01.gltf"></a-asset-item>
             </a-assets>
             
             <!-- Entities added in R -->
