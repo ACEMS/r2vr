@@ -12,8 +12,12 @@ A_Entity <-
               components <- list(...)
               self$tag <- tag
               self$components <- list(...)
-              self$js_sources <= list()
-              self$add_js_sources(js_sources)
+              self$js_sources <- list()
+
+              ## add provided js sources if supplied.
+              if(!is.null(js_sources)){
+                self$add_js_sources(js_sources)
+              }
 
               ## fetch and add assets
               self$add_assets(self$find_assets())
@@ -182,6 +186,17 @@ A_Entity <-
             },
 
             add_js_sources = function(sources){
+              if (is.character(sources)) {
+                sources <- as.list(sources)
+              }
+              else if (is.list(sources)){
+                if (!purrr::every(sources, is.character)){
+                  stop("All js_sources must be of type character.")
+                }
+              }
+              else {
+                stop("js_sources must be of type character or a list of characters.")
+              }
               self$js_sources <- union(self$js_sources, sources)
             }
 
