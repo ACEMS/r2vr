@@ -209,3 +209,46 @@ test_that("An entity only collects unique assets from its components & children"
   })
 
 })
+
+test_that("an entity only collects unique JS sources from its components and children",{
+
+  my_entity <- a_entity(js_sources = list("myjsfile.js","myjsfile.js"))
+  
+
+  expect_equal(
+  {
+    length(my_entity$js_sources)
+  },
+  {
+    1
+  })
+
+  expect_equal(
+  {
+    my_entity$js_sources[[1]]
+  },
+  {
+    "myjsfile.js"
+  })
+
+  my_entity2 <- a_entity(js_sources = list("myjsfile.js"),
+                         children = list(
+                           a_entity(js_sources = list("myjsfile.js"))))
+  
+
+  expect_equal(
+  {
+    length(my_entity2$js_sources)
+  },
+  {
+    1
+  })
+
+  expect_equal(
+  {
+    my_entity2$js_sources[[1]]
+  },
+  {
+    "myjsfile.js"
+  })
+})

@@ -12,7 +12,8 @@ A_Entity <-
               components <- list(...)
               self$tag <- tag
               self$components <- list(...)
-              self$js_sources <- c(list(), js_sources)
+              self$js_sources <= list()
+              self$add_js_sources(js_sources)
 
               ## fetch and add assets
               self$add_assets(self$find_assets())
@@ -91,7 +92,8 @@ A_Entity <-
                   self$children[[length(self$children)+1]] <- child
                 }
                 ## Add the child's js_sources to my js_sources and assets to my assets
-                self$js_sources <- c(self$js_sources, child$js_sources)
+                ## Only sources and assets we're not already tracking are added
+                self$add_js_sources(child$js_sources)
                 self$add_assets(child$assets)
               })
             },
@@ -175,6 +177,10 @@ A_Entity <-
               asset_duplicates <- duplicated(asset_frame)
 
               self$assets <- all_assets[!asset_duplicates]
+            },
+
+            add_js_sources = function(sources){
+              self$js_sources <- union(self$js_sources, sources)
             }
 
   ))
