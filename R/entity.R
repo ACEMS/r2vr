@@ -165,15 +165,17 @@ A_Entity <-
                 purrr::map(~purrr::keep(., ~is(., "A_Asset"))) %>%
                 purrr::flatten()
               all_assets <- c(assets, nested_assets)
-              
             },
 
             add_assets = function(assets){
               all_assets <- c(self$assets, assets)
 
               ## only keep unique combinations of asset src and id.
-              asset_frame <- purrr::map_df(all_assets, ~data.frame(.$src, .$id,
-                                                                   stringsAsFactors = FALSE))
+              asset_frame <-
+                purrr::map(all_assets, ~data.frame(.$src,
+                                                   .$id,
+                                                   stringsAsFactors = FALSE)) %>%
+                do.call(rbind, .)
               asset_duplicates <- duplicated(asset_frame)
 
               self$assets <- all_assets[!asset_duplicates]
