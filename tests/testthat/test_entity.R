@@ -148,3 +148,64 @@ test_that("An entity with two nested entities defined inline is rendered correct
 
   
 })
+
+test_that("An entity only collects unique assets from its components & children", {
+
+  my_entity <- a_entity(thing1 = a_asset(id = "cube", src = "cube.json"),
+                        thing2 = a_asset(id = "cube", src = "cube.json"))
+                        
+
+  expect_equal(
+  {
+    length(my_entity$assets)
+  },
+  {
+    1
+  })
+
+  expect_equal(
+  {
+    my_entity$assets[[1]]$src
+  },
+  {
+    "cube.json"
+  })
+
+  expect_equal(
+  {
+    my_entity$assets[[1]]$id
+  },
+  {
+    "cube"
+  })
+
+  my_entity2 <- a_entity(thing1 = a_asset(id = "cube", src = "cube.json"),
+                         children = list(
+                           a_entity(thing2 = a_asset(id = "cube", src = "cube.json"))))
+  
+
+  expect_equal(
+  {
+    length(my_entity2$assets)
+  },
+  {
+    1
+  })
+
+  expect_equal(
+  {
+    my_entity2$assets[[1]]$src
+  },
+  {
+    "cube.json"
+  })
+
+  expect_equal(
+  {
+    my_entity2$assets[[1]]$id
+  },
+  {
+    "cube"
+  })
+
+})

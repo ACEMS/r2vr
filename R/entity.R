@@ -15,7 +15,7 @@ A_Entity <-
               self$js_sources <- c(list(), js_sources)
 
               ## fetch and add assets
-              self$assets <- self$find_assets()
+              self$add_assets(self$find_assets())
 
               ## Add children. It's imporant to do this after settting up assets
               ## and js_sources, since adding children will update these lists.
@@ -92,7 +92,7 @@ A_Entity <-
                 }
                 ## Add the child's js_sources to my js_sources and assets to my assets
                 self$js_sources <- c(self$js_sources, child$js_sources)
-                self$assets <- c(self$assets, child$assets)
+                self$add_assets(child$assets)
               })
             },
 
@@ -162,10 +162,22 @@ A_Entity <-
                 purrr::keep(self$components, is.list) %>%
                 purrr::map(~purrr::keep(., ~is(., "A_Asset"))) %>%
                 purrr::flatten()
-              c(assets, nested_assets)
+              all_assets <- c(assets, nested_assets)
+              
+            },
+
+            add_assets = function(assets){
+              all_assets <- c(self$assets, assets)
+
+              ## only keep unique combinations of asset src and id.
+              asset_frame <- purrr::map_df(all_assets, ~data.frame(.$src, .$id,
+                                                                   stringsAsFactors = FALSE))
+              asset_duplicates <- duplicated(asset_frame)
+
+              self$assets <- all_assets[!asset_duplicates]
             }
-          )
-  )
+
+  ))
 
 ##' Create an A-Frame entity
 ##'
