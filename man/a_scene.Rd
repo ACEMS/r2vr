@@ -6,7 +6,7 @@
 \usage{
 a_scene(template = "basic_map",
   title = "A-Frame VR scene created with r2vr", description = title,
-  childen = NULL, ...)
+  children = NULL, ...)
 }
 \arguments{
 \item{template}{A name of a built in template or a path to a custom html template.}
@@ -15,9 +15,9 @@ a_scene(template = "basic_map",
 
 \item{description}{meta description of the scene passed into the HTML}
 
-\item{...}{components to be added to the scene.}
-
 \item{children}{a list of child A-Frame entities of this scene.}
+
+\item{...}{components to be added to the scene.}
 }
 \value{
 An R6 object representing an A-Frame scene.

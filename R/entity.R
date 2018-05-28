@@ -173,19 +173,22 @@ A_Entity <-
 ##' A-Frame scene. The A-Frame scene object instructs entities to render
 ##' themselves to html, when serving or writing itself.
 ##'
-##' Function arguments map directly to underlying entity components expressed in
-##' the html. There two tricks to this: 1. components specified in R must use an
-##' underscore ('_') where a dash would appear in an A-Frame component name. 2.
-##' components specified by name only, without any configuration must use the
-##' form `component_name = NULL`. For example: to create an A-Frame entity with
-##' the `wasd-controls` component attached, this function would be called as
-##' `a_entity(wasd_controls = NULL)`.
+##' Function arguments supplied in `...` map directly to underlying entity
+##' components expressed in the html. There two tricks to this: 1. components
+##' specified in R must use an underscore ('_') where a dash would appear in an
+##' A-Frame component name. 2. components specified by name only, without any
+##' configuration must use the form `component_name = NULL`. For example: to
+##' create an A-Frame entity with the `wasd-controls` component attached, this
+##' function would be called as `a_entity(wasd_controls = NULL)`.
 ##'
 ##' Component configuration can be expressed in character form, e.g.
 ##' `wasd_controls = "fly: true; acceleration: 65"` in which case it is passed
 ##' into html directly. It can also be expressed as a list: `wasd_controls =
 ##' list(fly = TRUE, acceleration = 65)`, in which case it is converted to the
 ##' appropriate text.
+##'
+##' Child entities can be nested within the HTML tag of a parent entity by
+##' supplying them as a list in the `children` argument.
 ##'
 ##' @title a_entity
 ##' @param id an optional id for the entity, useful if you want to later add children to it.
@@ -194,6 +197,8 @@ A_Entity <-
 ##' @param js_sources a vector of links to Javascript files this entity depends on.
 ##'   Useful if adding a community-made component to an entity. The script file
 ##'   will be automatically be sourced in the html header by the parent scene.
+##' @param children a list of A-Frame entities to be nested within the HTML tag
+##'   of this entity.
 ##' @param ... components to be added to the entity. See description.
 ##' @return A_Entity object
 ##' @export

@@ -5,7 +5,7 @@
 \title{a_asset}
 \usage{
 a_asset(id = "", src, parts = NULL, tag = "a-asset-item",
-  inline = FALSE, ...)
+  inline = FALSE)
 }
 \arguments{
 \item{id}{an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.}

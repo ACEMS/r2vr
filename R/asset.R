@@ -114,7 +114,6 @@ A_Asset <-
 ##' @return an asset object.
 ##' @export
 a_asset <- function(id = "", src, parts = NULL,
-                    tag = "a-asset-item", inline = FALSE, ...){ 
-  A_Asset$new(id = id, src = src, parts = parts, tag = tag, inline = inline,
-              ...)
+                    tag = "a-asset-item", inline = FALSE){ 
+  A_Asset$new(id = id, src = src, parts = parts, tag = tag, inline = inline)
 }
