@@ -14,21 +14,33 @@ To serve a scene containing JSON model and a glTF model, you can write R code th
 
 ```r
 library(r2vr)
+  ## Assests
+  cube <- a_asset(id = "cube", src = "./cube.json")
+  kangaroo <- a_asset(id = "kangaroo",
+                      src = "./Kangaroo_01.gltf",
+                      parts = "./Kangaroo_01.bin")
 
+  ## Scene structure
   my_scene <- a_scene(template = "empty",
                       title = "A kangaroo and a cube.",
                       children = list(
-                        a_json_model(
-                          src_asset = a_asset(id = "cube", src = "./cube.json"),
-                          position = c(0,0,-2), scale = c(0.2, 0.2, 0)),
+                        a_json_model(src_asset = cube,
+                                     position = c(0,0,-2),
+                                     scale = c(0.2, 0.2, 0)),
                           
-                        a_entity(tag = "gltf-model", position = c(2, 2, -3), 
-                                 height = 1, width = 1,
-                                 src = a_asset(id = "kangaroo", 
-                                               src = "./Kangaroo_01.gltf",
-                                               parts = "./Kangaroo_01.bin"))
+                        a_entity(tag = "gltf-model",
+                                 src = kanagaroo,
+                                 position = c(2, 2, -3), 
+                                 height = 1, width = 1)
                           ))
+  ## View HTML
   my_scene$render()
+
+  ## Serve HTML
+  my_scene$serve()
+
+  ## Stop Serving
+  my_scene$stop()
 ```
 
 that will allow you to serve HTML that looks like this:
@@ -62,12 +74,4 @@ that will allow you to serve HTML that looks like this:
 </html>
 ```
 
-To serve the scene, using the [Fiery webserver framework](https://github.com/thomasp85/fiery):
-
-```
-my_scene$serve()
-
-# Fire started at 127.0.0.1:8000
-```
-
-To stop serving use `my_scene$stop()`.
+Scenes are served using the [Fiery webserver framework](https://github.com/thomasp85/fiery).
