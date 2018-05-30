@@ -5,9 +5,63 @@
 
 This package helps you generate and serve A-Frame scenes. It provides a suite of objects representing A-Frame scenes, entities, and assets that can be composed using a functional R interface.
 
-# Installlation
+# Installation
 
 `devtools::install_github("milesmcbain/r2vr")`
+
+# R objects for building A-Frame Scenes
+
+The core of `r2vr` is 3 classes that map to A-Frame entities, assets, and
+scenes. A scene may contain many child entities which may themselves contain
+many child entities and assets. Entities may have many components added to define their behaviour.
+
+Objects of these classes are defined using functions: `a_entity()`, `a_asset()`, `a_scene()`. 
+Given a structure of these objects, `r2vr` does the work of:
+* Rendering them as A-Frame HTML and combining into a selected HTML template. 
+* Collecting their assets and required javascript sources and placing them in the appropriate HTML sections.
+* Serving the HTML scene and asset files.
+
+## Entities
+
+Entity components are attached using `...` arguments to the `a_entity()` function. For example to define an entity that is a box with a custom material we would write:
+
+```r
+library(r2vr)
+a_entity(tag = "box", material = list(metalness = 0.5))$render()
+```
+
+which would be rendred in HTML as:
+
+```html
+<a-box material=\"metalness: 0.5;\"></a-box>
+```
+
+For components with multi-word-names in A-Frame, the convention is to separate with `-`, e.g. `wasd-controls`, when attaching these in `r2vr` you swap the `-` for `_` since the dash is not legal as a bare symbol in R. So take this HTML:
+
+```html
+<a-camera wasd-controls="fly: true;"></a-camera>
+```
+
+Possible `r2vr` equivalents are:
+
+```r
+a_entity(tag="camera", wasd_controls = list(fly = TRUE))
+a_entity(tag="camera", wasd_controls = "fly: true;")
+```
+
+One current issue is that you cannot supply an component without configuration neatly. So to use `wasd-controls` with default configuration we must write:
+
+```r
+a_entity(tag="camera", wasd_controls=NULL)
+```
+
+## Scene
+TODO.
+
+## Assets
+Assets are media like models, images, videos, sounds etc that need to be
+downloaded by the user before they can experience the scene properly. Assets are
+attached to entities using the appropriate component. Most commonly the `src` argument.
 
 # Example Usage
 To serve a scene containing JSON model and a glTF model, you can write R code that looks like this:
