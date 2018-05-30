@@ -27,7 +27,7 @@ Entity components are attached using `...` arguments to the `a_entity()` functio
 
 ```r
 library(r2vr)
-a_entity(tag = "box", material = list(metalness = 0.5))$render()
+a_entity(tag = "box", material = list(metalness = 0.5))
 ```
 
 which would be rendred in HTML as:
