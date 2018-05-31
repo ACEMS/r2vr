@@ -159,7 +159,7 @@ is defined in `r2vr` as:
 
 ```r
 my_scene <- 
-  a_scene(fog="", status="",
+  a_scene(fog="", stats="",
           children = list(
             a_entity(tag = "box", position = c(1, 1, 1),
                      rotation = c(45, 45, 45),
