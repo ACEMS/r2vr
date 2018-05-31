@@ -121,7 +121,7 @@ For an example let's crack open the source of `r2vr::a_json_model`, a
 convenience entity for defining JSON models, which do not have native A-Frame
 support:
 
-```
+```r
 .extras_model_loader <- "https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js"
 
 
@@ -147,7 +147,7 @@ have component configuration and nested children.
 
 For example:
 
-```
+```html
 <a-scene fog stats>
   <a-box position="1 1 1", rotation="45 45 45" color="blue">
     <a-sphere position="1 0 0" color="green"></a-sphere>
@@ -157,7 +157,7 @@ For example:
 
 is defined in `r2vr` as:
 
-```
+```r
 my_scene <- 
   a_scene(fog="", status="",
           children = list(
@@ -191,7 +191,7 @@ A scene object can be called upon to render itself to HTML or serve itself to al
 
 TODO
 
-```
+```r
 my_scene$render()
 
 my_scene$serve()
