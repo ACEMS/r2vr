@@ -252,3 +252,16 @@ test_that("an entity only collects unique JS sources from its components and chi
     "myjsfile.js"
   })
 })
+
+test_that("a component that is a name only can be added with a blank character vector",{
+
+  expect_equal(
+  {
+    my_entity <- a_entity(tag = "camera", position = c(1,2,3), wasd_controls="")
+    my_entity$render()
+  },
+  {
+    "<a-camera position=\"1 2 3\" wasd-controls></a-camera>\n"
+  })
+
+})

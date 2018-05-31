@@ -117,7 +117,7 @@ A_Entity <-
                 ## Assets know how to render themselves
                 paste0(key,'=\"',value$reference(),'"')
               }
-              else if (is.null(value)){
+              else if (is.null(value) | (is.character(value) && !nzchar(value))){
                 ## just a component with no config.
                 key
               }
