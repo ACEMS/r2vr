@@ -184,7 +184,8 @@ placeholder | function
 `${description}` | The meta description of the HTML page.
 `${js_sources}` | Location in HTML `<head>` to place a list of `<script>` tags linking javascript sources files attached to scene children.
 `${assets}` | Location to place a list of `<a-asset-item>` tags, one per line, generated from `a_assets` attached to scene children.
-`$entities` | Location to place a list of entity tags, one per line, indented as appropriate, generated from child entities.
+`${entities}` | Location to place a list of entity tags, one per line, indented as appropriate, generated from child entities.
+`${scene_compnents}` | The space after the start of the `<a-scene >` tag to inject components attached to `a_scene()`.
 
 ### Serving and rendering scenes
 A scene object can be called upon to render itself to HTML or serve itself to allow viewing in WebVR.
