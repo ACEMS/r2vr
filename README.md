@@ -22,8 +22,26 @@ Given a structure of these objects, `r2vr` does the work of:
 * Serving the HTML scene and asset files.
 
 ## Entities
+In the A-Frame [entity-component architecture](https://aframe.io/docs/0.8.0/introduction/entity-component-system.html) a scene is composed of entities. These are defined in HTML like:
 
-Entity components are attached using `...` arguments to the `a_entity()` function. For example to define an entity that is a box with a custom material we would write:
+```html
+<a-entity geometry="primitive: box" material="color: red"></a-entity>
+```
+
+Entities are customised using HTML element properties that map configuration to appearance and behaviour. A-Frame provides many 'convenience' tags to simplify the definition of commonly used entity configurations. For example the above entity can also be defined:
+
+```html
+<a-box color="red">
+```
+
+`r2vr` respects these same definition types. It provides the added convenience of defining component configuration as R lists. The above can be defined in R any of:
+```r
+a_entity(geometry = "primitive: box", material = "colour: red")
+a_entity(geometry = list(primitve = "box"), material = list(color = "red"))
+a_entity(tag = "box", color = "red")
+```
+
+Notice that entity components are attached using `...` arguments to the `a_entity()` function. For example to define an entity that is a box with a custom material we would write:
 
 ```r
 library(r2vr)
