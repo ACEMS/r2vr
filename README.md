@@ -35,24 +35,17 @@ Entities are customised using HTML element properties that map configuration to 
 ```
 
 `r2vr` respects these same definition types. It provides the added convenience of defining component configuration as R lists. The above can be defined in R any of:
+
 ```r
 a_entity(geometry = "primitive: box", material = "colour: red")
 a_entity(geometry = list(primitve = "box"), material = list(color = "red"))
 a_entity(tag = "box", color = "red")
 ```
 
-Notice that entity components are attached using `...` arguments to the `a_entity()` function. For example to define an entity that is a box with a custom material we would write:
+Notice that entity components are attached using `...` arguments to the
+`a_entity()` function. 
 
-```r
-library(r2vr)
-a_entity(tag = "box", material = list(metalness = 0.5))
-```
-
-which would be rendred in HTML as:
-
-```html
-<a-box material=\"metalness: 0.5;\"></a-box>
-```
+### Component Naming
 
 For components with multi-word-names in A-Frame, the convention is to separate with `-`, e.g. `wasd-controls`, when attaching these in `r2vr` you swap the `-` for `_` since the dash is not legal as a bare symbol in R. So take this HTML:
 
@@ -73,7 +66,45 @@ One current issue is that you cannot supply an component without configuration n
 a_entity(tag="camera", wasd_controls=NULL)
 ```
 
+### Nesting entities
+
+In A-Frame entities can have child entities nested within them. This is often
+extremely convenient to do since nested entities inherit the position and
+rotation of their parent. So in this HTML:
+
+```html
+<a-box position="1 1 1", rotation="45 45 45" color="blue">
+  <a-sphere position="1 0 0" color="green"></a-sphere>
+</a-box>
+```
+
+The green sphere inherits `position` and `rotation` from its blue box parent.
+It's own position is interpreted as offset from its parent. So the sphere's
+absolute position is `2 1 1`.
+
+In `r2v2` child entities are nested as a list supplied to the parent's `children` argument. So the above pair are defined:
+
+```r
+a_entity(tag = "box", position = c(1, 1, 1), rotation = c(45, 45, 45), 
+         color="blue",
+         children = list(
+           a_entity(tag = "sphere", positon = c(2, 1, 1))
+         ))
+```
+
+Because the nested `a_entity` call returns an object it's possible to break up the nesting a bit, if it aids readability:
+
+```r
+sphere <- a_entity(tag = "sphere", positon = c(2, 1, 1))
+
+box <- a_entity(tag = "box", position = c(1, 1, 1),
+                rotation = c(45, 45, 45),
+                children = list(sphere))
+```
+
 ## Scene
+A scene outer container for all entities.
+
 TODO.
 
 ## Assets
