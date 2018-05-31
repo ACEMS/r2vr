@@ -47,7 +47,9 @@ Notice that entity components are attached using `...` arguments to the
 
 ### Component Naming
 
-For components with multi-word-names in A-Frame, the convention is to separate with `-`, e.g. `wasd-controls`, when attaching these in `r2vr` you swap the `-` for `_` since the dash is not legal as a bare symbol in R. So take this HTML:
+For components with multi-word-names in A-Frame, the convention is to separate
+with `-`, e.g. `wasd-controls`, when attaching these in `r2vr` you swap the `-`
+for `_` since the dash is not legal as a bare symbol in R. So take this HTML:
 
 ```html
 <a-camera wasd-controls="fly: true;"></a-camera>
@@ -60,11 +62,18 @@ a_entity(tag="camera", wasd_controls = list(fly = TRUE))
 a_entity(tag="camera", wasd_controls = "fly: true;")
 ```
 
-One current issue is that you cannot supply an component without configuration neatly. So to use `wasd-controls` with default configuration we must write:
+One current issue is that you cannot supply an component without configuration
+neatly. So to use `wasd-controls` with default configuration we must write
+either:
 
 ```r
+a_entity(tag="camera", wasd_controls="")
+## or
 a_entity(tag="camera", wasd_controls=NULL)
 ```
+
+To require otherwise would mean cracking open the Non-Standard Evaluation can of
+worms, a step not to be undertaken lightly.
 
 ### Nesting entities
 
@@ -82,7 +91,8 @@ The green sphere inherits `position` and `rotation` from its blue box parent.
 It's own position is interpreted as offset from its parent. So the sphere's
 absolute position is `2 1 1`.
 
-In `r2v2` child entities are nested as a list supplied to the parent's `children` argument. So the above pair are defined:
+In `r2vr` child entities are nested as a list supplied to the parent's
+`children` argument. So the above pair are defined:
 
 ```r
 a_entity(tag = "box", position = c(1, 1, 1), rotation = c(45, 45, 45), 
@@ -92,7 +102,8 @@ a_entity(tag = "box", position = c(1, 1, 1), rotation = c(45, 45, 45),
          ))
 ```
 
-Because the nested `a_entity` call returns an object it's possible to break up the nesting a bit, if it aids readability:
+Because the nested `a_entity` call returns an object it's possible to break up
+the nesting a bit, if it aids readability:
 
 ```r
 sphere <- a_entity(tag = "sphere", positon = c(2, 1, 1))
@@ -102,18 +113,103 @@ box <- a_entity(tag = "box", position = c(1, 1, 1),
                 children = list(sphere))
 ```
 
-## Scene
-A scene outer container for all entities.
+## Attaching Custom Components
 
-TODO.
+To use a custom component with an entity, a list of links to the component's
+javascript sources can be passed to `a_entity` using the `js_sources` argument.
+For an example let's crack open the source of `r2vr::a_json_model`, a
+convenience entity for defining JSON models, which do not have native A-Frame
+support:
+
+```
+.extras_model_loader <- "https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js"
+
+
+a_json_model <- function(src_asset, 
+                         js_sources = list(.extras_model_loader), ...){
+  a_entity(json_model = list(src = src_asset), js_sources = js_sources, ...)
+}
+```
+
+So every `a_json_model()` is not much more than an `a_entity()` with a `json_model`
+component attached along with a reference to the javascript that powers the
+component. You do not have do worry about duplicate `js_sources` being added to
+a scene. `r2vr` ensures only one reference to each unique javascript file makes
+it into the final HTML.
+
+Creating your own wrapper entities in this manner is also a way to simplify scene specification.
+
+## Scene
+A scene is the outer container for all entities. It's also an entity itself. Its
+special powers are that it understands how to collate and serve a nested
+structure of entity and asset objects. So just like a regular entity a scene can
+have component configuration and nested children.
+
+For example:
+
+```
+<a-scene fog stats>
+  <a-box position="1 1 1", rotation="45 45 45" color="blue">
+    <a-sphere position="1 0 0" color="green"></a-sphere>
+  </a-box>
+</a-scene>
+```
+
+is defined in `r2vr` as:
+
+```
+my_scene <- 
+  a_scene(fog="", status="",
+          children = list(
+            a_entity(tag = "box", position = c(1, 1, 1),
+                     rotation = c(45, 45, 45),
+                     children = list(
+                       a_entity(tag = "sphere", positon = c(2, 1, 1))))))
+```
+
+### Scene templates
+In `r2vr` scenes work with a HTML templating system. This allows you to reduce the complexity of scenes in R, by creating a template for the static parts that are not likely to change, E.g. ground, sky, lighting etc. Templates are selected using the `template` argument. Built-in templates at the moment are:
+
+template name | description
+---|---
+`"empty"` | An empty scene. Will use default A-Frame lights and camera inserted by A-Frame. Defaults are removed if added to the scene configuration.
+`"basic"` | Has a grid ground added. Will use default A-Frame lights and camera. Defaults are removed if added to scene configuration.
+`"basic_map"` | Has a large grid ground, high point light source (A Sun) and high camera start position.V
+
+A custom HTML file can be supplied as a `template`. The following placeholders are populated by the scene object:
+
+placeholder | function
+---|---
+`${title}` | The title of the HTML page.
+`${description}` | The meta description of the HTML page.
+`${js_sources}` | Location in HTML `<head>` to place a list of `<script>` tags linking javascript sources files attached to scene children.
+`${assets}` | Location to place a list of `<a-asset-item>` tags, one per line, generated from `a_assets` attached to scene children.
+`$entities` | Location to place a list of entity tags, one per line, indented as appropriate, generated from child entities.
+
+### Serving and rendering scenes
+A scene object can be called upon to render itself to HTML or serve itself to allow viewing in WebVR.
+
+TODO
+
+```
+my_scene$render()
+
+my_scene$serve()
+
+my_scene$stop()
+```
 
 ## Assets
 Assets are media like models, images, videos, sounds etc that need to be
 downloaded by the user before they can experience the scene properly. Assets are
 attached to entities using the appropriate component. Most commonly the `src` argument.
 
+TODO
+
 # Example Usage
 To serve a scene containing JSON model and a glTF model, you can write R code that looks like this:
+
+
 
 ```r
 library(r2vr)
