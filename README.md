@@ -190,17 +190,17 @@ placeholder | function
 ### Serving and rendering scenes
 A scene object can be called upon to render itself to HTML or serve itself to allow viewing in WebVR. Scenes are served using the [Fiery webserver framework](https://github.com/thomasp85/fiery).
 
-Asumming you `my_scene` is a reference to a scene object returned y `a_scene()` then the following actions are possible:
+Asumming `my_scene` is a reference to a scene object returned by `a_scene()` then the following actions are possible:
 
 call | effect
 ---|---
-`my_scene$serve(host = "127.0.0.1", port = "8080")` | Serve the Scene HTML as the root, "/", at the supplied IP address and port.
+`my_scene$serve(host = "127.0.0.1", port = 8080)` | Serve the Scene HTML as the root, "/", at the supplied IP address and port.
 `my_scene$stop()` | Stop serving the scene.
 `my_scene$render()` | A test/validaton helper: Return a string containing the complete scene HTML.
 `my_scene$write("file.html")` | A test/validation helper: write the complete scene HTML to a file.
 
 ### Serving Assests and Linking Javascript files
-Assests and Javascript sources are attached as arguments to components on entities or the scene itself. The scene collects the ID's and sources of all assets, and the links to all JS files and performs a de-duplication before rendering them in HTML.
+Assests and Javascript sources are attached as arguments to components on entities or the scene itself. The scene collects the `id` fields and sources of all assets, and the links to all JS files and performs a de-duplication before rendering them in HTML.
 
 It creates routes in the server for all unique assets. All local assets must be below the working directory from which `serve()`` is called.
 
@@ -252,10 +252,6 @@ library(r2vr)
                                  scale = c(0.3,0.3,0.3),
                                  rotation = c(0, 180, 0))
                           ))
-cat(my_scene$render())
-my_scene$serve(port = 8000)
-
-my_scene$stop()
 ```
 
 that will allow you to serve HTML that looks like this:
@@ -291,9 +287,7 @@ And renders like this:
 TODO: ADD image link.
 
 #### Texture Images
-Adding images as textures is another useful application. Image assets use the
-plain HTML `<img>` tag instead of `<a-asset-item>`. Here's an example that builds a VR scene around a plot image:
-`r2vr`:
+Adding images as textures is another useful application. Image assets use the plain HTML `<img>` tag instead of `<a-asset-item>`. Here's an example that builds a VR scene around an R plot image:
 
 ```r
 ## libs

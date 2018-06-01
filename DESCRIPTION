@@ -7,7 +7,9 @@ Depends: R (>= 3.4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
 Imports:
     stringr,
@@ -17,3 +19,4 @@ Imports:
     fiery,
     readr,
     mime
+VignetteBuilder: knitr
