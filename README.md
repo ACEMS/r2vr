@@ -188,33 +188,51 @@ placeholder | function
 `${scene_compnents}` | The space after the start of the `<a-scene >` tag to inject components attached to `a_scene()`.
 
 ### Serving and rendering scenes
-A scene object can be called upon to render itself to HTML or serve itself to allow viewing in WebVR.
+A scene object can be called upon to render itself to HTML or serve itself to allow viewing in WebVR. Scenes are served using the [Fiery webserver framework](https://github.com/thomasp85/fiery).
 
-TODO
+Asumming you `my_scene` is a reference to a scene object returned y `a_scene()` then the following actions are possible:
 
-```r
-my_scene$render()
+call | effect
+---|---
+`my_scene$serve(host = "127.0.0.1", port = "8080")` | Serve the Scene HTML as the root, "/", at the supplied IP address and port.
+`my_scene$stop()` | Stop serving the scene.
+`my_scene$render()` | A test/validaton helper: Return a string containing the complete scene HTML.
+`my_scene$write("file.html")` | A test/validation helper: write the complete scene HTML to a file.
 
-my_scene$serve()
+### Serving Assests and Linking Javascript files
+Assests and Javascript sources are attached as arguments to components on entities or the scene itself. The scene collects the ID's and sources of all assets, and the links to all JS files and performs a de-duplication before rendering them in HTML.
 
-my_scene$stop()
-```
+It creates routes in the server for all unique assets. All local assets must be below the working directory from which `serve()`` is called.
 
 ## Assets
-Assets are media like models, images, videos, sounds etc that need to be
-downloaded by the user before they can experience the scene properly. Assets are
-attached to entities using the appropriate component. Most commonly the `src` argument.
+Assets are media like models, images, videos, sounds etc associated with A-Frame entities. In A-Frame HTML they are declared in a spcecial `<a-assets>` html block like this:
 
-TODO
+```html
+<a-scene >
+            <a-assets>
+                <a-asset-item id="cube" src="./cube.json"></a-asset-item>
+                <a-asset-item id="kangaroo" src="./Kangaroo_01.gltf"></a-asset-item>
+            </a-assets>
+            ...
+```
 
-# Example Usage
-To serve a scene containing JSON model and a glTF model, you can write R code that looks like this:
+The `id` property is referenced in entity component configuration where the asset is to be used like these two entities that render 3D models:
 
+```html
+ <a-entity json-model="src: #cube;" position="0 0 -2" scale="0.2 0.2 0"></a-entity>
+ <a-gltf-model position="2 2 -3" src="#kangaroo"></a-gltf-model>
+```
 
+When using `r2vr` you don't have to worry about declaring assets in the `a-assets` block. That is taken care of automatically. The only concern is passing the `r2vr` asset object returned by `a_asset()` to the appropriate entity component.
+
+### Example Asset Usage
+
+#### Models
+To define a scene containing JSON model and a glTF model, you can pass the asset objects to entities with json model and gltf model components:
 
 ```r
 library(r2vr)
-  ## Assests
+  ## Assest
   cube <- a_asset(id = "cube", src = "./cube.json")
   kangaroo <- a_asset(id = "kangaroo",
                       src = "./Kangaroo_01.gltf",
@@ -225,22 +243,19 @@ library(r2vr)
                       title = "A kangaroo and a cube.",
                       children = list(
                         a_json_model(src_asset = cube,
-                                     position = c(0,0,-2),
-                                     scale = c(0.2, 0.2, 0)),
+                                     position = c(-2,1,-5),
+                                     scale = c(0.3, 0.3, 0.3)),
                           
                         a_entity(tag = "gltf-model",
-                                 src = kanagaroo,
-                                 position = c(2, 2, -3), 
-                                 height = 1, width = 1)
+                                 src = kangaroo,
+                                 position = c(2, -1, -5),
+                                 scale = c(0.3,0.3,0.3),
+                                 rotation = c(0, 180, 0))
                           ))
-  ## View HTML
-  my_scene$render()
+cat(my_scene$render())
+my_scene$serve(port = 8000)
 
-  ## Serve HTML
-  my_scene$serve()
-
-  ## Stop Serving
-  my_scene$stop()
+my_scene$stop()
 ```
 
 that will allow you to serve HTML that looks like this:
@@ -263,15 +278,55 @@ that will allow you to serve HTML that looks like this:
             </a-assets>
             
             <!-- Entities added in R -->
-            <a-entity json-model="src: #cube;" position="0 0 -2" scale="0.2 0.2 0"></a-entity>
-            <a-gltf-model position="2 2 -3" height="1" width="1" src="#kangaroo"></a-gltf-model>
+            <a-entity json-model="src: #cube;" position="-2 1 -5" scale="0.3 0.3 0.3"></a-entity>
+            <a-gltf-model src="#kangaroo" position="2 -1 -5" scale="0.3 0.3 0.3" rotation="0 180 0"></a-gltf-model>
             
 
-            <!-- Ground -->
-            <a-grid geometry='height: 10; width: 10'></a-grid>
         </a-scene>
     </body>
 </html>
 ```
 
-Scenes are served using the [Fiery webserver framework](https://github.com/thomasp85/fiery).
+And renders like this:
+TODO: ADD image link.
+
+#### Texture Images
+Adding images as textures is another useful application. Image assets use the
+plain HTML `<img>` tag instead of `<a-asset-item>`. Here's an example that builds a VR scene around a plot image:
+`r2vr`:
+
+```r
+## libs
+library(r2vr)
+library(visdat)
+library(ggplot2)
+
+## making an image
+## powers of 2 are good since they need less rescaling.
+png("VRisdat.png", width = 512, height = 512)
+p <- vis_dat(airquality)
+p + theme_light(base_size = 13)
+dev.off()
+
+## creating a thematic background using 'environment'
+## https://github.com/feiss/aframe-environment-component
+backdrop <- a_entity(environment = list(preset= "tron", dressingAmount = 40,
+                                        playArea = 0), 
+                     js_sources = "https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js")
+
+## rendering the image on a canvas
+visdat_plot <- a_asset(tag = "img", id = "vrisdat", src = "VRisdat.png")
+
+canvas <- a_entity(tag = "plane", position = c(0, 10, -10), height = 20, width = 20,
+          src = visdat_plot)
+
+my_scene <- a_scene(title = "A VR ggplot",
+                    template = "empty",
+                    children = list(backdrop, canvas))
+                    
+my_scene$serve()
+
+## my_scene$stop()
+
+```
+
