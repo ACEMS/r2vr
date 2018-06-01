@@ -284,7 +284,7 @@ that will allow you to serve HTML that looks like this:
 ```
 
 And renders like this:
-TODO: ADD image link.
+![](https://cdn.rawgit.com/MilesMcBain/r2vr/29143b68/vignettes/kangaroo_cube.png)
 
 #### Texture Images
 Adding images as textures is another useful application. Image assets use the plain HTML `<img>` tag instead of `<a-asset-item>`. Here's an example that builds a VR scene around an R plot image:
@@ -323,4 +323,5 @@ my_scene$serve()
 ## my_scene$stop()
 
 ```
-
+Which creates this scene:
+![](https://cdn.rawgit.com/MilesMcBain/r2vr/29143b68/vignettes/visdat_tron.png)
