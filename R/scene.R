@@ -106,9 +106,12 @@ A_Scene <-
                                            replacement = replacement)
                 },
 
-                serve = function(port = 8000){
+                serve = function(...){
                   ## This function sets up a fiery server with routes to the
                   ## html scene html file and all the assets
+                  ## Arguments are passed directly through to
+                  ## the Fiery::Fire$new() method. Relevant args are
+                  ## `host` defaulting to 127.0.0.1 and `port` defaulting to 8080.
 
                   ## Render Scene
                   scene_html <- self$render()
@@ -137,7 +140,7 @@ A_Scene <-
                   }
 
                   ## Add and Serve the scene
-                  self$scene <- fiery::Fire$new(port = port)
+                  self$scene <- fiery::Fire$new(...)
                   self$scene$attach(route_stack)
                   self$scene$ignite(block = FALSE)
 
