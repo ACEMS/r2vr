@@ -110,7 +110,7 @@ A_Entity <-
 
             render_component = function(key, value){
               ## convert underscores('_') in keys to dashes ('-') 
-              key <- gsub( x = key, pattern = "_", replacement = "-")
+              key <- gsub( x = key, pattern = "(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])", replacement = "-", perl = TRUE)
 
               if (is(value, "A_Asset")){
                 ## Special handling if it's an asset.
@@ -138,8 +138,8 @@ A_Entity <-
             }, # should be private
 
             render_property = function(key, value){
-              ## convert underscores('_') in keys to dashes ('-') 
-              key <- gsub( x = key, pattern = "_", replacement = "-")
+              ## convert single underscores('_') in keys to dashes ('-') 
+              key <- gsub( x = key, pattern = "(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])", replacement = "-", perl = TRUE)
 
               if (is(value, "A_Asset")){
                 paste0(key,": ",value$reference(),";")
@@ -210,11 +210,14 @@ A_Entity <-
 ##'
 ##' Function arguments supplied in `...` map directly to underlying entity
 ##' components expressed in the html. There two tricks to this: 1. components
-##' specified in R must use an underscore ('_') where a dash would appear in an
-##' A-Frame component name. 2. components specified by name only, without any
-##' configuration must use the form `component_name = NULL`. For example: to
-##' create an A-Frame entity with the `wasd-controls` component attached, this
-##' function would be called as `a_entity(wasd_controls = NULL)`.
+##' specified in R must use an single underscore ('_') where a single dash would
+##' appear in an A-Frame component name between words. It is converted to '-'
+##' when rendered in HTML. Double underscores and leading/trailing undescores
+##' are not converted. 2. Components specified by name only, without any
+##' configuration must use the form `component_name = NULL` or component_name =
+##' "". For example: to create an A-Frame entity with the `wasd-controls`
+##' component attached, this function would be called as
+##' `a_entity(wasd_controls="")`.
 ##'
 ##' Component configuration can be expressed in character form, e.g.
 ##' `wasd_controls = "fly: true; acceleration: 65"` in which case it is passed

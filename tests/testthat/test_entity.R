@@ -264,4 +264,14 @@ test_that("a component that is a name only can be added with a blank character v
     "<a-camera position=\"1 2 3\" wasd-controls></a-camera>\n"
   })
 
+  test_that("a double underscores in component names are not converted to dashes",{
+
+    expect_equal(
+    {
+      my_entity <- a_entity(tag = "box", event_set__click = "material.color: blue", position = c(1,2,3))
+      my_entity$render()
+    },
+    {
+      "<a-box event-set__click=\"material.color: blue\" position=\"1 2 3\"></a-box>\n"
+    })
 })
