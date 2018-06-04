@@ -274,4 +274,5 @@ test_that("a component that is a name only can be added with a blank character v
     {
       "<a-box event-set__click=\"material.color: blue\" position=\"1 2 3\"></a-box>\n"
     })
+  })
 })
