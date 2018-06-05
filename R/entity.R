@@ -144,7 +144,7 @@ A_Entity <-
               if (is(value, "A_Asset")){
                 paste0(key,": ",value$reference(),";")
               }
-              else if (is.na(value)){
+              else if (anyNA(value)){
                 stop("tried to render NA value for ", key, "in property list")
               }
               else if (is.character(value)){
