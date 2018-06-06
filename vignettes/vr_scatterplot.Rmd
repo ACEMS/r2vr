@@ -33,14 +33,12 @@ library(r2vr)
 library(purrr)
 library(tibble)
 
-a_scatter_ents <- function(x, y, z, colours, sizes = rep(seq_along(x), 0.1), labels, dimensions = c(2,2,2), ...){
-  x = mtcars$hp
-  y = mtcars$wt
-  z = mtcars$mpg
-  colours = pals::cols25(2)[as.factor(mtcars$am)]
-  sizes = rep(0.1,length(x))
-  labels = row.names(mtcars)
-  dimensions = c(3,3,3)
+a_scatter_ents <- function(x, y, z, colours, sizes = rep(0.1, length(x)), labels, dimensions = c(2,2,2), ...){
+
+  force(sizes)
+  x_label = deparse(substitute(x))
+  y_label = deparse(substitute(y))
+  z_label = deparse(substitute(z))
 
   range_scale <- function(a) (a - min(a, na.rm=TRUE)) / diff(range(a, na.rm=TRUE))
   x <- range_scale(x)
@@ -50,10 +48,10 @@ a_scatter_ents <- function(x, y, z, colours, sizes = rep(seq_along(x), 0.1), lab
   positions <- cbind(x,y,z) * dimensions
 
   entity_data <-
-    tibble::data_frame(position = purrr::transpose(as.data.frame(positions)),
+    tibble::tibble(position = purrr::transpose(as.data.frame(positions)),
                        color = colours,
                        radius = sizes,
-                       label = labels)
+                   label = labels)
 
   points <-
     purrr::pmap(entity_data, function(position, color, radius, label){
@@ -90,27 +88,84 @@ a_scatter_ents <- function(x, y, z, colours, sizes = rep(seq_along(x), 0.1), lab
                                                depth = 0.2),
                                 material = list(transparent = TRUE,
                                                 opacity = 0))))
+  ## make axis labels
 
-  ## plot entity to wrap points.
+  label_offset <- 0.1 * dimensions
+
+  x_axis_label <- a_entity(tag = "text", value = x_label,
+                           position = dimensions * c(0.5, 0.1, 0),
+                           color = "#000000",
+                           align = "center",
+                           geometry = list(primitive = "box",
+                                          width = 0.2,
+                                          height = 0.2,
+                                          depth = 0.2),
+                           material = list(transparent = TRUE,
+                                           opacity = 0))
+  y_axis_label <- a_entity(tag = "text", value = y_label,
+                           position = dimensions * c(0, 0.5, 0),
+                           rotation = c(0, 45, 0),
+                           color = "#000000",
+                           align = "center",
+                           geometry= list(primitive = "box",
+                                          width = 0.2,
+                                          height = 0.2,
+                                          depth = 0.2),
+                           material = list(transparent = TRUE,
+                                           opacity = 0))
+  z_axis_label <- a_entity(tag = "text", value = z_label,
+                           position = dimensions * c(0, 0.1, 0.5),
+                           rotation = c(0, 90, 0),
+                           color = "#000000",
+                           align = "center",
+                           geometry= list(primitive = "box",
+                                          width = 0.2,
+                                          height = 0.2,
+                                          depth = 0.2),
+                           material = list(transparent = TRUE,
+                                           opacity = 0))
+
+
+  ## make each axis
   x_axis <- a_entity(line = list(start = c(0,0,0),
                                  end = c(dimensions[[1]], 0, 0),
-                                 color = "#000000"))
+                                 color = "#000000"),
+                     children = list(x_axis_label))
   y_axis <- a_entity(line = list(start = c(0,0,0),
                                  end = c(0, dimensions[[2]], 0),
-                                 color = "#000000"))
+                                 color = "#000000"),
+                     children = list(y_axis_label))
   z_axis <- a_entity(line = list(start = c(0,0,0),
                                  end = c(0, 0, dimensions[[3]]),
-                                 color = "#000000"))
+                                 color = "#000000"),
+                     children = list(z_axis_label))
+
+  ## make plot and add points
   plot <- a_entity(position = c(0,0.1,-3),  children = c(x_axis, y_axis,
                                                          z_axis, points))
+
+  
 
   my_scene <- a_scene(template = "basic",
                       title = "A scattering of cars",
                       children = c(cursor, plot))
 
   my_scene$serve()
-  my_scene$stop()
+  my_scene
 }
+
+
+my_scene <- a_scatter_ents(
+  x = mtcars$hp,
+  y = mtcars$mpg,
+  z = mtcars$wt,
+  colours = pals::cols25(2)[as.factor(mtcars$am)],
+  labels = row.names(mtcars),
+  dimensions = c(3,3,3))
+
+
+my_scene$stop()
+
 
 ```
 
