@@ -33,12 +33,16 @@ library(r2vr)
 library(purrr)
 library(tibble)
 
-a_scatter_ents <- function(x, y, z, colours, sizes = rep(0.1, length(x)), labels, dimensions = c(2,2,2), ...){
+a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rainbow, sizes = rep(0.1, length(x)), labels, dimensions = c(2,2,2), ...){
 
   force(sizes)
-  x_label = deparse(substitute(x))
-  y_label = deparse(substitute(y))
-  z_label = deparse(substitute(z))
+  x_label <-  deparse(substitute(x))
+  y_label <-  deparse(substitute(y))
+  z_label <-  deparse(substitute(z))
+  legend_label <- deparse(substitute(colour))
+
+  colour_factor <- as.factor(colour)
+  ent_colours <- palette_fn(nlevels(colour_factor))[colour_factor]
 
   range_scale <- function(a) (a - min(a, na.rm=TRUE)) / diff(range(a, na.rm=TRUE))
   x <- range_scale(x)
@@ -49,7 +53,7 @@ a_scatter_ents <- function(x, y, z, colours, sizes = rep(0.1, length(x)), labels
 
   entity_data <-
     tibble::tibble(position = purrr::transpose(as.data.frame(positions)),
-                       color = colours,
+                       color = ent_colours,
                        radius = sizes,
                    label = labels)
 
@@ -69,12 +73,13 @@ a_scatter_ents <- function(x, y, z, colours, sizes = rep(0.1, length(x)), labels
                              `_target`= "#labelview",
                              visible = FALSE,
                              value = label),
+                      static_body = "",
                       js_sources = "https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js")
     point
   })
 
   ## camera entity with cursor
-  cursor <- a_entity(tag = "camera", position = c(0,1.6,0),
+  cursor <- a_entity(tag = "camera", position = c(0,1.6,3),
                      children = list(
                        a_entity(tag = "cursor", position = c(0,0,3)),
                        a_entity(tag = "text", id = "labelview",
@@ -139,88 +144,94 @@ a_scatter_ents <- function(x, y, z, colours, sizes = rep(0.1, length(x)), labels
                                  end = c(0, 0, dimensions[[3]]),
                                  color = "#000000"),
                      children = list(z_axis_label))
+  ## make legend
+  legend_levels <- levels(colour_factor)
+  legend_colours <- palette_fn(nlevels(colour_factor))
+  if(length(legend_levels > 1)){
+    box_size = 0.2
+    box_spacing = 0.2
+    legend_position = c(dimensions[[1]] * 1.1, 0, 0)
+    legend_ents <- purrr::imap(legend_levels,
+                function(level, index){
+                  a_entity(tag = "text", value = as.character(level),
+                           position = c(0,
+                                        index * (box_size + box_spacing), 0),
+                           rotation = c(0, 0, 0),
+                           color = "#000000",
+                           align = "right",
+                           anchor = "right",
+                           text = list(xOffset = box_size*2),
+                           geometry= list(primitive = "box",
+                                          width = box_size,
+                                          height = box_size,
+                                          depth = box_size),
+                           material = list(transparent = FALSE,
+                                           color = legend_colours[[index]] )
+                           )
+                })
+    ## Legend label
+    legend_label <- a_entity(tag = "text", value = legend_label,
+                             position = c(0, (box_size + box_spacing) *
+                                                          (nlevels(colour_factor) + 1), 0),
+                             rotation = c(0, 0, 0),
+                             color = "#000000",
+                             align = "center",
+                             geometry= list(primitive = "box",
+                                            width = box_size,
+                                            height = box_size,
+                                            depth = box_size),
+                             material = list(transparent = TRUE,
+                                             opacity = 0))
+    plot_legend <- a_entity(position = legend_position,
+                            children = c(legend_ents, legend_label))
+  } else {
+    plot_legend <- list()
+  }
 
   ## make plot and add points
   plot <- a_entity(position = c(0,0.1,-3),  children = c(x_axis, y_axis,
-                                                         z_axis, points))
+                                                         z_axis, points,
+                                                         plot_legend))
 
-  
+  kangaroo <- a_entity(tag = "gltf-model", position = c(1.5, 5, -1.5),
+                       scale = c(0.2,0.2,0.2),
+                       rotation = c(0, 180, 0),
+                       dynamic_body="",
+                       src = a_asset(id = "kangaroo",
+                                     src = "tests/testthat/Kangaroo_01.gltf",
+                                     parts = "tests/testthat/Kangaroo_01.bin"))
 
   my_scene <- a_scene(template = "basic",
                       title = "A scattering of cars",
-                      children = c(cursor, plot))
+                      children = c(cursor, plot, kangaroo),
+                      js_sources = list("//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"))
 
   my_scene$serve()
   my_scene
 }
 
+my_scene$stop()
 
 my_scene <- a_scatter_ents(
   x = mtcars$hp,
   y = mtcars$mpg,
   z = mtcars$wt,
-  colours = pals::cols25(2)[as.factor(mtcars$am)],
+  colour = mtcars$am,
+  pals::cols25,
   labels = row.names(mtcars),
   dimensions = c(3,3,3))
 
 
-my_scene$stop()
+
+debug(a_scatter_ents)
+
 
 
 ```
 
 ## Using a community component
 
-
-
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
 ```
 
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
-
-## Local Variables:
-## ess-r-package--project-cache: (r2vr . "/home/miles/repos/r2vr/")
-## End:
