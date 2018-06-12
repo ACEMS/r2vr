@@ -43,6 +43,7 @@ a general purpose VR plotting API. At the moment that API is not planned for
 
 ```{r}
 
+
 library(r2vr)
 library(purrr)
 library(tibble)
@@ -96,52 +97,23 @@ a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rai
   cursor <- a_entity(tag = "camera", position = c(0,1.6,3),
                      children = list(
                        a_entity(tag = "cursor", position = c(0,0,3)),
-                       a_entity(tag = "text", id = "labelview",
-                                scale = c(0.4, 0.4, 0.4),
-                                color = "#000000",
-                                align = "center",
-                                position = c(0,-0.4,-1),
-                                geometry= list(primitive = "box",
-                                               width = 0.2,
-                                               height = 0.2,
-                                               depth = 0.2),
-                                material = list(transparent = TRUE,
-                                                opacity = 0))))
+                       a_label(id = "labelview",
+                               text = "",
+                               scale = c(0.4, 0.4, 0.4),
+                               position = c(0,-0.4,-1))))
   ## make axis labels
   label_offset <- 0.1 * dimensions
 
-  x_axis_label <- a_entity(tag = "text", value = x_label,
-                           position = dimensions * c(0.5, 0.1, 0),
-                           color = "#000000",
-                           align = "center",
-                           geometry = list(primitive = "box",
-                                          width = 0.2,
-                                          height = 0.2,
-                                          depth = 0.2),
-                           material = list(transparent = TRUE,
-                                           opacity = 0))
-  y_axis_label <- a_entity(tag = "text", value = y_label,
-                           position = dimensions * c(0, 0.5, 0),
-                           rotation = c(0, 45, 0),
-                           color = "#000000",
-                           align = "center",
-                           geometry= list(primitive = "box",
-                                          width = 0.2,
-                                          height = 0.2,
-                                          depth = 0.2),
-                           material = list(transparent = TRUE,
-                                           opacity = 0))
-  z_axis_label <- a_entity(tag = "text", value = z_label,
-                           position = dimensions * c(0, 0.1, 0.5),
-                           rotation = c(0, 90, 0),
-                           color = "#000000",
-                           align = "center",
-                           geometry= list(primitive = "box",
-                                          width = 0.2,
-                                          height = 0.2,
-                                          depth = 0.2),
-                           material = list(transparent = TRUE,
-                                           opacity = 0))
+  x_axis_label <- a_label(text = x_label,
+                          position = dimensions * c(0.5, 0.1, 0))
+
+  y_axis_label <- a_label(text = y_label,
+                          position = dimensions * c(0, 0.5, 0),
+                          rotation = c(0, 45, 0))
+
+  z_axis_label <- a_label(text = z_label,
+                          position = dimensions * c(0, 0.1, 0.5),
+                          rotation = c(0, 90, 0))
 
 
   ## make each axis
