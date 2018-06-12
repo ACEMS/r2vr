@@ -17,15 +17,29 @@ knitr::opts_chunk$set(
 ```
 
 This document describes two methods of using `r2vr` to create a VR scatter plot:
-1. Generating a list of entity HTML elements, one for every data point.
-2. Using a single entity that with a community developed A-Frame scatterplot component attached.
+1. Using a single entity that with a community developed A-Frame scatterplot component attached.
+2. Generating a list of entity HTML elements, one for every data point.
 
+## Using a community component
+
+```
+
+```
 
 ## Generating HTML entities
-We're going to make a simple 3D scatter plot of `mpg` vs `wt` vs `hp`, coloured by `am` from the `mtcars` data. It will be made from scratch using `r2vr` so there's a few considerations:
-What dimensions should the plot be? How do we scale the data to these dimensions? Can we apply labels that appear when the points are looked at?
+This section contains `r2vr` code to compose a simple 3D scatter plot of `mpg`
+vs `wt` vs `hp`, coloured by `am` from the `mtcars` data. Since it is made 'from
+scratch', using geometric primitives, there are a few considerations: What
+dimensions should the plot be? How do we scale the data to these dimensions? Can
+we apply labels that appear when the points are looked at?
 
-Since we're going to be using the data to answer these questions we may as well create a function that returns a list of entities so we can re-use the code.
+Since data is used to answer these questions, we may as well
+create a function that returns a scene so we can re-use the code.
+
+The code here should be considered a proof of concept only. It is overly long
+and could be decoupled and abstracted further into composable functions on the way to creating
+a general purpose VR plotting API. At the moment that API is not planned for
+`r2vr`. If it comes, it will be as a separate package that builds on `r2vr`.
 
 ```{r}
 
@@ -94,7 +108,6 @@ a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rai
                                 material = list(transparent = TRUE,
                                                 opacity = 0))))
   ## make axis labels
-
   label_offset <- 0.1 * dimensions
 
   x_axis_label <- a_entity(tag = "text", value = x_label,
@@ -169,6 +182,7 @@ a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rai
                                            color = legend_colours[[index]] )
                            )
                 })
+
     ## Legend label
     legend_label <- a_entity(tag = "text", value = legend_label,
                              position = c(0, (box_size + box_spacing) *
@@ -193,24 +207,13 @@ a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rai
                                                          z_axis, points,
                                                          plot_legend))
 
-  kangaroo <- a_entity(tag = "gltf-model", position = c(1.5, 5, -1.5),
-                       scale = c(0.2,0.2,0.2),
-                       rotation = c(0, 180, 0),
-                       dynamic_body="",
-                       src = a_asset(id = "kangaroo",
-                                     src = "tests/testthat/Kangaroo_01.gltf",
-                                     parts = "tests/testthat/Kangaroo_01.bin"))
-
   my_scene <- a_scene(template = "basic",
                       title = "A scattering of cars",
-                      children = c(cursor, plot, kangaroo),
+                      children = c(cursor, plot),
                       js_sources = list("//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"))
 
-  my_scene$serve()
   my_scene
 }
-
-my_scene$stop()
 
 my_scene <- a_scatter_ents(
   x = mtcars$hp,
@@ -222,16 +225,8 @@ my_scene <- a_scatter_ents(
   dimensions = c(3,3,3))
 
 
-
-debug(a_scatter_ents)
-
-
-
+## my_scene$serve()
+## my_scene$stop()
 ```
 
-## Using a community component
-
-```
-
-```
 
