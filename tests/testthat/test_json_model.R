@@ -1,4 +1,4 @@
-context("test JSON model class")
+context("test JSON model object")
 
 test_that("JSON model can render correctly and be served", {
 
