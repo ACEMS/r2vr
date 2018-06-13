@@ -22,8 +22,81 @@ This document describes two methods of using `r2vr` to create a VR scatter plot:
 
 ## Using a community component
 
+Rather than building a plot from A-Frame primitives, it's a good idea to check
+if there is some A-Frame components written in Javascript that will suit the
+objective. Places to look are:
+* [The A-Frame component registry](https://aframe.io/aframe-registry/)
+* [The NPM archive 'aframe' tag](https://www.npmjs.com/search?q=aframe)
+
+As it happens there are a couple of options for making VR plots. This example
+will use: https://github.com/zcanter/aframe-scatterplot.
+
+According to the documentation our data needs to
+be JSON that looks like this:
+
+```
+[
+ {
+   // Data Point
+   "Field1": 13.90738679789567,
+   "Field2": 11.77935227940546,
+   "Field3": 12.02052097080796,
+   "Field4": 11.31274091176219,
+   "Field5": 14.13415151546462,
+ },
+ {
+   // Data Point
+   "Field1": 12.29829187876160,
+   "Field2": 10.12398967761787,
+   "Field3": 16.81298749861520,
+   "Field4": 13.92371645984898,
+   "Field5": 11.35138647618786,
+ },
+ {...},
+ {...},
+ ]
 ```
 
+### Tranfroming data to JSON
+
+```r
+library(jsonlite)
+
+a_scatterplot <- function(json_data, x, y, z, ...){
+
+  ## js sources for scatterplot
+  .scatter_source <- "https://cdn.rawgit.com/zcanter/aframe-scatterplot/master/dist/a-scatterplot.min.js"
+    .d3_source <- "https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.1/d3.min.js"
+
+  ## Write JSON data
+  json_file_asset <- a_asset(id = "scatterdata",
+                             src = json_data)
+
+  a_entity(tag = "scatterplot",
+           src = json_file_asset,
+           js_sources = list(.scatter_source, .d3_source),
+           x = x,
+           y = z,
+           z = z, ...)
+}
+
+json_file <- "./json_data.json"
+jsonlite::write_json(diamonds, json_file) 
+
+my_scene <- a_scene(template = "empty",
+                    children = list(
+                      a_scatterplot(json_file, x = "depth", y = "carat", z = "table",
+                                    val = "price",
+                                    xlabel = "depth", ylabel = "carat", zlabel = "table",
+                                    showFloor = TRUE,
+                                    ycage = TRUE,
+                                    title = "Price of Diamond$$$",
+                                    pointsize = "10",
+                                    position = c(0, 0, -2),
+                                    scale = c(3,3,3))))
+
+my_scene$serve()
+my_scene$stop()
 ```
 
 ## Generating HTML entities
@@ -88,7 +161,6 @@ a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rai
                              `_target`= "#labelview",
                              visible = FALSE,
                              value = label),
-                      static_body = "",
                       js_sources = "https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js")
     point
   })
@@ -181,8 +253,7 @@ a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rai
 
   my_scene <- a_scene(template = "basic",
                       title = "A scattering of cars",
-                      children = c(cursor, plot),
-                      js_sources = list("//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"))
+                      children = c(cursor, plot))
 
   my_scene
 }
@@ -200,5 +271,3 @@ my_scene <- a_scatter_ents(
 ## my_scene$serve()
 ## my_scene$stop()
 ```
-
-
