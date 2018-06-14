@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 This document describes two methods of using `r2vr` to create a VR scatter plot:
 1. Using a single entity that with a community developed A-Frame scatterplot component attached.
-2. Generating a list of entity HTML elements, one for every data point.
+2. Generating a list of entity HTML elements representing the geometric primitives of the plot data and dressing.
 
 ## Using a community component
 
@@ -34,7 +34,7 @@ will use: https://github.com/zcanter/aframe-scatterplot.
 According to the documentation our data needs to
 be JSON that looks like this:
 
-```
+```{r}
 [
  {
    // Data Point
@@ -57,9 +57,7 @@ be JSON that looks like this:
  ]
 ```
 
-### Tranfroming data to JSON
-
-```r
+```{r}
 library(r2vr)
 library(jsonlite)
 library(ggplot2)
@@ -103,7 +101,7 @@ my_scene$serve()
 my_scene$stop()
 ```
 
-## Generating HTML entities
+## A Scattleplot from scratch using HTML entities
 This section contains `r2vr` code to compose a simple 3D scatter plot of `mpg`
 vs `wt` vs `hp`, coloured by `am` from the `mtcars` data. Since it is made 'from
 scratch', using geometric primitives, there are a few considerations: What
