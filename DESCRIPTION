@@ -10,7 +10,6 @@ LazyData: true
 Suggests: testthat,
     knitr,
     rmarkdown,
-    pals,
     jsonlite,
     ggplot2
 RoxygenNote: 6.0.1

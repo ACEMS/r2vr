@@ -3,6 +3,7 @@
 export("%>%")
 export(a_asset)
 export(a_entity)
+export(a_in_mem_asset)
 export(a_json_model)
 export(a_label)
 export(a_pc_control_camera)

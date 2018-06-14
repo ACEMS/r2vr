@@ -34,7 +34,7 @@ will use: https://github.com/zcanter/aframe-scatterplot.
 According to the documentation our data needs to
 be JSON that looks like this:
 
-```{r}
+```{js, eval = FALSE}
 [
  {
    // Data Point
@@ -263,7 +263,7 @@ my_scene <- a_scatter_ents(
   y = mtcars$mpg,
   z = mtcars$wt,
   colour = mtcars$am,
-  pals::cols25,
+  rainbow,
   labels = row.names(mtcars),
   dimensions = c(3,3,3))
 
@@ -271,3 +271,4 @@ my_scene <- a_scatter_ents(
 ## my_scene$serve()
 ## my_scene$stop()
 ```
+

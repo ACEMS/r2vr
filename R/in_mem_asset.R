@@ -88,6 +88,7 @@ A_In_Memory_Asset <-
 ##' @param data a string containing file content or a list of such strings.
 ##' @param ... additional parameters passed to `a_asset()`
 ##' @return an asset object.
+##' @export
 a_in_mem_asset <- function(data, ...){
   A_In_Memory_Asset$new(data = data, ...)
 }
