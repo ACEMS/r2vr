@@ -4,10 +4,20 @@
 \alias{a_in_mem_asset}
 \title{a_in_mem_asset()}
 \usage{
-a_in_mem_asset(data, ...)
+a_in_mem_asset(data, src, parts = NULL, ...)
 }
 \arguments{
 \item{data}{a string containing file content or a list of such strings.}
+
+\item{src}{a realistic path to a notional file. The path is used to set the
+route the used by the scene server for the in memory asset. The file
+extension of the is used to set the HTTP content header mime type.}
+
+\item{parts}{additional notional files referenced in the content of `data`.
+Unlike 'src' the names used here matter, e.g. if the 'src' file is a
+model that references textures, those textures need to be mapped by name.
+When `data` is a list, elements after the first are assumed to be the
+in-memory content of `parts`, matched by list position.}
 
 \item{...}{additional parameters passed to `a_asset()`}
 }
