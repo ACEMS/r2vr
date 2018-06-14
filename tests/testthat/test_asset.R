@@ -1,6 +1,6 @@
 context("test asset class")
 
-test_that("Asset non-inline asset outputs its tag and reference",{
+test_that("A non-inline asset outputs its tag and reference",{
   my_asset <- A_Asset$new(id = "sky", src = "sky.jpg")
   expect_equal(
   {
