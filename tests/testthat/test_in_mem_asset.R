@@ -28,3 +28,44 @@ test_that("An in memory can be routed to by a scene", {
   })
   my_scene$stop()
 })
+
+test_that("Only character vectors of length one are accepted",{
+
+  my_json <- readr::read_file(test_path("cube.json"))
+  my_json2 <- readr::read_lines(test_path("cube.json"))
+
+  expect_error({
+
+    my_asset <- a_in_mem_asset(data = my_json2,
+                               id = "cube",
+                               src = "./roberto_cuberto.json")
+
+  }, "Length of `data` arg list")
+
+  
+  expect_error({
+
+    my_asset <- a_in_mem_asset(data = list(my_json, my_json2),
+                               id = "cube",
+                               src = "./roberto_cuberto.json",
+                               parts = "./hello.json")
+
+  }, "Every element of `data` in list form must be a length one character vector.")
+
+  expect_error({
+
+    my_asset <- a_in_mem_asset(data = list(my_json, my_json),
+                               id = "cube",
+                               src = "./roberto_cuberto.json")
+
+  }, "Length of `data` arg list")
+
+  expect_error({
+
+    my_asset <- a_in_mem_asset(data = my_json,
+                               id = "cube",
+                               src = "./roberto_cuberto.json",
+                               parts = "./cube.json")
+
+  }, "Length of `data` arg list")
+})

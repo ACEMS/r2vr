@@ -3,36 +3,40 @@ A_In_Memory_Asset <-
               inherit = A_Asset,
               public = list(
                 data = NULL,
-                initialize = function(data, ...){
-                  self$data <- data
-                  super$initialize(...)
-                },
-                get_asset_data = function(){
+                initialize = function(data, src, parts = NULL, ...){
 
-                  ## get all paths
-                  paths <- c(self$src, self$parts)
-                  
-                  ## If data is a list it must match combined length of src and parts.
-                  if (is.list(self$data)){
-                    if (length(self$data) != length(paths)){
-                      stop("Length of `data` arg list must equal length of c(src, parts).")
-                    }
-                    if (!purrr::every(self$data, is.chracter)){
-                      stop("Every element of `data` in list form must be a character vector.")
+                  ## Validation of data
+                  paths <- c(src, parts)
+                  if (length(data) != length(paths)){
+                    stop("Length of `data` arg list must equal length of c(src, parts). Each element of `data` must be a string containing a whole file.")
+                  }
+                  if (is.list(data)){
+                    if (!purrr::every(data,
+                                      function(string){
+                                        is.character(string) && (length(string) == 1)
+                                      })){
+                      stop("Every element of `data` in list form must be a length one character vector.")
                     }
                   }
                   ## else data should be a character vector representing what would
-                  ## (notionally) be read at self$src. self$parts must be NULL.
-                  else if (is.character(self$data)){
-                    if (!is.null(self$parts)){
-                      stop("If `data` is a character vector self$parts must be NULL. Use a `data` list for multi-part in-memory assets.")
-                      }
-                
+                  ## (notionally) be read at src. parts must be NULL.
+                  else if (is.character(data)){
+                    if (length(data) > 1){
+                      stop("`data` was a character vector with length greater than 1. It must be a single string containing entire file. See readr::read_file, readr::read_file_raw.")
+                    }
                   }
                   ## `data` was not a character vector or list of character vectors.
                   else{
                     stop("`data` must be either a single character vector or list of character vectors representing data file content.")
                   }
+                  self$data <- data
+                  super$initialize(src = src, parts = parts, ...)
+                },
+
+                get_asset_data = function(){
+
+                  ## get all paths
+                  paths <- c(self$src, self$parts)
 
                   ## guess content type of each
                   content_types <- mime::guess_type(paths)
@@ -41,9 +45,6 @@ A_In_Memory_Asset <-
                   ## content is already in memory so unlike the base A_Asset
                   ## class, here we just need to pass a reference to it.
                   accessors <- purrr::map(self$data, function(data_item){
-                    if (length(data_item) > 1){
-                      stop("Only length 1 character vectors are suitable for in memory assets. The entire file must be a single string. See readr::read_file, readr::read_file_raw.")
-                    }
                     ## Return an acessor that returns the string.
                     function(){data_item}
                   })
@@ -86,9 +87,17 @@ A_In_Memory_Asset <-
 ##' 
 ##' @title a_in_mem_asset()
 ##' @param data a string containing file content or a list of such strings.
+##' @param src a realistic path to a notional file. The path is used to set the
+##'   route the used by the scene server for the in memory asset. The file
+##'   extension of the is used to set the HTTP content header mime type.
+##' @param parts additional notional files referenced in the content of `data`.
+##'   Unlike 'src' the names used here matter, e.g. if the 'src' file is a
+##'   model that references textures, those textures need to be mapped by name.
+##'   When `data` is a list, elements after the first are assumed to be the
+##'   in-memory content of `parts`, matched by list position.
 ##' @param ... additional parameters passed to `a_asset()`
 ##' @return an asset object.
 ##' @export
-a_in_mem_asset <- function(data, ...){
-  A_In_Memory_Asset$new(data = data, ...)
+a_in_mem_asset <- function(data, src, parts = NULL, ...){
+  A_In_Memory_Asset$new(data = data, src = src, parts = parts, ...)
 }

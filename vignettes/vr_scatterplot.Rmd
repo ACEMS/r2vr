@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Making VR Scatteplots
+
 This document describes two methods of using `r2vr` to create a VR scatter plot:
 1. Using a single entity that with a community developed A-Frame scatterplot component attached.
 2. Generating a list of entity HTML elements representing the geometric primitives of the plot data and dressing.
@@ -102,6 +104,7 @@ my_scene$stop()
 ```
 
 ## A Scattleplot from scratch using HTML entities
+
 This section contains `r2vr` code to compose a simple 3D scatter plot of `mpg`
 vs `wt` vs `hp`, coloured by `am` from the `mtcars` data. Since it is made 'from
 scratch', using geometric primitives, there are a few considerations: What
