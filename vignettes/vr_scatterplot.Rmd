@@ -97,7 +97,8 @@ my_scene <- a_scene(template = "empty",
                                     title = "Price of Diamond$$$",
                                     pointsize = "10",
                                     position = c(0, 0, -2),
-                                    scale = c(3,3,3))))
+                                    scale = c(3,3,3)),
+                    a_pc_control_camera()))
 
 my_scene$serve()
 my_scene$stop()
@@ -266,7 +267,7 @@ my_scene <- a_scatter_ents(
   y = mtcars$mpg,
   z = mtcars$wt,
   colour = mtcars$am,
-  rainbow,
+  purrr::partial(rainbow, alpha = NULL), #for RGB -alpha
   labels = row.names(mtcars),
   dimensions = c(3,3,3))
 
