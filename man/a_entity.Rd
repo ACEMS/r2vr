@@ -37,12 +37,17 @@ Function arguments supplied in `...` map directly to underlying entity
 components expressed in the html. There two tricks to this: 1. components
 specified in R must use an single underscore ('_') where a single dash would
 appear in an A-Frame component name between words. It is converted to '-'
-when rendered in HTML. Double underscores and leading/trailing undescores
+when rendered in HTML. Double underscores and leading/trailing underscores
 are not converted. 2. Components specified by name only, without any
 configuration must use the form `component_name = NULL` or component_name =
 "". For example: to create an A-Frame entity with the `wasd-controls`
 component attached, this function would be called as
 `a_entity(wasd_controls="")`.
+
+Underscore conversion is provided as a convenience to save the user wrapping
+many component names in ``. It can be swtiched off by supplying a "'" as the
+first character of a property name, e.g.: list(`'this_is_really_what_want` =
+"foo"). The leading "'" is stripped when rendering to HTML.
 
 Component configuration can be expressed in character form, e.g.
 `wasd_controls = "fly: true; acceleration: 65"` in which case it is passed
