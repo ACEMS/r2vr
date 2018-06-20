@@ -6,9 +6,11 @@ A_Scene <-
                 scene = NULL,
                 title = NULL,
                 description = NULL,
+                aframe_version = NULL,
                 initialize = function(template = "basic_map",
                                       title = "A-Frame VR scene created with r2vr",
                                       description = title,
+                                      aframe_version = "0.8.2",
                                       children = NULL,
                                       ...){
 
@@ -27,6 +29,7 @@ A_Scene <-
 
                   self$title <- title
                   self$description <- description
+                  self$aframe_version <- aframe_version
 
                   ## Call constructor for A_Entity
                   super$initialize(children = children, ...)
@@ -40,6 +43,9 @@ A_Scene <-
 
                   ## description
                   template_env$description <- self$description
+
+                  ## A-Frame Version
+                  template_env$aframe_version <- self$aframe_version
 
                   ## scene components
                   if (length(self$components) > 0) {
@@ -233,6 +239,7 @@ A_Scene <-
 ##' @param template A name of a built in template or a path to a custom html template.
 ##' @param title Title of the scene passed into the HTML
 ##' @param description meta description of the scene passed into the HTML
+##' @param aframe_version The version of A-Frame to serve the scene with, defaults to 0.8.2  
 ##' @param children a list of child A-Frame entities of this scene.
 ##' @param ... components to be added to the scene.
 ##' @return An R6 object representing an A-Frame scene.
@@ -240,8 +247,10 @@ A_Scene <-
 a_scene <- function(template = "basic_map",
                     title = "A-Frame VR scene created with r2vr",
                     description = title,
+                    aframe_version = "0.8.2",
                     children = NULL,
                     ...){
   A_Scene$new(template = template, title = title,
-              description = title, children = children, ...)
+              description = title, aframe_version = aframe_version,
+              children = children, ...)
 }
