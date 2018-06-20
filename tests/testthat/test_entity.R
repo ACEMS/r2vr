@@ -276,3 +276,14 @@ test_that("a component that is a name only can be added with a blank character v
     })
   })
 })
+
+test_that("'quoted' component names are not interfered with", {
+
+  my_entity <- a_entity(`'a_hairy_yak` = "this.")
+
+  expect_equal({
+    my_entity$render()
+  },{
+    "<a-entity a_hairy_yak=\"this.\"></a-entity>\n"
+  })
+})

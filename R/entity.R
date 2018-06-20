@@ -109,8 +109,8 @@ A_Entity <-
             },
 
             render_component = function(key, value){
-              ## convert underscores('_') in keys to dashes ('-') 
-              key <- gsub( x = key, pattern = "(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])", replacement = "-", perl = TRUE)
+              ## replace underscores in names with dashes as appropriate.
+              key <- self$escape_name(key)
 
               if (is(value, "A_Asset")){
                 ## Special handling if it's an asset.
@@ -138,8 +138,7 @@ A_Entity <-
             }, # should be private
 
             render_property = function(key, value){
-              ## convert single underscores('_') in keys to dashes ('-') 
-              key <- gsub( x = key, pattern = "(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])", replacement = "-", perl = TRUE)
+              key <- self$escape_name(key)
 
               if (is(value, "A_Asset")){
                 paste0(key,": ",value$reference(),";")
@@ -157,6 +156,28 @@ A_Entity <-
                 paste0(key,": ",paste(value, collapse = " "),";")
               }
             }, # should be private
+
+            escape_name = function(key){
+              ## This function holds the rules for escaping component names and
+              ## component property keys. At present single '_' between words
+              ## are replaced with '-' as is the A-Frame convention. Some
+              ## community components do not adhere to this convention so names
+              ## entered as `'this_is_a_real_component_name` - i.e. have a
+              ## leading quote, will not be interfered with other than to have
+              ## the leading quote removed.
+              ##
+              ##  If you used a name like `'this_thing` you're saying you don't
+              ##  want entity to interfere with your underscores
+              if (substring(key, 1, 1) != "'"){
+                ## convert underscores('_') in keys to dashes ('-') 
+                key <- gsub(x = key, pattern = "(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])",
+                            replacement = "-", perl = TRUE)
+              } else {
+                ## Drop the leading quote if it existed.
+                key <- substring(key, first = 2)
+              }
+              key
+            },
 
             render_id = function(){
               if(is.null(self$id)) "" else paste0('id="',self$id,'"')
@@ -212,12 +233,17 @@ A_Entity <-
 ##' components expressed in the html. There two tricks to this: 1. components
 ##' specified in R must use an single underscore ('_') where a single dash would
 ##' appear in an A-Frame component name between words. It is converted to '-'
-##' when rendered in HTML. Double underscores and leading/trailing undescores
+##' when rendered in HTML. Double underscores and leading/trailing underscores
 ##' are not converted. 2. Components specified by name only, without any
 ##' configuration must use the form `component_name = NULL` or component_name =
 ##' "". For example: to create an A-Frame entity with the `wasd-controls`
 ##' component attached, this function would be called as
 ##' `a_entity(wasd_controls="")`.
+##'
+##' Underscore conversion is provided as a convenience to save the user wrapping
+##' many component names in ``. It can be swtiched off by supplying a "'" as the
+##' first character of a property name, e.g.: list(`'this_is_really_what_want` =
+##' "foo"). The leading "'" is stripped when rendering to HTML.
 ##'
 ##' Component configuration can be expressed in character form, e.g.
 ##' `wasd_controls = "fly: true; acceleration: 65"` in which case it is passed
