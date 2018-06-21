@@ -3,7 +3,12 @@
   [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) 
   [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/milesmcbain/r2vr?branch=master&svg=true)](https://ci.appveyor.com/project/milesmcbain/r2vr)
 
-This package helps you generate and serve A-Frame scenes. It provides a suite of objects representing A-Frame scenes, entities, and assets that can be composed using a functional R interface.
+This package allows you to write R code to define and serve WebVR scenes. 
+
+Building on top of Mozilla's [A-Frame Framework](https://aframe.io/), a suite of objects representing A-Frame scenes, entities, and assets are provided that can be composed using a functional R interface.
+
+Thanks to the power and versatility of A-Frame and WebVR, these scenes will be viewable on all major VR platforms/devices including smartphone platforms like Google Cardboard. There are also no 3D graphics related dependencies to install, since these are injected as javascript links into the WebVR scene and downloaded at run-time by viewers. 
+
 
 # Installation
 
