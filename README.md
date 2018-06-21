@@ -3,7 +3,7 @@
   [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) 
   [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/milesmcbain/r2vr?branch=master&svg=true)](https://ci.appveyor.com/project/milesmcbain/r2vr)
 
-This package allows you to write R code to define and serve WebVR scenes. 
+Compose and serve WebVR scenes using R. 
 
 Building on top of Mozilla's [A-Frame Framework](https://aframe.io/), a suite of objects representing A-Frame scenes, entities, and assets are provided that can be composed using a functional R interface.
 
@@ -41,7 +41,7 @@ text <- a_label(text = "%>% This is not js %>%",
                 position = c(0, 2.5, -2), color = "#F92CEF",
                 font = "mozillavr")
 
-sky <- a_entity(tag = "sky", color = "ECECEC")
+sky <- a_entity(tag = "sky", color = "#ECECEC")
 
 hello_world_scene <- a_scene(template = "empty",
                              children = list(box, sphere, cylinder, plane, 
