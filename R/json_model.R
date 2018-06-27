@@ -12,6 +12,9 @@
 ##' 
 ##' @title a_json_model
 ##' @param src_asset an a_asset describing a JSON file. 
+##' @param version_num A-Frame extras version number.
+##' @param smooth if true, compute normals in browser to give the model a
+##'   smoothed appearance.
 ##' @param js_sources defaults to version 4.0.2 of the JSON model loader, supply
 ##'   another version using a list here. e.g. `js_sources` =
 ##'   list("https://cdn.rawgit.com/donmccurdy/aframe-extras/<path_to_js_file>")

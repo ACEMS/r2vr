@@ -4,10 +4,16 @@
 \alias{a_json_model}
 \title{a_json_model}
 \usage{
-a_json_model(src_asset, js_sources = list(.extras_model_loader), ...)
+a_json_model(src_asset, version_num = "4.1.2", smooth = FALSE,
+  js_sources = list(), ...)
 }
 \arguments{
 \item{src_asset}{an a_asset describing a JSON file.}
+
+\item{version_num}{A-Frame extras version number.}
+
+\item{smooth}{if true, compute normals in browser to give the model a
+smoothed appearance.}
 
 \item{js_sources}{defaults to version 4.0.2 of the JSON model loader, supply
 another version using a list here. e.g. `js_sources` =
