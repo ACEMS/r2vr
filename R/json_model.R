@@ -13,27 +13,29 @@
 ##' @title a_json_model
 ##' @param src_asset an a_asset describing a JSON file. 
 ##' @param version_num A-Frame extras version number.
-##' @param smooth if true, compute normals in browser to give the model a
-##'   smoothed appearance.
 ##' @param js_sources defaults to version 4.0.2 of the JSON model loader, supply
 ##'   another version using a list here. e.g. `js_sources` =
 ##'   list("https://cdn.rawgit.com/donmccurdy/aframe-extras/<path_to_js_file>")
 ##' @param ... other components to be added to the JSON model. Passed to a_entity. 
+##' @param mesh_smooth if true, compute normals in browser to give the model a
+##'   smoothed appearance.
 ##' @return An entity object describing a JSON model.
 ##' @export
 a_json_model <- function(src_asset,
                          version_num = "4.1.2",
-                         smooth = FALSE,
+                         mesh_smooth = FALSE,
                          js_sources = list(),
                          ...){
   ## Add the model loader to any additional JS sources
   model_loader <- stringr::str_interp(.extras_model_loader)
   js_sources <- c(model_loader, js_sources)
 
-  if (smooth) {
+  if (mesh_smooth) {
     smoother <- stringr::str_interp(.extras_misc_smoother)
     js_sources <- c(smoother, js_sources)
+    a_entity(json_model = list(src = src_asset), js_sources = js_sources,
+             mesh_smooth = "", ...)
+  } else {
+    a_entity(json_model = list(src = src_asset), js_sources = js_sources, ...)
   }
-
-  a_entity(json_model = list(src = src_asset), js_sources = js_sources, ...)
 }

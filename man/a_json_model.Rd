@@ -4,7 +4,7 @@
 \alias{a_json_model}
 \title{a_json_model}
 \usage{
-a_json_model(src_asset, version_num = "4.1.2", smooth = FALSE,
+a_json_model(src_asset, version_num = "4.1.2", mesh_smooth = FALSE,
   js_sources = list(), ...)
 }
 \arguments{
@@ -12,7 +12,7 @@ a_json_model(src_asset, version_num = "4.1.2", smooth = FALSE,
 
 \item{version_num}{A-Frame extras version number.}
 
-\item{smooth}{if true, compute normals in browser to give the model a
+\item{mesh_smooth}{if true, compute normals in browser to give the model a
 smoothed appearance.}
 
 \item{js_sources}{defaults to version 4.0.2 of the JSON model loader, supply
