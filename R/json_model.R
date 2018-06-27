@@ -1,4 +1,5 @@
-.extras_model_loader <- "https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js"
+.extras_model_loader <- "https://cdn.rawgit.com/donmccurdy/aframe-extras/v${version_num}/dist/aframe-extras.loaders.min.js"
+.extras_misc_smoother <- "https://cdn.rawgit.com/donmccurdy/aframe-extras/v${version_num}/dist/aframe-extras.misc.min.js"
 
 ##  A JSON model entity for A-Frame
 ##'
@@ -18,7 +19,18 @@
 ##' @return An entity object describing a JSON model.
 ##' @export
 a_json_model <- function(src_asset,
-                         js_sources = list(.extras_model_loader),
+                         version_num = "4.1.2",
+                         smooth = FALSE,
+                         js_sources = list(),
                          ...){
+  ## Add the model loader to any additional JS sources
+  model_loader <- stringr::str_interp(.extras_model_loader)
+  js_sources <- c(model_loader, js_sources)
+
+  if (smooth) {
+    smoother <- stringr::str_interp(.extras_misc_smoother)
+    js_sources <- c(smoother, js_sources)
+  }
+
   a_entity(json_model = list(src = src_asset), js_sources = js_sources, ...)
 }
