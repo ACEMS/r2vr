@@ -13,9 +13,11 @@ A_In_Memory_Asset <-
                   if (is.list(data)){
                     if (!purrr::every(data,
                                       function(string){
-                                        is.character(string) && (length(string) == 1)
+                                        (is.character(string) && (length(string) == 1) ||
+                                         is.raw(string)
+                                        )
                                       })){
-                      stop("Every element of `data` in list form must be a length one character vector.")
+                      stop("Every element of `data` in list form must be a length one character vector, or a raw vector")
                     }
                   }
                   ## else data should be a character vector representing what would
