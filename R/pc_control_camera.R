@@ -18,10 +18,13 @@ a_pc_control_camera <- function(js_sources = list(.extras_controls),
                                 easingY = 15,
                                 acceleration = 100,
                                 ...){
-  a_entity(tag = "camera",
+  a_entity(id = "rig",
            movement_controls = list(fly = TRUE, easingY = easingY,
                                     acceleration = acceleration),
            js_sources = js_sources,
-           ...)
-
+           ...,
+           children =
+             list(
+               a_entity(camera = "", position = c(0, 1.6, 0),
+                        look_controls = list(pointerLockEnabled = TRUE))))
 }
