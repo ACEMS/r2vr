@@ -62,7 +62,10 @@ test_that("an enitity with nested components is rendered", {
 
 test_that("An entity renders it's assets", {
   entity1 <-
-    A_Entity$new(id = "tst", gltf_model = a_asset(id = "monster", src = "/inst/monster.gltf"), animation_mixer = NULL)
+    A_Entity$new(id = "tst",
+                 gltf_model = a_asset(id = "monster",
+                                      src = test_path("Kangaroo_01.gltf")),
+                 animation_mixer = NULL)
   expect_equal(
   {
     entity1$render()
@@ -93,7 +96,7 @@ test_that("An entity with a nested entity defined inline is rendered correctly."
 test_that("An entity with a nested entites with assets and js_sources exposes these correctly.", {
   my_entity1 <- a_entity(tag = "entity",
                          js_sources = list("one.js", "two.js"),
-                         material = list(src = a_asset(id = "tree", src = 'treebark.jpg'),
+                         material = list(src = a_asset(id = "tree", src = 'QUT.jpg'),
                                          color = '#FFFFFF',
                                          roughness = 1,
                                          metalness = 0),
@@ -101,7 +104,7 @@ test_that("An entity with a nested entites with assets and js_sources exposes th
                          children = list(
                            a_entity(tag = "a-plane",
                                     material = list(src = a_asset(id = "earth",
-                                                                  src ='ground.jpg')),
+                                                                  src ='BURGR.jpg')),
                                     js_sources = "three.js")
                          ))
   expect_equal(
@@ -124,7 +127,7 @@ test_that("An entity with a nested entites with assets and js_sources exposes th
       setNames(NULL)
   },
   { 
-    list("treebark.jpg", "ground.jpg")
+    list("QUT.jpg", "BURGR.jpg")
   })
 })
 

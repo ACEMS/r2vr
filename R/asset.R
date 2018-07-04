@@ -20,11 +20,12 @@ A_Asset <-
                   }
 
                   if (!is.null(parts)) {
-                    if (!is.character(parts) | !nzchar(parts)){
+                    if (!is.character(parts) | !all(nzchar(parts))){
                       stop("parts must be a character vector of files.")
                     }
                     self$parts <- parts
                   }
+
                   self$id <- id
                   self$src <- src
                   self$tag <- tag
@@ -66,6 +67,11 @@ A_Asset <-
                   ## to serve the content
                   accessors <- purrr::map2(paths, content_types,
                                            function(path, content_type){
+
+                                             if (!file.exists(path)){
+                                               stop("Error when rendering asset, file not found: ",
+                                                    path)
+                                              }
                                              if (grepl("text/", content_type)){
                                                function(){readr::read_file(path)}
                                              } else {

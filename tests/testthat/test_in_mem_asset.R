@@ -1,6 +1,6 @@
 context("test in memory ass set class")
 
-test_that("An in memory can be routed to by a scene", {
+test_that("An in memory asset can be routed to by a scene", {
 
   my_json <- readr::read_file(test_path("cube.json"))
 
