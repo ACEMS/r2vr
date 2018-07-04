@@ -14,10 +14,11 @@ route the used by the scene server for the in memory asset. The file
 extension of the is used to set the HTTP content header mime type.}
 
 \item{parts}{additional notional files referenced in the content of `data`.
-Unlike 'src' the names used here matter, e.g. if the 'src' file is a
-model that references textures, those textures need to be mapped by name.
-When `data` is a list, elements after the first are assumed to be the
-in-memory content of `parts`, matched by list position.}
+Unlike 'src' the names used here matter, e.g. if the 'src' file is a model
+that references textures, those textures need to be mapped by relative
+path inside `src` the paths provided for `parts` must be compatible with
+these. When `data` is a list, elements after the first are assumed to be
+the in-memory content of `parts`, matched by list position.}
 
 \item{...}{additional parameters passed to `a_asset()`}
 }

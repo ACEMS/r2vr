@@ -12,9 +12,11 @@ a_asset(id = "", src, parts = NULL, tag = "a-asset-item",
 
 \item{src}{the location of the asset}
 
-\item{parts}{the location(s) of files referred to in the `src` file that need
-to be served with it. Examples are `.bin` files that accompany glTF models
-or texture images that accompany `.mtl` files.}
+\item{parts}{the location(s) of files referred to in the `src` file that
+need to be served with it. Examples are `.bin` files that accompany glTF
+models or texture images that accompany `.mtl` files. These are referred
+to in 'src' by relative paths, so must reside at or below the same
+directory as `src`.}
 
 \item{tag}{the tag text to use in the asset block. Defaults to `a-asset-item`.}
 

@@ -56,7 +56,7 @@ test_that("Asset data reflects assets and parts",{
   })
 })
 
-test_that("Asset errors early when file are not found",{
+test_that("Asset errors early when file are not found", {
 
   expect_error(a_asset(id = "nofile",
                        src = "./notfound.gltf")$get_asset_data(),
@@ -67,5 +67,13 @@ test_that("Asset errors early when file are not found",{
                        parts = c(test_path("Kangaroo_01.bin"), "notfound.gltf"))$get_asset_data(),
                "Error when rendering asset, file not found.*")
 
-  })
+})
+
+test_that("Asset errors if path not below src", {
+
+  expect_error(a_asset(id = "kangaroo",
+                       src = test_path("Kangaroo_01.gltf"),
+                       parts = c(test_path("../Kangaroo_01.bin"), "notfound.gltf")),
+               "Path to part must be at or below src.*")
+})
 
