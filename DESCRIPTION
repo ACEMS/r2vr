@@ -25,5 +25,6 @@ Imports:
     fiery,
     readr,
     mime,
-    tibble
+    tibble,
+    fs
 VignetteBuilder: knitr
