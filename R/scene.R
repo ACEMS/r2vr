@@ -162,17 +162,23 @@ A_Scene <-
                   ## path, content_type, accessor
 
                   ## Add routes for each row in asset_data
-                  purrr::pwalk(asset_data, function(path, content_type, accessor){
+                  purrr::pwalk(asset_data, function(path, content_type, accessor, asset_type){
                     ## sanitise path
-                    ## remove a leading '.'
-                    path <- gsub("^\\.+", "", path)
+                    if (asset_type == "src"){
+                      ## remove a leading '.'
+                      path <- gsub("^\\.+", "", path)
 
-                    ## Ensure path starts with '/' and so is routable
-                    ## Ugly regex: replace any string of chars not equal to '/'
-                    ## at start of string with that same string of chars with
-                    ## '/' prefixed
-                    path <- gsub("(^[^/]+)", "/\\1", path)
+                      ## Ensure path starts with '/' and so is routable
+                      ## Ugly regex: replace any string of chars not equal to '/'
+                      ## at start of string with that same string of chars with
+                      ## '/' prefixed
+                      path <- gsub("(^[^/]+)", "/\\1", path)
+                    } else {
+                      ## It's an asset part. Browsers will assume the path of
+                      ## these is relative to that of src. So we need to change
+                      ## the path so file can be found.
 
+                    }
                     ## Add get route
                     asset_routes$add_handler('get', path,
                                      function(request, response, keys, ...){

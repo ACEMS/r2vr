@@ -59,6 +59,10 @@ A_Asset <-
                   ## get all paths
                   paths <- c(self$src, self$parts)
 
+                  ## create an indicator columns for type
+                  ## Source file, or part of.
+                  asset_types <- c("src", rep("part", length(self$parts)))
+
                   ## guess content type of each
                   content_types <- mime::guess_type(paths)
 
@@ -83,7 +87,8 @@ A_Asset <-
                   tibble::tibble(
                             path = paths,
                             content_type = content_types,
-                            accessor = accessors
+                            accessor = accessors,
+                            asset_type = asset_types
                           )
                 },
 
