@@ -77,3 +77,12 @@ Plotting using A-Frame community components:
 Plotting from scratch:
 
 ![](https://cdn.rawgit.com/MilesMcBain/r2vr/be604b21/vignettes/mtcars.png)
+
+## Post 'Shading Meshes in WebVR'
+https://milesmcbain.xyz/r2vr3-shading-meshes-in-webvr/
+
+Shading using a raster:
+![](https://cdn.rawgit.com/MilesMcBain/r2vr/b3f19dbf/gallery/uluru_header.png)
+
+Texturing using a Google Maps tile:
+![](https://cdn.rawgit.com/MilesMcBain/r2vr/b3f19dbf/gallery/textured_uluru.png)
