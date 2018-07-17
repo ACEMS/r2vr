@@ -77,3 +77,39 @@ test_that("Asset errors if path not below src", {
                "Path to part must be at or below src.*")
 })
 
+test_that("Assets pointing to URLs error if called upon to fetch data.",{
+
+  my_asset <- a_asset(id = "QUT",
+                      src = "https://rawgit.com/MilesMcBain/r2vr/master/tests/testthat/QUT.png")
+
+  my_box <- a_entity("box", src = my_asset)
+
+  my_scene <- a_scene(children = list(my_box))
+
+  expect_error(my_scene$serve(),
+               "An asset pointing to a URL was requested to fetch its data.")
+})
+
+test_that("A url asset can be used as a texture", {
+  my_asset <- a_asset(id = "QUT",
+                      tag = "img",
+                          src = "https://cdn.rawgit.com/MilesMcBain/r2vr/9987bbd2/tests/testthat/QUT.png")
+
+  my_cube <- a_entity("box", depth="2", height="2", width="2",
+                      position = c(0, 2, -2),
+                      src = my_asset)
+
+  my_scene <- a_scene(children = list(my_cube))
+
+  expect_success({
+    my_scene$serve()
+    my_scene$stop()
+  })
+
+  expect_equal({
+    my_asset$render()
+  },{
+    "<img id=\"QUT\" src=\"https://cdn.rawgit.com/MilesMcBain/r2vr/9987bbd2/tests/testthat/QUT.png\"></img>"
+  })
+
+})
