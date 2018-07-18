@@ -7,7 +7,7 @@
 has_url_prefix(urls)
 }
 \arguments{
-\item{url}{a character vector of urls}
+\item{urls}{a character vector of urls}
 }
 \value{
 a logical vector the same length as url.
