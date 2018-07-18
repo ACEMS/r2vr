@@ -82,11 +82,7 @@ test_that("Assets pointing to URLs error if called upon to fetch data.",{
   my_asset <- a_asset(id = "QUT",
                       src = "https://rawgit.com/MilesMcBain/r2vr/master/tests/testthat/QUT.png")
 
-  my_box <- a_entity("box", src = my_asset)
-
-  my_scene <- a_scene(children = list(my_box))
-
-  expect_error(my_scene$serve(),
+  expect_error(my_asset$get_asset_data(),
                "An asset pointing to a URL was requested to fetch its data.")
 })
 
@@ -101,9 +97,10 @@ test_that("A url asset can be used as a texture", {
 
   my_scene <- a_scene(children = list(my_cube))
 
-  expect_success({
+  expect_true({
     my_scene$serve()
     my_scene$stop()
+    TRUE
   })
 
   expect_equal({
