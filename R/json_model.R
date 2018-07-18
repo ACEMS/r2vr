@@ -11,7 +11,7 @@
 ##' The entity imports the an extenal js source for loading JSON models written by Don McCurdy. 
 ##' 
 ##' @title a_json_model
-##' @param src_asset an a_asset describing a JSON file. 
+##' @param src an a_asset describing a JSON file. 
 ##' @param version_num A-Frame extras version number.
 ##' @param js_sources defaults to version 4.0.2 of the JSON model loader, supply
 ##'   another version using a list here. e.g. `js_sources` =
@@ -21,7 +21,7 @@
 ##'   smoothed appearance.
 ##' @return An entity object describing a JSON model.
 ##' @export
-a_json_model <- function(src_asset,
+a_json_model <- function(src,
                          version_num = "4.1.2",
                          mesh_smooth = FALSE,
                          js_sources = list(),
@@ -33,9 +33,9 @@ a_json_model <- function(src_asset,
   if (mesh_smooth) {
     smoother <- stringr::str_interp(.extras_misc_smoother)
     js_sources <- c(smoother, js_sources)
-    a_entity(json_model = list(src = src_asset), js_sources = js_sources,
+    a_entity(json_model = list(src = src), js_sources = js_sources,
              mesh_smooth = "", ...)
   } else {
-    a_entity(json_model = list(src = src_asset), js_sources = js_sources, ...)
+    a_entity(json_model = list(src = src), js_sources = js_sources, ...)
   }
 }

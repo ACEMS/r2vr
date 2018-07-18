@@ -8,7 +8,7 @@ test_that("An in memory asset can be routed to by a scene", {
                              id = "cube",
                              src = "./roberto_cuberto.json")
 
-  my_model <- a_json_model(src_asset = my_asset,
+  my_model <- a_json_model(src = my_asset,
                            position = c(0, 1, -3),
                            scale = c(0.2, 0.2, 0.2))
 

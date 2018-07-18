@@ -2,7 +2,7 @@ context("test JSON model object")
 
 test_that("JSON model can render correctly and be served", {
 
-  my_model <- a_json_model(src_asset = a_asset(id = "cube", src = test_path("cube.json")),
+  my_model <- a_json_model(src = a_asset(id = "cube", src = test_path("cube.json")),
                            position = c(0,0,-2), scale = c(0.2, 0.2, 0.2))
 
   expect_equal({
@@ -41,7 +41,7 @@ test_that("JSON model can render correctly and be served", {
   my_scene$stop()
 
   my_model2 <-
-    a_json_model(src_asset = a_asset(id = "cube", src = test_path("cube.json")),
+    a_json_model(src = a_asset(id = "cube", src = test_path("cube.json")),
                  mesh_smooth = TRUE,
                  position = c(0,0,-2), scale = c(0.2, 0.2, 0.2))
 

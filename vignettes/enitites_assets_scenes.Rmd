@@ -212,7 +212,18 @@ Assests and Javascript sources are attached as arguments to components on entiti
 It creates routes in the server for all unique assets. All local assets must be below the working directory from which `serve()`` is called.
 
 ## Assets
-Assets are media like models, images, videos, sounds etc associated with A-Frame entities. In A-Frame HTML they are declared in a spcecial `<a-assets>` html block like this:
+Assets are media like models, images, videos, sounds etc associated with A-Frame
+entities. There are two ways to define assets, depending on whether the scene
+rendering should be delayed until they are loaded or not.
+
+Assets are created with the `a_asset()` function. The `src` argument references
+the asset file and can point to either a local file or a URI for a remote file.
+Only local files will be served by `r2vr` with a scene. The user's browser will fetch
+the remote files from their URIs.
+
+### Assets Required for the Scene to render 
+ In A-Frame HTML Assets that should be fetched before the scene is allowed to
+ render are declared in a special `<a-assets>` HTML block like this:
 
 ```html
 <a-scene >
@@ -230,7 +241,45 @@ The `id` property is referenced in entity component configuration where the asse
  <a-gltf-model position="2 2 -3" src="#kangaroo"></a-gltf-model>
 ```
 
-When using `r2vr` you don't have to worry about declaring assets in the `a-assets` block. That is taken care of automatically. The only concern is passing the `r2vr` asset object returned by `a_asset()` to the appropriate entity component.
+When using `r2vr` you don't have to worry about declaring assets in the
+`a-assets` block. That is taken care of automatically. The only concern is
+passing the `r2vr` asset object returned by `a_asset()` to the appropriate
+entity component, usually as `src`. For example:
+
+```r
+cube_model <- a_asset(id = "cube", src = "./cube.json")
+
+cube <- a_json_model(src = cube_model,
+                     position = c(0, 0, -2),
+                     scale = c(0.2, 0.2, 0.2))
+
+my_scene <- a_scene(children = list(cube))
+```
+
+Passing `cube_model` to `cube` sets up the link between entity and asset in the
+underlying HTML using the id "#cube", as well as adding the "cube.json" file to
+the assets block.
+
+### Assets not required for the scene to render.
+In general is recommended that all assets are loaded before the scene is rendered. This is because when an asset is loaded it can cause the scene to stutter which can contribute to VR sickness symptoms in users.
+
+It is possible to define assets in inline mode that does not delay scene rendering. This
+can be useful when changing the asset (e.g. texture) associated with some entity
+in response to a user action. If that action is unlikely, than speculatively
+fetching the asset may be inappropriate.
+
+Inline mode is just enabled with an argument to `a_asset()`:
+
+```r
+cube_model <- a_asset(id = "cube", src = "./cube.json", inline = TRUE)
+
+cube <- a_json_model(src = cube_model,
+                     position = c(0, 0, -2),
+                     scale = c(0.2, 0.2, 0.2))
+
+my_scene <- a_scene(children = list(cube))
+
+```
 
 ### Example Asset Usage
 
