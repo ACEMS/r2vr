@@ -117,6 +117,10 @@ A_Asset <-
 ##' the effect of omitting it from the <a-assets> block and inserting a direct
 ##' link into the component configuration.
 ##'
+##' Assets in the <a-assets> block are loaded before the scene is rendered. This
+##' can delay the scene at a blank white page while they are fetched. Assets
+##' defined inline do not delay scene rendering.
+##'
 ##' @title a_asset
 ##' @param id an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.
 ##' @param tag the tag text to use in the asset block. Defaults to `a-asset-item`.
