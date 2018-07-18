@@ -3,7 +3,7 @@
 ##' returns true if string matches an internal set of URL prefixes. Vectorised
 ##' over URL parameter.
 ##' @title has_url_prefix
-##' @param url
+##' @param url a character vector of urls
 ##' @return a logical vector the same length as url.
 has_url_prefix <- function(urls){
   url_prefixes <- c("^https://","^http://","^//")

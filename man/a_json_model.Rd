@@ -4,11 +4,11 @@
 \alias{a_json_model}
 \title{a_json_model}
 \usage{
-a_json_model(src_asset, version_num = "4.1.2", mesh_smooth = FALSE,
+a_json_model(src, version_num = "4.1.2", mesh_smooth = FALSE,
   js_sources = list(), ...)
 }
 \arguments{
-\item{src_asset}{an a_asset describing a JSON file.}
+\item{src}{an a_asset describing a JSON file.}
 
 \item{version_num}{A-Frame extras version number.}
 

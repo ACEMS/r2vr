@@ -37,4 +37,8 @@ in a component configuratuion. It knows how to render itself for both of
 these differnt contexts. It can also be called with `inline=TRUE` which has
 the effect of omitting it from the <a-assets> block and inserting a direct
 link into the component configuration.
+
+Assets in the <a-assets> block are loaded before the scene is rendered. This
+can delay the scene at a blank white page while they are fetched. Assets
+defined inline do not delay scene rendering.
 }
