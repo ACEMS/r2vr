@@ -136,11 +136,15 @@ A_Scene <-
                   route_stack <- routr::RouteStack$new()
                   route_stack$add_route(root_route, "root")
 
-                  ## Deal with assets
-                  if (length(self$assets) > 0){
-                    ## Generate routes for assests
+                  ## identify assests that are local and require routes
+                  routable_assets <- purrr::keep(self$assets, ~.$is_local())
+
+                  ## Deal with routable assets
+                  if (length(routable_assets) > 0){
+
+                    ## Generate routes for assests that
                     ## Compile routes in route stack
-                    purrr::walk(self$assets, function(asset){
+                    purrr::walk(routable_assets, function(asset){
                       route_stack$add_route(self$generate_asset_routes(asset), asset$id)
                     })
                   }

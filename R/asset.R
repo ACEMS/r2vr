@@ -64,6 +64,11 @@ A_Asset <-
                 get_asset_data = function(){
                   ## provide asset content to be served by scene server
 
+                  ## Asset cannot provide data if it points to a URL.
+                  if(!self$is_local()){
+                    stop("An asset pointing to a URL was requested to fetch its data.")
+                  }
+                  
                   ## get all paths
                   paths <- c(self$src, self$parts)
 
@@ -101,10 +106,14 @@ A_Asset <-
 
                 render_src = function(){
                     paste0('src="',self$src,'"')
-                } ## should be private
+                }, ## should be private
 
+              is_local = function(){
+                ## If asset points to a URL, it is not local and doesn't need to
+                ## be served and should not be called upon to fetch its data.
+                !has_url_prefix(self$src)
+              })
               )
-  )
 
 ##' Create an A-Frame asset
 ##'
