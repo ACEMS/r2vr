@@ -16,7 +16,7 @@ Suggests: testthat,
     rmarkdown,
     jsonlite,
     ggplot2
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Imports:
     stringr,
     purrr,
@@ -26,5 +26,6 @@ Imports:
     readr,
     mime,
     tibble,
-    fs
+    fs,
+    uuid
 VignetteBuilder: knitr

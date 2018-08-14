@@ -1,3 +1,7 @@
+## A global to hold references to all scenes to provide a kill-all function.
+globalVariables(c(".r2vr_all_running_scenes"), "r2vr")
+.r2vr_all_running_scenes <- new.env(parent = emptyenv())
+
 A_Scene <-
   R6::R6Class("A_Scene",
               inherit = A_Entity,
@@ -7,10 +11,12 @@ A_Scene <-
                 title = NULL,
                 description = NULL,
                 aframe_version = NULL,
+                global_id = NULL,
                 initialize = function(template = "basic_map",
                                       title = "A-Frame VR scene created with r2vr",
                                       description = title,
                                       aframe_version = "0.8.2",
+                                      js_sources = NULL,
                                       children = NULL,
                                       ...){
 
@@ -27,12 +33,14 @@ A_Scene <-
                   }
                   self$template <- readr::read_file(template_file_path)
 
+                  self$global_id <- uuid::UUIDgenerate(use.time = TRUE)
                   self$title <- title
                   self$description <- description
                   self$aframe_version <- aframe_version
 
                   ## Call constructor for A_Entity
-                  super$initialize(children = children, ...)
+                  super$initialize(js_sources = js_sources,
+                                   children = children, ...)
                 },
 
                 render = function(){
@@ -149,10 +157,25 @@ A_Scene <-
                     })
                   }
 
+                  ## identify local Javascript sources that need routes.
+                  routable_sources <- self$js_sources[!has_url_prefix(self$js_sources)]
+
+                  ## Deal with routable sources
+                  if(length(routable_sources) > 0){
+                    purrr::walk(routable_sources, function(source){
+                      assert_file_exists(source)
+                      route_stack$add_route(self$generate_source_routes(source),
+                                            name = fs::path_file(source))
+                    })
+                  }
+
                   ## Add and Serve the scene
                   self$scene <- fiery::Fire$new(...)
                   self$scene$attach(route_stack)
                   self$scene$ignite(block = FALSE)
+
+                  ## Add to pool of all running scenes
+                  self$add_to_global_pool()
 
                 },
 
@@ -168,14 +191,7 @@ A_Scene <-
                   ## Add routes for each row in asset_data
                   purrr::pwalk(asset_data, function(path, content_type, accessor){
                     ## sanitise path
-                    ## remove a leading '.'
-                    path <- gsub("^\\.+", "", path)
-
-                    ## Ensure path starts with '/' and so is routable
-                    ## Ugly regex: replace any string of chars not equal to '/'
-                    ## at start of string with that same string of chars with
-                    ## '/' prefixed
-                    path <- gsub("(^[^/]+)", "/\\1", path)
+                    path <- sanitise_route_path(path)
 
                     ## Add get route
                     asset_routes$add_handler('get', path,
@@ -200,6 +216,33 @@ A_Scene <-
                   asset_routes
                 },
 
+                generate_source_routes = function(source){
+                  source_data <- readr::read_file(source)
+                  path <- sanitise_route_path(source)
+                  message("Adding path: ", path)
+                  source_routes <- routr::Route$new()
+
+                  ## Add get route
+                  source_routes$add_handler('get', path,
+                                            function(request, response, keys, ...){
+                                              response$status <- 200L
+                                              response$type <- mime::guess_type(source)
+                                              response$body <- source_data
+                                              return(FALSE)
+                                            })
+
+                  ## Add head route
+                  source_routes$add_handler('head', path,
+                                            function(request, response, keys, ...){
+                                              response$status <- 304L
+                                              response$type <- mime::guess_type(source)
+                                              response$body <- ""
+                                              return(FALSE)
+                                            })
+
+
+                },
+
                 stop = function(){
                   if (is.null(self$scene)){
                    stop("Cannot stop serving scene. Not currently serving scene.")
@@ -207,13 +250,27 @@ A_Scene <-
                   else {
                     self$scene$extinguish()
                     self$scene <- NULL
+                    self$remove_from_global_pool()
                   }
                 },
 
                 write = function(filename){
                   scene <- self$render()
                   readr::write_file(x =scene, path = filename)
+                },
+
+                add_to_global_pool = function(){
+                  assign(x = self$global_id,
+                         value = self,
+                         envir = .r2vr_all_running_scenes)
+                },
+
+                remove_from_global_pool = function(){
+                  rm(list = self$global_id,
+                     envir = .r2vr_all_running_scenes)
                 }
+
+
               ))
 
 
@@ -244,6 +301,8 @@ A_Scene <-
 ##' @param title Title of the scene passed into the HTML
 ##' @param description meta description of the scene passed into the HTML
 ##' @param aframe_version The version of A-Frame to serve the scene with, defaults to 0.8.2  
+##' @param js_sources a character vector of javascript scources to be added to
+##'   scene html. Local sources will be served remote sources will not.
 ##' @param children a list of child A-Frame entities of this scene.
 ##' @param ... components to be added to the scene.
 ##' @return An R6 object representing an A-Frame scene.
@@ -252,9 +311,30 @@ a_scene <- function(template = "basic_map",
                     title = "A-Frame VR scene created with r2vr",
                     description = title,
                     aframe_version = "0.8.2",
+                    js_sources = NULL,
                     children = NULL,
                     ...){
   A_Scene$new(template = template, title = title,
               description = title, aframe_version = aframe_version,
+              js_sources = js_sources,
               children = children, ...)
+}
+
+##' Kill all running A-Frame Scenes
+##'
+##' Frequently in development you may accidentally loose a handle to a running
+##' scene, meaning it will block a port you wish to run a new scene on. This
+##' kills all running scenes to free up all ports being used to serve by r2vr.
+##'
+##' @title a_kill_all_scenes
+##' @return nothing.
+##' @export
+a_kill_all_scenes <- function(){
+  active_scenes <- ls(envir = .r2vr_all_running_scenes)
+
+  purrr::map(active_scenes, function(scene){
+    aframe_scene <- get(scene, envir = .r2vr_all_running_scenes)
+    aframe_scene$stop()
+  })
+
 }

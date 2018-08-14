@@ -6,7 +6,7 @@
 \usage{
 a_scene(template = "basic_map",
   title = "A-Frame VR scene created with r2vr", description = title,
-  aframe_version = "0.8.2", children = NULL, ...)
+  aframe_version = "0.8.2", js_sources = NULL, children = NULL, ...)
 }
 \arguments{
 \item{template}{A name of a built in template or a path to a custom html template.}
@@ -16,6 +16,9 @@ a_scene(template = "basic_map",
 \item{description}{meta description of the scene passed into the HTML}
 
 \item{aframe_version}{The version of A-Frame to serve the scene with, defaults to 0.8.2}
+
+\item{js_sources}{a character vector of javascript scources to be added to
+scene html. Local sources will be served remote sources will not.}
 
 \item{children}{a list of child A-Frame entities of this scene.}
 
