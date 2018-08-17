@@ -1,0 +1,55 @@
+---
+title: "Communicating between R and WebVR sessions"
+author: "Miles McBain"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## WebVR Side
+The scene needs to have a web socket and some associated handler functions.
+
+The following file can be attached to the scene as a `js_source`:
+
+```
+var ws = new WebSocket("ws://localhost:8080");
+
+ws.onopen = function() {
+  ws.send(JSON.stringify({init: true}));
+}
+
+ws.onmessage = function(msg) {
+  // var data0 = JSON.parse(msg.data);
+  console.log(msg);
+}
+```
+Ideally the onmessage handler would route the message to an entity based on id, or the top level scene.
+
+## R Side
+
+```{r}
+library(r2vr)
+
+box <- a_entity("box",
+                position = c(0, 1, -1),
+                material = list(color = "red"))
+
+my_scene <- a_scene(template = "basic",
+                    js_sources = testthat::test_path("ws_test.js"),
+                    children = list(box))
+
+my_scene$serve()
+
+
+my_scene$scene$send(message = "hello")
+
+a_kill_all_scenes()
+```
+

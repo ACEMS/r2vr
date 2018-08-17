@@ -130,7 +130,14 @@ A_Scene <-
                   ## Render Scene
                   scene_html <- self$render()
 
-                  ## Create route for scene
+                  ## Instantiate a server for the scene
+                  self$scene <- fiery::Fire$new(...)
+
+                  ## Instaniate a http route stack to contain http routes.
+                  route_stack <- routr::RouteStack$new()
+
+                  ## Create http routes for scene server
+                  ## Add route route.
                   root_route <- routr::Route$new()
                   root_route$add_handler('get', '/',
                                          function(request, response, keys, ...){
@@ -139,29 +146,29 @@ A_Scene <-
                                            response$body <- scene_html
                                            return(FALSE)
                                          })
-
-                  ## Create a route stack and add scene
-                  route_stack <- routr::RouteStack$new()
                   route_stack$add_route(root_route, "root")
 
-                  ## identify assests that are local and require routes
+                  ## identify assests that are local and require http routes
                   routable_assets <- purrr::keep(self$assets, ~.$is_local())
 
                   ## Deal with routable assets
                   if (length(routable_assets) > 0){
 
-                    ## Generate routes for assests that
-                    ## Compile routes in route stack
+                    ## Generate routes for assests
+                    ## add routes into http route stack
                     purrr::walk(routable_assets, function(asset){
                       route_stack$add_route(self$generate_asset_routes(asset), asset$id)
                     })
                   }
 
-                  ## identify local Javascript sources that need routes.
+                  ## identify local Javascript sources that need http routes.
                   routable_sources <- self$js_sources[!has_url_prefix(self$js_sources)]
 
                   ## Deal with routable sources
                   if(length(routable_sources) > 0){
+
+                    ## generate routes to sources
+                    ## add to route stack.
                     purrr::walk(routable_sources, function(source){
                       assert_file_exists(source)
                       route_stack$add_route(self$generate_source_routes(source),
@@ -169,9 +176,31 @@ A_Scene <-
                     })
                   }
 
-                  ## Add and Serve the scene
-                  self$scene <- fiery::Fire$new(...)
+                  ## Add http route stack to the scene
                   self$scene$attach(route_stack)
+
+                  ## Create a route stack for websocket traffic
+                  ws_stack <- routr::RouteStack$new(
+                                                  path_extractor = function(msg, bin)
+                                                  {"/r2vrws"})
+
+                  ## setup the route stack to handle ws messages
+                  ws_stack$attach_to <- "message"
+
+                  ## Create a route and add to stack
+                  ws_route <- routr::Route$new()
+                  ws_route$add_handler('all', '/r2vrws',
+                                       function(request, response, keys, ...){
+                                         message("got a ws message: ", request$body)
+                                         return(FALSE)
+                                         self$scene$send("Got it!")
+                                       })
+                  ws_stack$add_route(ws_route, "ws_endpoint")
+
+                  ## Add ws route stack to the scene
+                  self$scene$attach(ws_stack)
+
+                  ## Start serving
                   self$scene$ignite(block = FALSE)
 
                   ## Add to pool of all running scenes
@@ -219,7 +248,6 @@ A_Scene <-
                 generate_source_routes = function(source){
                   source_data <- readr::read_file(source)
                   path <- sanitise_route_path(source)
-                  message("Adding path: ", path)
                   source_routes <- routr::Route$new()
 
                   ## Add get route
