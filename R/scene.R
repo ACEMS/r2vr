@@ -12,6 +12,7 @@ A_Scene <-
                 description = NULL,
                 aframe_version = NULL,
                 global_id = NULL,
+                ws_message_hooks = list(),
                 initialize = function(template = "basic_map",
                                       title = "A-Frame VR scene created with r2vr",
                                       description = title,
@@ -179,26 +180,26 @@ A_Scene <-
                   ## Add http route stack to the scene
                   self$scene$attach(route_stack)
 
-                  ## Create a route stack for websocket traffic
-                  ws_stack <- routr::RouteStack$new(
-                                                  path_extractor = function(msg, bin)
-                                                  {"/r2vrws"})
 
-                  ## setup the route stack to handle ws messages
-                  ws_stack$attach_to <- "message"
+                  ## setup the app to handle ws messages
+                  self$scene$on('message', function(server,
+                                                    id,
+                                                    binary,
+                                                    message,
+                                                    request,
+                                                    arg_list){
+                    ## Only bother parsing message if hooks are present
+                    if(length(self$ws_message_hooks) == 0) return(NULL)
 
-                  ## Create a route and add to stack
-                  ws_route <- routr::Route$new()
-                  ws_route$add_handler('all', '/r2vrws',
-                                       function(request, response, keys, ...){
-                                         message("got a ws message: ", request$body)
-                                         return(FALSE)
-                                         self$scene$send("Got it!")
-                                       })
-                  ws_stack$add_route(ws_route, "ws_endpoint")
+                    if(binary) stop("recieved a binary websocket payload. I cannot deparse.")
 
-                  ## Add ws route stack to the scene
-                  self$scene$attach(ws_stack)
+                    message_JSON <- jsonlite::toJSON(message, auto_unbox =  TRUE)
+
+                    ## Walk all the attached hooks calling with the message and sender id.
+                    purrr::walk(self$ws_message_hooks, ~.x(message = message_JSON,
+                                                           id = id))
+                    return(NULL)
+                  })
 
                   ## Start serving
                   self$scene$ignite(block = FALSE)
@@ -296,6 +297,16 @@ A_Scene <-
                 remove_from_global_pool = function(){
                   rm(list = self$global_id,
                      envir = .r2vr_all_running_scenes)
+                },
+
+                attach_ws_msg_hook = function(handler){
+                  ## Assert handler(message, client_id)
+                  if(!is_ws_handler_fn(handler))
+                    stop("Websocket message handlers can only have two arguments: message, id")
+
+                  handler_id <- uuid::UUIDgenerate(use.time = TRUE)
+                  self$ws_message_hooks[[handler_id]] <- handler
+                  handler_id
                 }
 
 
@@ -328,7 +339,7 @@ A_Scene <-
 ##' @param template A name of a built in template or a path to a custom html template.
 ##' @param title Title of the scene passed into the HTML
 ##' @param description meta description of the scene passed into the HTML
-##' @param aframe_version The version of A-Frame to serve the scene with, defaults to 0.8.2  
+##' @param aframe_version The version of A-Frame to serve the scene with, defaults to 0.8.2
 ##' @param js_sources a character vector of javascript scources to be added to
 ##'   scene html. Local sources will be served remote sources will not.
 ##' @param children a list of child A-Frame entities of this scene.

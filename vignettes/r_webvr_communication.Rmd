@@ -37,19 +37,34 @@ Ideally the onmessage handler would route the message to an entity based on id, 
 ```{r}
 library(r2vr)
 
-box <- a_entity("box",
+sources <- a_entity(js_sources = c("https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js",
+                                   testthat::test_path("event_routr.js")) )
+
+box <- a_entity("box", id = "block",
                 position = c(0, 1, -1),
-                material = list(color = "red"))
+                material = list(color = "red"),
+                event_set__1 = list(`_event` = "switch_colour", material.color = "blue"))
 
 my_scene <- a_scene(template = "basic",
-                    js_sources = testthat::test_path("ws_test.js"),
-                    children = list(box))
+                    children = list(box, sources),
+                    ws_event_router = NULL)
 
 my_scene$serve()
 
+test_event <- list(id = "block", message = list(eventName = "switch_colour",
+                                  eventDetail = "any",
+                                  bubbles = FALSE))
 
-my_scene$scene$send(message = "hello")
+my_scene$scene$send(jsonlite::toJSON(test_event, auto_unbox = TRUE))
+
+
+#try adding own handlers
+my_scene$attach_ws_msg_hook(function(message, id){
+  print(id)
+  print(message)
+})
 
 a_kill_all_scenes()
 ```
+
 

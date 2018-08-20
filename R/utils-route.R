@@ -9,3 +9,8 @@ sanitise_route_path <- function(path){
   path <- gsub("(^[^/]+)", "/\\1", path)
   path
 }
+
+is_ws_handler_fn <- function(handler){
+  # The setdiff will be an empty vector if handler contains only message, id.
+  length(setdiff(formalArgs(handler), c("message", "id"))) == 0
+}
