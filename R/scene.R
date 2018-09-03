@@ -34,6 +34,7 @@ A_Scene <-
                   }
                   self$template <- readr::read_file(template_file_path)
 
+
                   self$global_id <- uuid::UUIDgenerate(use.time = TRUE)
                   self$title <- title
                   self$description <- description
@@ -307,9 +308,12 @@ A_Scene <-
                   handler_id <- uuid::UUIDgenerate(use.time = TRUE)
                   self$ws_message_hooks[[handler_id]] <- handler
                   handler_id
+                },
+
+                send_messages = function(messages, ...){
+                  ## ... is further args passed to Fire::send(message, id) 
+                  self$scene$send(jsonlite::toJSON(messages, auto_unbox = TRUE), ...)
                 }
-
-
               ))
 
 
@@ -343,6 +347,9 @@ A_Scene <-
 ##' @param js_sources a character vector of javascript scources to be added to
 ##'   scene html. Local sources will be served remote sources will not.
 ##' @param children a list of child A-Frame entities of this scene.
+##' @param websocket TRUE if this scene should try to connect to its server with
+##'   a websocket connection when served. This can be used to pass messages
+##'   containing aframe events or entity updates from R to VR.
 ##' @param ... components to be added to the scene.
 ##' @return An R6 object representing an A-Frame scene.
 ##' @export
@@ -352,11 +359,19 @@ a_scene <- function(template = "basic_map",
                     aframe_version = "0.8.2",
                     js_sources = NULL,
                     children = NULL,
+                    websocket = FALSE,
                     ...){
-  A_Scene$new(template = template, title = title,
-              description = title, aframe_version = aframe_version,
-              js_sources = js_sources,
-              children = children, ...)
+  scene_args <- list(template = template, title = title,
+                     description = title, aframe_version = aframe_version,
+                     js_sources = js_sources,
+                     children = children, ...)
+  if(websocket){
+    ## If websocket desired, add the local js source.
+    scene_args$js_sources <- c(scene_args$js_sources,
+                    system.file("libs/r2vr_components.js", package = "r2vr"))
+    scene_args$r2vr_message_router = list()
+  }
+  do.call(A_Scene$new, scene_args)
 }
 
 ##' Kill all running A-Frame Scenes

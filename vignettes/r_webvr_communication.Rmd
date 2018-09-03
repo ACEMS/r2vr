@@ -14,21 +14,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## WebVR Side
-The scene needs to have a web socket and some associated handler functions.
+The scene needs to have a web socket and some associated handler functions. 
 
-The following file can be attached to the scene as a `js_source`:
 
 ```
-var ws = new WebSocket("ws://localhost:8080");
-
-ws.onopen = function() {
-  ws.send(JSON.stringify({init: true}));
-}
-
-ws.onmessage = function(msg) {
-  // var data0 = JSON.parse(msg.data);
-  console.log(msg);
-}
 ```
 Ideally the onmessage handler would route the message to an entity based on id, or the top level scene.
 
@@ -37,26 +26,31 @@ Ideally the onmessage handler would route the message to an entity based on id, 
 ```{r}
 library(r2vr)
 
-sources <- a_entity(js_sources = c("https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js",
-                                   testthat::test_path("event_routr.js")) )
+sources <- a_entity(js_sources = c("https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js") )
 
 box <- a_entity("box", id = "block",
-                position = c(0, 1, -1),
+                position = c(0, 1, -4),
                 material = list(color = "red"),
-                event_set__1 = list(`_event` = "switch_colour", material.color = "blue"))
+                event_set__1 = list(`_event` = "switch_colour", material.color = "blue"),
+                event_set__2 = list(`_event` = "rotate", rotation = c(0, 45, 0)))
 
 my_scene <- a_scene(template = "basic",
                     children = list(box, sources),
-                    ws_event_router = NULL)
+                    websocket = TRUE)
 
 my_scene$serve()
 
-test_event <- list(id = "block", message = list(eventName = "switch_colour",
-                                  eventDetail = "any",
-                                  bubbles = FALSE))
+test_event <- list(a_event(id = "block",
+                           event_name = "switch_colour",
+                           event_detail = "any",
+                           bubbles = FALSE),
+                   a_event(id = "block",
+                           event_name = "rotate",
+                           event_detail = "any",
+                           bubbles = FALSE)
+                   )
 
-my_scene$scene$send(jsonlite::toJSON(test_event, auto_unbox = TRUE))
-
+my_scene$send_events(test_event)
 
 #try adding own handlers
 my_scene$attach_ws_msg_hook(function(message, id){
@@ -66,5 +60,6 @@ my_scene$attach_ws_msg_hook(function(message, id){
 
 a_kill_all_scenes()
 ```
+
 
 
