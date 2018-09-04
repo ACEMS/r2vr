@@ -50,7 +50,16 @@ test_event <- list(a_event(id = "block",
                            bubbles = FALSE)
                    )
 
-my_scene$send_events(test_event)
+my_scene$send_messages(test_event)
+
+test_update <- list(a_update(id = "block",
+                             component = "position",
+                             attributes = list(x = 0, y = 0, z = -4)),
+                    a_update(id = "block",
+                             component = "color",
+                             attributes = "green"))
+
+my_scene$send_messages(test_update)
 
 #try adding own handlers
 my_scene$attach_ws_msg_hook(function(message, id){
@@ -59,7 +68,7 @@ my_scene$attach_ws_msg_hook(function(message, id){
 })
 
 a_kill_all_scenes()
-```
 
+```
 
 

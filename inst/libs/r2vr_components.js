@@ -36,7 +36,7 @@ AFRAME.registerComponent('r2vr-message-router', {
 
         //notify that the connection was opened.
         ws.onopen = function(){
-            console.log('ws-event-router: Established connection with server session.')
+            console.log('r2vr-message-router: Established connection with server session.')
         }
 
         //setup incoming channel.
@@ -52,7 +52,7 @@ AFRAME.registerComponent('r2vr-message-router', {
                 var target = sceneEl.querySelector("#" + r2vr_message.id);
 
                 if (target === null){
-                    throw new Error("ws-event-router received a message for entity with id '" +
+                    throw new Error("r2vr-message-router received a message for entity with id '" +
                                     target + "', but no entity with this id was found.");
                 }
 
@@ -61,15 +61,19 @@ AFRAME.registerComponent('r2vr-message-router', {
                     target.emit(r2vr_message.message.eventName,
                                 r2vr_message.message.eventDetail,
                                 r2vr_message.message.bubbles);
-                } else if (r2vr_message == "update"){
+                }
+                else if (r2vr_message.class == "update"){
                     // core properties should be set at three.js level
                     // as advised in: https://github.com/aframevr/aframe/blob/master/docs/introduction/javascript-events-dom-apis.md
                     // You would write custom message handler if you need this
                     // level of performance.
 
-                    target.setAttribute(message.component,
-                                        message.attributes,
-                                        message.replaces_component)
+                    target.setAttribute(r2vr_message.component,
+                                        r2vr_message.attributes,
+                                        r2vr_message.replaces_component)
+                }
+                else{
+                    throw new Error("r2vr-message-router received a message of unknown class.")
                 }
             });
 
