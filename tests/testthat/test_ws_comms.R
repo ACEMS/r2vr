@@ -28,13 +28,12 @@ test_that("A websocketed scene can resolve r2vr event messages",
                      )
 
   my_scene$serve()
-  p <- processx::process$new("chromium-browser",
-                   c("--new-window","http://localhost:8080"))
-
-  my_scene$send_messages(test_event)
 
   my_scene$stop()
+  a_kill_all_scenes()
+
   
+
 })
 
 test_that("A websocketed scene can resolve r2vr update messages", {
