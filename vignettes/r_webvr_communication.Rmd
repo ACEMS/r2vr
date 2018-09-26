@@ -13,16 +13,35 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## WebVR Side
-The scene needs to have a web socket and some associated handler functions. 
+A live connection between an R session and a running scene being served by
+`r2vr` is supported using a websocket API. This allows novel usage scenarios including:
+* An 'operator' triggering events for a scene viewer using the R console 
+  - Alternately using controls laid out in a html widget or shiny app.
+* Streaming of data from R to VR scenes could be used create animations or
+  dynamic visualisations
 
+The communication layer is full duplex, meaning it is possible for events
+triggered in VR to be relayed to the R session. When the websocket API is
+enabled, the `scene` element has an event handler attached for events of type 'r_server_message'. 'r_server_message' events are passed to the R server.
 
-```
-```
 Ideally the onmessage handler would route the message to an entity based on id, or the top level scene.
 
-## R Side
+# Examples
 
+## A console controlled VR slide show
+
+For this example we'll add some 360 photos to a scene and allow them to be stepped through by a console operator.
+
+The images are hosted in an external GitHub repository: https://github.com/MilesMcBain/360_image_examples. The code below reads them directly from there.
+
+```{r}
+
+```
+## Streaming particle positions
+
+## Notifications from VR
+
+## Old
 ```{r}
 library(r2vr)
 
