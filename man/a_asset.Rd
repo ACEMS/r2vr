@@ -41,4 +41,9 @@ link into the component configuration.
 Assets in the <a-assets> block are loaded before the scene is rendered. This
 can delay the scene at a blank white page while they are fetched. Assets
 defined inline do not delay scene rendering.
+
+Assets can be located on local disk, or at remote URLs. The asset
+declaration will examine the `src` parameter to see if it conforms to known
+URL conventions. If so r2vr will not attempt to serve the asset, but it will
+generate the required references to is in the output scene.
 }
