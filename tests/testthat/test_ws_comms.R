@@ -14,8 +14,9 @@ test_that("A websocketed scene can resolve r2vr event messages",
 
   my_scene <- a_scene(template = "basic",
                       children = list(box, sources),
-                      websocket = TRUE)
+                      websocket = FALSE)
 
+  my_scene$write("~/Documents/test_scene.html")
 
   test_event <- list(a_event(id = "block",
                              event_name = "switch_colour",
@@ -27,10 +28,26 @@ test_that("A websocketed scene can resolve r2vr event messages",
                              bubbles = FALSE)
                      )
 
-  my_scene$serve()
+   my_scene$serve()
 
-  my_scene$stop()
-  a_kill_all_scenes()
+   test_session <-
+     chradle::chr_init(url = "http://localhost:8080",
+              debug_port = 9222,
+              bin = "google-chrome-unstable",
+              block_on_message_pattern = "r2vr-message-router",
+              incomming_debug = TRUE)
+                                        # Sys.sleep(20)
+
+  session_state <-
+     chradle::chr_call(test_session, chradle::get_attribute_names(id = "block"))
+
+  session_state
+
+  chradle::chr_kill(test_session)
+   chradle::chr_clean()
+
+   my_scene$stop()
+   a_kill_all_scenes()
 
   
 
