@@ -136,8 +136,10 @@ A_Asset <-
 ##' generate the required references to is in the output scene.
 ##'
 ##' @title a_asset
-##' @param id an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.
-##' @param tag the tag text to use in the asset block. Defaults to `a-asset-item`.
+##' @param id an an id to be used by the asset item in the asset block. #id will
+##'   be used to refernce the asset in component configuratuion.
+##' @param tag the tag text to use in the asset block. Defaults to
+##'   `a-asset-item`. Another common choices is "img" for images.
 ##' @param src the location of the asset
 ##' @param parts the location(s) of files referred to in the `src` file that
 ##'   need to be served with it. Examples are `.bin` files that accompany glTF
