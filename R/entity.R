@@ -8,7 +8,7 @@ A_Entity <-
             tag = NULL,
             id = NULL,
             initialize = function(tag = "entity", js_sources = NULL, id = NULL,
-                                  children = NULL, ...){
+                                  children = NULL, .assets = NULL, ...){
               components <- list(...)
               self$tag <- tag
               self$components <- list(...)
@@ -19,7 +19,13 @@ A_Entity <-
                 self$add_js_sources(js_sources)
               }
 
-              ## fetch and add assets
+              ## check assets supplied in .assets are all asset objects
+              if(!purrr::every(.assets, ~is(., "A_Asset"))){
+                stop("all elements of .assets must be asset objects created with a_asset()")
+              }
+              self$assets <- .assets
+
+              ## fetch and add assets added in components
               self$add_assets(self$find_assets())
 
               ## Add children. It's imporant to do this after settting up assets
@@ -267,6 +273,7 @@ A_Entity <-
 ##' @return A_Entity object
 ##' @export
 a_entity <- function(tag = "entity", js_sources = NULL, id = NULL,
-                     children = NULL, ...){
-  A_Entity$new(tag = tag, js_sources = js_sources, id = id, children = children, ...)
+                     children = NULL, .assets, ...){
+  A_Entity$new(tag = tag, js_sources = js_sources, id = id, children = children,
+               .assets = .assets, ...)
 }
