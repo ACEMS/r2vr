@@ -1,4 +1,4 @@
-##' Build an A-Frame Event 
+##' Build an A-Frame Event Message
 ##'
 ##' Construct an A-Frame event to be sent to a scene in browser, using a
 ##' websocket connection. When the event is received by a scene with an active
