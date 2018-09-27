@@ -28,15 +28,72 @@ Ideally the onmessage handler would route the message to an entity based on id, 
 
 # Examples
 
-## A console controlled VR slide show
+## A console controlled 360 image slide show
 
 For this example we'll add some 360 photos to a scene and allow them to be stepped through by a console operator.
 
 The images are hosted in an external GitHub repository: https://github.com/MilesMcBain/360_image_examples. The code below reads them directly from there.
 
+### Scene setup
+
+The following code creates asset objects from a list of supplied URLs, and then
+sets up a scene containing a 'sky' sphere entity, `canvas_360`, that we can set
+the internal texture of using its `src` component. The internal texture is
+initially set to the first of the images.
+
+```{r}
+library(r2vr)
+library(purrr)
+
+img_urls <- c("https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0382.jpg",
+              "https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0384.jpg",
+              "https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0385.jpg",
+              "https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0387.jpg")
+
+img_ids <- paste0("360img", seq(length(img_urls)))
+
+img_assets <- map2(img_ids, img_urls, ~a_asset(id = .x,
+                                               src = .y,
+                                               tag = "img"))
+
+canvas_360 <- a_entity(tag = "sky",
+                       id = "canvas360",
+                       position = c(0, 0, 0),
+                       src = img_assets[[1]]
+                       )
+
+the_scene <- a_scene(title = "A 360 image slideshow",
+                     template = "empty",
+                     children = list(canvas_360),
+                     websocket = TRUE) ## Enable coms with R server
+
+the_scene$serve()
+```
+
+### Control from R
+With the scene running we now turn our attention to writing an 'advance()' function that we can call to advance to the next image in the list.
+
 ```{r}
 
+img_index <- 2
+n_images <- length(img_ids)
+
+advance <- function(){
+    current_index <- img_index
+    img_index <<- ifelse(test = img_index == n_images,
+                         yes = 1,
+                         no = img_index + 1)
+
+    the_scene$send_messages(list(
+                a_update(id = "canvas360",
+                         component = "src",
+                         attributes = img_assets[[current_index]]$reference())
+              ))
+    message("Now showing: ", img_assets[[current_index]]) 
+  }
+
 ```
+
 ## Streaming particle positions
 
 ## Notifications from VR
