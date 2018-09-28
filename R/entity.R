@@ -273,7 +273,7 @@ A_Entity <-
 ##' @return A_Entity object
 ##' @export
 a_entity <- function(tag = "entity", js_sources = NULL, id = NULL,
-                     children = NULL, .assets, ...){
+                     children = NULL, .assets = NULL, ...){
   A_Entity$new(tag = tag, js_sources = js_sources, id = id, children = children,
                .assets = .assets, ...)
 }

@@ -290,3 +290,95 @@ test_that("'quoted' component names are not interfered with", {
     "<a-entity a_hairy_yak=\"this.\"></a-entity>\n"
   })
 })
+
+test_that("Assets passed in .assets are added to entity's assets, and passed to scene.", {
+
+  my_entity <- a_entity(model = a_asset(id = "cube",
+                                        src = test_path("cube.json")),
+                        .assets = list(a_asset(id = "kangaroo",
+                                               src = test_path("kangaroo_01.gltf"),
+                                               parts = test_path("Kangaroo_01.bin")),
+                                       a_asset(id = "QUT",
+                                               tag = "img",
+                                               src = test_path("QUT.png")))
+                        )
+
+  asset_srcs <-
+    my_entity$assets %>%
+    purrr::map(~.$src)
+
+    expect_true({
+      length(
+        setdiff(asset_srcs,
+                list(test_path("cube.json"),
+                     test_path("kangaroo_01.gltf"),
+                     test_path("QUT.png"))
+                )) == 0
+    })
+
+    my_scene <-
+      a_scene(template = "empty",
+              children = list(my_entity))
+
+    asset_srcs <-
+      my_scene$assets %>%
+      purrr::map(~.$src)
+
+      expect_true({
+        length(
+          setdiff(asset_srcs,
+                  list(test_path("cube.json"),
+                       test_path("kangaroo_01.gltf"),
+                       test_path("QUT.png"))
+                  )) == 0
+      })
+
+})
+
+
+
+test_that("A Scene only collects unique combinations of asset src and id.", {
+
+  my_entity <- a_entity(model = a_asset(id = "cube",
+                                        src = test_path("cube.json")),
+                        .assets = list(a_asset(id = "kangaroo",
+                                               src = test_path("kangaroo_01.gltf"),
+                                               parts = test_path("Kangaroo_01.bin")),
+                                       a_asset(id = "QUT",
+                                               tag = "img",
+                                               src = test_path("QUT.png")))
+                        )
+
+  ## QUT2 points to the same file as QUT but has a different id and should be kept.
+  ## kangaroo points the same file and has the same id, so should be deduped by scene.
+  my_scene <-
+    a_scene(template = "empty",
+            children = list(my_entity),
+            .assets = list(a_asset(id = "kangaroo",
+                                   src = test_path("kangaroo_01.gltf"),
+                                   parts = test_path("Kangaroo_01.bin")),
+                           a_asset(id = "QUT2",
+                                   tag = "img",
+                                   src = test_path("QUT.png"))))
+
+  asset_srcs <-
+    my_scene$assets %>%
+    purrr::map(~.$src)
+
+    duplicated_srcs <-  
+      asset_srcs[duplicated(asset_srcs)]
+
+    expect_true({
+     (length(duplicated_srcs) == 1) & (duplicated_srcs[[1]] == test_path("QUT.png"))
+    })
+
+    expect_true({
+      length(
+        setdiff(asset_srcs,
+                list(test_path("cube.json"),
+                     test_path("kangaroo_01.gltf"),
+                     test_path("QUT.png"))
+              )) == 0
+    })
+
+})
