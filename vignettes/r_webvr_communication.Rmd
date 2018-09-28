@@ -22,17 +22,22 @@ A live connection between an R session and a running scene being served by
 
 The communication layer is full duplex, meaning it is possible for events
 triggered in VR to be relayed to the R session. When the websocket API is
-enabled, the `scene` element has an event handler attached for events of type 'r_server_message'. 'r_server_message' events are passed to the R server.
+enabled, the `scene` element has an event handler attached for A-Frame events of type
+'r_server_message'. 'r_server_message' events are passed to the R server.
 
-Ideally the onmessage handler would route the message to an entity based on id, or the top level scene.
+Ideally the onmessage handler would route the message to an entity based on id,
+or the top level scene.
 
 # Examples
 
 ## A console controlled 360 image slide show
 
-For this example we'll add some 360 photos to a scene and allow them to be stepped through by a console operator.
+For this example we'll add some 360 photos to a scene and allow them to be
+stepped through by a console operator.
 
-The images are hosted in an external GitHub repository: https://github.com/MilesMcBain/360_image_examples. The code below reads them directly from there.
+The images are hosted in an external GitHub repository:
+https://github.com/MilesMcBain/360_image_examples. The code below reads them
+directly from there.
 
 ### Scene setup
 
@@ -41,7 +46,7 @@ sets up a scene containing a 'sky' sphere entity, `canvas_360`, that we can set
 the internal texture of using its `src` component. The internal texture is
 initially set to the first of the images.
 
-```{r}
+```{r eval = FALSE}
 library(r2vr)
 library(purrr)
 
@@ -59,7 +64,8 @@ img_assets <- map2(img_ids, img_urls, ~a_asset(id = .x,
 canvas_360 <- a_entity(tag = "sky",
                        id = "canvas360",
                        position = c(0, 0, 0),
-                       src = img_assets[[1]]
+                       src = img_assets[[1]], ## src is the inital texture asset
+                       .assets = img_assets   ## these are the assets we will change to
                        )
 
 the_scene <- a_scene(title = "A 360 image slideshow",
@@ -70,16 +76,19 @@ the_scene <- a_scene(title = "A 360 image slideshow",
 the_scene$serve()
 ```
 
+The images in this scene have a combined size of about ~25mb, so the scene will
+need some time to load.
+
 ### Control from R
-With the scene running we now turn our attention to writing an 'advance()' function that we can call to advance to the next image in the list.
+With the scene running we now turn our attention to writing an 'advance()'
+function that we can call to advance to the next image in the list.
 
-```{r}
+```{r eval = FALSE}
 
-img_index <- 2
+img_index <- 1
 n_images <- length(img_ids)
 
 advance <- function(){
-    current_index <- img_index
     img_index <<- ifelse(test = img_index == n_images,
                          yes = 1,
                          no = img_index + 1)
@@ -87,12 +96,15 @@ advance <- function(){
     the_scene$send_messages(list(
                 a_update(id = "canvas360",
                          component = "src",
-                         attributes = img_assets[[current_index]]$reference())
+                         attributes = img_assets[[img_index]]$reference())
               ))
-    message("Now showing: ", img_assets[[current_index]]) 
+    message("Now showing: ", img_assets[[img_index]]$id) 
   }
 
 ```
+
+Calling `advance()` will trigger a transition to the next image. It should
+transition instantly since all assets are loaded prior to the scene being shown.
 
 ## Streaming particle positions
 
@@ -148,3 +160,7 @@ a_kill_all_scenes()
 ```
 
 
+
+## Local Variables:
+## ess-r-package--project-cache: (r2vr . "/home/miles/repos/r2vr/")
+## End:
