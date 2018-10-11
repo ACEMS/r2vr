@@ -136,15 +136,16 @@ the_scene <- a_scene(children = list(island, water),
 
 the_scene$serve()
 
+
 sea_level <- function(level){
-  the_scene$send_messages(list(a_update(id = "water",
-                                   component = "position",
-                                   attributes = c(x = 0, y = level, z = 0))))
+  the_scene$send_messages(list(
+              a_update(id ="water",
+                       component = "position",
+                       attributes = list(x = 0, y = level, z = 0))
+            ))
 }
 
-sea_level(10)
-
-
+sea_level(0)
 
 a_kill_all_scenes()
 
