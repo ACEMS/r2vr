@@ -45,10 +45,10 @@ initially set to the first of the images.
 library(r2vr)
 library(purrr)
 
-img_urls <- c("https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0382.jpg",
-              "https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0384.jpg",
-              "https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0385.jpg",
-              "https://cdn.rawgit.com/MilesMcBain/360_image_examples/3f9478cba6db12b425398102ab8d18e0a471f811/SAM_100_0387.jpg")
+img_urls <-  c("https://ucarecdn.com/6cce6743-cfaa-4258-a93b-240e912c1ecc/",
+               "https://ucarecdn.com/f2595d03-1a21-4ef8-9c07-6ef9a4972be7/",
+               "https://ucarecdn.com/2f5030e8-a3c0-4045-ad84-a96ea25dfab0/",
+               "https://ucarecdn.com/ef0090e4-703e-4edd-9527-42853eed9cfb/")
 
 img_ids <- paste0("360img", seq(length(img_urls)))
 
