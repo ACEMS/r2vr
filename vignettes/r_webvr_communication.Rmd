@@ -94,7 +94,50 @@ advance <- function(){
 
 ```
 
-## Streaming particle positions
+## Streaming Position Data
+
+In this scene we're going to look at streaming sea level height from R to a scene containing an island.
+
+```{r}
+library(r2vr)
+island_model <- a_asset(id = "island",
+                  src = "https://cdn.glitch.com/7cadb230-57b2-4aae-9de9-e60de097035e%2Fisland.gltf?1510323826393")
+
+island <- a_entity(gltf_model = island_model,
+                   scale = c(0.5, 0.5, 0.5),
+                   position = c(0, 1, -3))
+
+water <- a_entity(id = "water",
+                  tag = "box",
+                  width = 20,
+                  depth = 20,
+                  height = 5,
+                  material = list(color = "#42B9F4",
+                               opacity = 0.5,
+                               transparent = TRUE,
+                               shader = "flat"
+                               )
+                  )
+
+the_scene <- a_scene(children = list(island, water),
+                     websocket = TRUE)
+
+the_scene$serve()
+
+sea_level <- function(level){
+  the_scene$send_messages(list(a_update(id = "water",
+                                   component = "position",
+                                   attributes = c(x = 0, y = level, z = 0))))
+}
+
+sea_level(10)
+
+
+
+a_kill_all_scenes()
+
+
+```
 
 ## Notifications from VR
 
@@ -148,3 +191,7 @@ a_kill_all_scenes()
 ```
 
 
+
+## Local Variables:
+## ess-r-package--project-cache: (r2vr . "/home/miles/repos/r2vr/")
+## End:
