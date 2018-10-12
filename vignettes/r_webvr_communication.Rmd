@@ -106,23 +106,25 @@ advance <- function(){
 Calling `advance()` will trigger a transition to the next image. It should
 transition instantly since all assets are loaded prior to the scene being shown.
 
-## Streaming Position Data
+## Streaming Position Data to VR
 
-In this scene we're going to look at streaming sea level height from R to a scene containing an island.
+In this scene we're going to look at streaming sea level height from R to a
+scene containing an island.
 
 ```{r}
 library(r2vr)
+
 island_model <- a_asset(id = "island",
                   src = "https://cdn.glitch.com/7cadb230-57b2-4aae-9de9-e60de097035e%2Fisland.gltf?1510323826393")
 
 island <- a_entity(gltf_model = island_model,
                    scale = c(0.5, 0.5, 0.5),
-                   position = c(0, 1, -3))
+                   position = c(0, 2, 0))
 
 water <- a_entity(id = "water",
                   tag = "box",
-                  width = 20,
-                  depth = 20,
+                  width = 30,
+                  depth = 30,
                   height = 5,
                   material = list(color = "#42B9F4",
                                opacity = 0.5,
@@ -138,6 +140,7 @@ the_scene$serve()
 
 
 sea_level <- function(level){
+  level <- level - 2
   the_scene$send_messages(list(
               a_update(id ="water",
                        component = "position",
@@ -145,15 +148,73 @@ sea_level <- function(level){
             ))
 }
 
-sea_level(0)
+```
+
+With the scene open in the browser, the this `sea_level()` funciton you can set
+the height of the water for a viewer of the VR visualisation. We'll create a
+simple shiny app that can control the water with a slider.
+
+```{r, eval = FALSE}
+library(shiny)
+
+ui <- flowLayout(
+  sliderInput("level", "Set the sea level", min = -2, max = 4, 0.1)
+)
+
+server <- function(input, output){
+
+  ## Setup VR Scene
+  island_model <- a_asset(id = "island",
+                          src = "https://cdn.glitch.com/7cadb230-57b2-4aae-9de9-e60de097035e%2Fisland.gltf?1510323826393")
+
+  island <- a_entity(gltf_model = island_model,
+                     scale = c(0.5, 0.5, 0.5),
+                     position = c(0, 2, 0))
+
+  water <- a_entity(id = "water",
+                    tag = "box",
+                    width = 30,
+                    depth = 30,
+                    height = 5,
+                    material = list(color = "#42B9F4",
+                                    opacity = 0.5,
+                                    transparent = TRUE,
+                                    shader = "flat"
+                                    )
+                    )
+
+  the_scene <- a_scene(children = list(island, water),
+                       websocket = TRUE)
+  the_scene$serve()
+
+
+  ## Setup response to silder
+  slider_value <-
+    observeEvent(input$level,
+    {
+      update_message <- a_update(id ="water",
+                          component = "position",
+                          attributes = list(x = 0,
+                                            y = input$level - 2,
+                                            z = 0))
+
+      the_scene$send_messages(list(update_message))
+    }
+    )
+
+
+  runApp(shinyApp(ui,server), launch.browser = TRUE)} 
 
 a_kill_all_scenes()
+```
+The VR app needs to be embedded inside the shiny app since the Shiny event loop takes over the R process.
+
+## Streaming data from VR
+
+```{r}
 
 
 ```
-
-
-## Notifications from VR
 
 ## Old
 ```{r}
@@ -201,7 +262,5 @@ my_scene$attach_ws_msg_hook(function(message, id){
 })
 
 a_kill_all_scenes()
-
 ```
-
 
