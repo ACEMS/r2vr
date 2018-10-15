@@ -12,5 +12,5 @@ sanitise_route_path <- function(path){
 
 is_ws_handler_fn <- function(handler){
   # The setdiff will be an empty vector if handler contains only message, id.
-  length(setdiff(formalArgs(handler), c("message", "id"))) == 0
+  length(setdiff(methods::formalArgs(handler), c("message", "id"))) == 0
 }
