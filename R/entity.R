@@ -20,7 +20,7 @@ A_Entity <-
               }
 
               ## check assets supplied in .assets are all asset objects
-              if(!purrr::every(.assets, ~is(., "A_Asset"))){
+              if (!purrr::every(.assets, ~is_a_asset(.))){
                 stop("all elements of .assets must be asset objects created with a_asset()")
               }
               self$assets <- .assets
@@ -53,7 +53,7 @@ A_Entity <-
 
               open_tag <- paste0(
                 paste0("<a-", self$tag), # <a-tagtext
-                ifelse(!is.null(self$id), paste0(' ',self$render_id()), ''), # id="" 
+                ifelse(!is.null(self$id), paste0(' ',self$render_id()), ''), # id=""
                 ifelse(length(component_expansion) > 0,
                        paste0(' ', component_expansion), ''), # comp1=""
                 ">")
@@ -84,14 +84,14 @@ A_Entity <-
             },
 
             get_assests = function(){},
- 
+
             get_js_sources = function(){},
 
             add_children = function(...){
               children <- list(...)
 
               ## Add the child to my list
-              if(purrr::some(children, ~!is(., "A_Entity"))){
+              if (purrr::some(children, ~!is_a_entity(.))){
                 stop("Only entity objects can be added as children to entities.")
               }
               purrr::walk(children, function(child){
@@ -118,7 +118,7 @@ A_Entity <-
               ## replace underscores in names with dashes as appropriate.
               key <- self$escape_name(key)
 
-              if (is(value, "A_Asset")){
+              if (is_a_asset(value)){
                 ## Special handling if it's an asset.
                 ## Assets know how to render themselves
                 paste0(key,'=\"',value$reference(),'"')
@@ -146,7 +146,7 @@ A_Entity <-
             render_property = function(key, value){
               key <- self$escape_name(key)
 
-              if (is(value, "A_Asset")){
+              if (is_a_asset(value)){
                 paste0(key,": ",value$reference(),";")
               }
               else if (anyNA(value)){
@@ -175,7 +175,7 @@ A_Entity <-
               ##  If you used a name like `'this_thing` you're saying you don't
               ##  want entity to interfere with your underscores
               if (substring(key, 1, 1) != "'"){
-                ## convert underscores('_') in keys to dashes ('-') 
+                ## convert underscores('_') in keys to dashes ('-')
                 key <- gsub(x = key, pattern = "(?<=[A-Za-z0-9])_(?=[A-Za-z0-9])",
                             replacement = "-", perl = TRUE)
               } else {
@@ -190,10 +190,10 @@ A_Entity <-
             }, # should be private
 
             find_assets = function(){
-              assets <- purrr::keep(self$components, ~is(., "A_Asset")) 
+              assets <- purrr::keep(self$components, ~is_a_asset(.))
               nested_assets <-
                 purrr::keep(self$components, is.list) %>%
-                purrr::map(~purrr::keep(., ~is(., "A_Asset"))) %>%
+                purrr::map(~purrr::keep(., ~is_a_asset(.))) %>%
                 purrr::flatten()
               all_assets <- c(assets, nested_assets)
             },
@@ -269,6 +269,11 @@ A_Entity <-
 ##'   will be automatically be sourced in the html header by the parent scene.
 ##' @param children a list of A-Frame entities to be nested within the HTML tag
 ##'   of this entity.
+##' @param .assets any assets needed by this entity that are not assigned in
+##'   component configuration. For example it may be that this entity begins
+##'   the scene with one texture and later is changed to second texture due to
+##'   an event. It is preferable that the second texture is loaded in the asset
+##'   block and so is cached and ready to go when the event happens.
 ##' @param ... components to be added to the entity. See description.
 ##' @return A_Entity object
 ##' @export
@@ -277,3 +282,6 @@ a_entity <- function(tag = "entity", js_sources = NULL, id = NULL,
   A_Entity$new(tag = tag, js_sources = js_sources, id = id, children = children,
                .assets = .assets, ...)
 }
+
+##' @export
+is_a_entity <- function(x) inherits(x, "A_Entity")

@@ -410,3 +410,6 @@ a_kill_all_scenes <- function(){
   })
 
 }
+
+##' @export
+is_a_scene <- function(x) inherits(x, "A_Scene")
