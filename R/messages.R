@@ -18,6 +18,7 @@ a_event <- function(id, event_name, event_detail = "", bubbles = FALSE){
                 message = list(eventName = event_name,
                                eventDetail = event_detail,
                                bubbles = bubbles))
+  class(event) <- c("list", "r2vr_message")
   event
 }
 ##' Build an A-Frame Update Message
@@ -32,7 +33,7 @@ a_event <- function(id, event_name, event_detail = "", bubbles = FALSE){
 ##' a_update(id = "my_box",
 ##'          component = "position",
 ##'          attributes = list(x = 1, y = 1, z = 1))
-##' 
+##'
 ##' @title a_update
 ##' @param id the id of the entity that will have the event emitted on it.
 ##' @param component the name of the component to have its attributes updated.
@@ -40,7 +41,7 @@ a_event <- function(id, event_name, event_detail = "", bubbles = FALSE){
 ##' @param replaces_component if TRUE, any attributes not specified are set to
 ##'   their default values. This effectively makes this update a full
 ##'   replacement of the existing component.
-##' @return An object that represents an A-Frame event. 
+##' @return An object that represents an A-Frame event.
 ##' @export
 a_update <- function(id, component, attributes, replaces_component = FALSE){
   update <- list(class = "update",
@@ -48,5 +49,46 @@ a_update <- function(id, component, attributes, replaces_component = FALSE){
                  component = component,
                  attributes = attributes,
                  replaces_component = replaces_component)
+  class(update) <- c("list", "r2vr_message")
   update
+ }
+
+
+##' Remove a component from an A-Frame entity
+##'
+##' Remove `component` from the entity with `id`.
+##'
+##' @title a_remove_component
+##' @param id the id of the entity to have component removed
+##' @param component the name of the component to remove.
+##' @return An object that represents an A-Frame event.
+##' @export
+  a_remove_component <- function(id, component){
+  removal <- list(class = "remove_component",
+                  id = id,
+                  component = component)
+  class(removal) <- c("list", "r2vr_message")
+  removal
+}
+
+##' Remove an A-Frame entity from the scene
+##'
+##' Remove the entity identified by 'id' from the scene.
+##'
+##' @title a_remove_entity
+##' @param id id of the entity to be removed.
+##' @return An object that represents an A-Frame Event.
+##' @export
+a_remove_entity <- function(id){
+  removal <- list(class = "remove_entity",
+                  id = id)
+  class(removal) <- c("list", "r2vr_message")
+  removal
+}
+
+## Unexported helpers
+is_r2vr_message <- function(x) inherits(x, "r2vr_message")
+
+is_r2vr_message_list <- function(x) {
+  is.list(x) & purrr::every(x, ~is_r2vr_message(.))
 }

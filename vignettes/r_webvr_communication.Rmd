@@ -21,12 +21,41 @@ A live connection between an R session and a running scene being served by
   dynamic visualisations
 
 The communication layer is full duplex, meaning it is possible for events
-triggered in VR to be relayed to the R session. When the websocket API is
-enabled, the `scene` element has an event handler attached for A-Frame events of type
-'r_server_message'. 'r_server_message' events are passed to the R server.
+triggered in VR to be relayed to the R session, although the API for setting up
+handlers for asynchronous events arriving from VR will not be discussed in
+this vignette in this release. This will be deferred until a suitable usecase is
+found (Feel free to open a GitHub issue if you find yourself wanting to do this
+and we can discuss).
 
-Ideally the onmessage handler would route the message to an entity based on id,
-or the top level scene.
+# Elemnts of R-VR communication
+
+## Websocket enabled r2vr server
+The communication layer is enabled by creating scene object using `a_scene()`
+with the `websocket = TRUE` argument. This will cause each user browser session
+to open a websocket connection with the `r2vr` server as part of the scene
+rendering process.
+
+A websocket enabled `r2vr` server can broadcast messgages to connected users
+that can trigger updates in their VR scenes. This is done by calling the
+`send_messgages()` method of the server.
+
+## `send_messages()`
+This method takes a message or list of messages to be broadcast to all connected scenes.
+Messages are created using the `r2vr` functions:
+
+* `a_event()` - used to inject A-Frame events into the scene. This can be any
+  kind of event including those normally driven by user interaction: like
+  'fusing' or 'click'. The scene will emit the event defined by this call on the
+  entity identified by `id`. See documenation for more details.
+* `a_update()` - used to modify the component configuration of entities in the
+  scene. It is possible to attach a new component or, replace component
+  attributes either fully or partially.
+* `a_remove_component()` - used to remove a `component` from an entity identified by `id`.
+* `a_remove_entity()` - used to remove an entity identified by `id` from a
+  scene. Child entities are also removed.
+
+Adding an entity to a VR scene dynamically from R is not supported at the moment
+although will be in the future.
 
 # Examples
 
@@ -80,8 +109,10 @@ The images in this scene have a combined size of about ~25mb, so the scene will
 need some time to load.
 
 ### Control from R
+
 With the scene running we now turn our attention to writing an 'advance()'
 function that we can call to advance to the next image in the list.
+
 
 ```{r eval = FALSE}
 
@@ -93,29 +124,35 @@ advance <- function(){
                          yes = 1,
                          no = img_index + 1)
 
-    the_scene$send_messages(list(
-                a_update(id = "canvas360",
-                         component = "src",
-                         attributes = img_assets[[img_index]]$reference())
-              ))
+    the_scene$send_messages(a_update(id = "canvas360",
+                                     component = "src",
+                                     attributes = img_assets[[img_index]]$reference())
+              )
     message("Now showing: ", img_assets[[img_index]]$id) 
   }
 
 ```
 
-Calling `advance()` will trigger a transition to the next image. It should
-transition instantly since all assets are loaded prior to the scene being shown.
+Calling `advance()` will trigger a transition to the next image. Within this
+function, an update message is composed that is sent using the scene object. The
+transition should occur instantly since all assets are loaded prior to the scene
+being shown. 
+
+One trick here is that we called the `reference()` method of an
+a_asset to get the text to used in the `src` attribute. The transition should
+occur instantly since all assets are loaded prior to the scene being shown.
 
 ## Streaming Position Data to VR
 
 In this scene we're going to look at streaming sea level height from R to a
-scene containing an island.
+scene containing an island. First we'll look at sending information interactively
+using the R REPL in a similar way to the prevoius example.
 
-```{r}
+```{r, eval = FALSE}
 library(r2vr)
 
 island_model <- a_asset(id = "island",
-                  src = "https://cdn.glitch.com/7cadb230-57b2-4aae-9de9-e60de097035e%2Fisland.gltf?1510323826393")
+                        src = "https://cdn.glitch.com/7cadb230-57b2-4aae-9de9-e60de097035e%2Fisland.gltf?1510323826393")
 
 island <- a_entity(gltf_model = island_model,
                    scale = c(0.5, 0.5, 0.5),
@@ -141,11 +178,11 @@ the_scene$serve()
 
 sea_level <- function(level){
   level <- level - 2
-  the_scene$send_messages(list(
+  the_scene$send_messages(
               a_update(id ="water",
                        component = "position",
                        attributes = list(x = 0, y = level, z = 0))
-            ))
+            )
 }
 
 ```
@@ -198,7 +235,7 @@ server <- function(input, output){
                                             y = input$level - 2,
                                             z = 0))
 
-      the_scene$send_messages(list(update_message))
+      the_scene$send_messages(update_message)
     }
     )
 
@@ -208,59 +245,3 @@ server <- function(input, output){
 a_kill_all_scenes()
 ```
 The VR app needs to be embedded inside the shiny app since the Shiny event loop takes over the R process.
-
-## Streaming data from VR
-
-```{r}
-
-
-```
-
-## Old
-```{r}
-library(r2vr)
-
-sources <- a_entity(js_sources = c("https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js") )
-
-box <- a_entity("box", id = "block",
-                position = c(0, 1, -4),
-                material = list(color = "red"),
-                event_set__1 = list(`_event` = "switch_colour", material.color = "blue"),
-                event_set__2 = list(`_event` = "rotate", rotation = c(0, 45, 0)))
-
-my_scene <- a_scene(template = "basic",
-                    children = list(box, sources),
-                    websocket = TRUE)
-
-my_scene$serve()
-
-test_event <- list(a_event(id = "block",
-                           event_name = "switch_colour",
-                           event_detail = "any",
-                           bubbles = FALSE),
-                   a_event(id = "block",
-                           event_name = "rotate",
-                           event_detail = "any",
-                           bubbles = FALSE)
-                   )
-
-my_scene$send_messages(test_event)
-
-test_update <- list(a_update(id = "block",
-                             component = "position",
-                             attributes = list(x = 0, y = 0, z = -4)),
-                    a_update(id = "block",
-                             component = "color",
-                             attributes = "green"))
-
-my_scene$send_messages(test_update)
-
-#try adding own handlers
-my_scene$attach_ws_msg_hook(function(message, id){
-  print(id)
-  print(message)
-})
-
-a_kill_all_scenes()
-```
-

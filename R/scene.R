@@ -311,7 +311,19 @@ A_Scene <-
                 },
 
                 send_messages = function(messages, ...){
-                  ## ... is further args passed to Fire::send(message, id) 
+                  ## ... is further args passed to Fire::send(message, id)
+
+                  ## Check if messages is a single message or list
+                  ## if it's a single message, need to wrap in list() so that
+                  ## the JSON will look correct to the javascript in the scene
+                  if (is_r2vr_message(messages)){
+                    ## It's a single message, wrap.
+                    messages <- list(messages)
+                  }
+                  if (!is_r2vr_message_list(messages)){
+                    stop("r2vr can only send objects of type 'r2vr_message'. An object of another type was supplied in messages")
+                  }
+                  ## Peel off the class in each
                   self$scene$send(jsonlite::toJSON(messages, auto_unbox = TRUE), ...)
                 }
               ))
@@ -335,7 +347,7 @@ A_Scene <-
 ##'     * 'empty' an empty scene. Default lights are injected by A-Frame.
 ##' The built-in templates are intended for debugging/construction purposes. Use
 ##' 'empty' for real scenes or build your own template.
-##' 
+##'
 ##' A scene can render itself and all its child entities and assets to a single
 ##' html file that defines a WebVR scene that can be viewed in a browser. In
 ##' addition to this a scene can also be called upon to serve itself so that it

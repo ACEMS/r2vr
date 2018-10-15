@@ -31,13 +31,13 @@ AFRAME.registerComponent('r2vr-message-router', {
 
     init: function() {
         this.ws = new WebSocket("ws://" + this.data.host + ":" + this.data.port);
-        var sceneEl = this.el.sceneEl
-        var ws = this.ws
+        var sceneEl = this.el.sceneEl;
+        var ws = this.ws;
 
         //notify that the connection was opened.
         ws.onopen = function(){
-            console.log('r2vr-message-router: Established connection with server session.')
-        }
+            console.log('r2vr-message-router: Established connection with server session.');
+        };
 
         //setup incoming channel.
         ws.onmessage = function(msg) {
@@ -70,21 +70,27 @@ AFRAME.registerComponent('r2vr-message-router', {
 
                     target.setAttribute(r2vr_message.component,
                                         r2vr_message.attributes,
-                                        r2vr_message.replaces_component)
+                                        r2vr_message.replaces_component);
+                }
+                else if (r2vr_message.class == "remove_component"){
+                    target.removeAttribute(r2vr_message.component);
+                }
+                else if (r2vr_message.class == "remove_entity"){
+                    target.removeFromParent();
                 }
                 else{
-                    throw new Error("r2vr-message-router received a message of unknown class.")
+                    throw new Error("r2vr-message-router received a message of unknown class.");
                 }
             });
 
-        }
+        };
         // setup outgoing channel.
         // add handler for an external message type that will be routed to the R
         // scene with id of the caller and data.
         function handle_r_server_message(event){
-            ws.send(event.detail)
+            ws.send(event.detail);
         }
 
-        this.el.addEventListener('r_server_message', handle_r_server_message)
+        this.el.addEventListener('r_server_message', handle_r_server_message);
     }
-})
+});
