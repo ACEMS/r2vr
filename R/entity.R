@@ -283,5 +283,10 @@ a_entity <- function(tag = "entity", js_sources = NULL, id = NULL,
                .assets = .assets, ...)
 }
 
+##' is this an A-Frame entity
+##'
+##' @title is_a_entity
+##' @param x an object
+##' @return true if object is an "A_Entity"
 ##' @export
 is_a_entity <- function(x) inherits(x, "A_Entity")

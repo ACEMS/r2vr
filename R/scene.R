@@ -386,7 +386,7 @@ a_scene <- function(template = "basic_map",
   if(websocket){
     ## If websocket desired, add the local js source.
     scene_args$js_sources <- c(scene_args$js_sources,
-                    system.file("libs/r2vr_components.js", package = "r2vr"))
+                    system.file("js/r2vr_components.js", package = "r2vr"))
     scene_args$r2vr_message_router = list()
   }
   do.call(A_Scene$new, scene_args)
@@ -410,6 +410,10 @@ a_kill_all_scenes <- function(){
   })
 
 }
-
+##' is this an A-Frame scene
+##'
+##' @title is_a_scene
+##' @param x an object
+##' @return true if object is an "A_Scene"
 ##' @export
 is_a_scene <- function(x) inherits(x, "A_Scene")

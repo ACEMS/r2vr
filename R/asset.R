@@ -154,5 +154,10 @@ a_asset <- function(id = "", src, parts = NULL,
   A_Asset$new(id = id, src = src, parts = parts, tag = tag, inline = inline)
 }
 
+##' is this an A-Frame Asset
+##'
+##' @title is_a_asset
+##' @param x an object
+##' @return true if object is an "A_Asset"
 ##' @export
 is_a_asset <- function(x) inherits(x, "A_Asset")
