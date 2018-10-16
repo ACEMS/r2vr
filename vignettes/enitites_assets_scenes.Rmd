@@ -46,11 +46,19 @@ Entities are customised using HTML element properties that map configuration to 
 ```r
 a_entity(geometry = "primitive: box", material = "colour: red")
 a_entity(geometry = list(primitve = "box"), material = list(color = "red"))
-a_entity(tag = "box", color = "red")
+a_entity(.tag = "box", color = "red")
 ```
 
 Notice that entity components are attached using `...` arguments to the
-`a_entity()` function. 
+`a_entity()` function. An important convention regarding arguments to `a_`
+functions is now worth discussing:
+
+Arguments prefixed with a `.`, ie. `.tag` in the above example, are arguments
+that will not appear literally in the generated HTML. You can think of them as
+driving some 'under the hood' behaviour to do with the way the HTML is structured
+or served. This is discriminates them from arguments without `.` prefixes like
+`geometry` above. These are how you represent components. These will appear
+literally as attributes of HTML elements in the final output.
 
 ### Component Naming
 
@@ -65,18 +73,17 @@ for `_` since the dash is not legal as a bare symbol in R. So take this HTML:
 Possible `r2vr` equivalents are:
 
 ```r
-a_entity(tag="camera", wasd_controls = list(fly = TRUE))
-a_entity(tag="camera", wasd_controls = "fly: true;")
+a_entity(.tag="camera", wasd_controls = list(fly = TRUE))
+a_entity(.tag="camera", wasd_controls = "fly: true;")
 ```
-
 One current issue is that you cannot supply an component without configuration
 neatly. So to use `wasd-controls` with default configuration we must write
 either:
 
 ```r
-a_entity(tag="camera", wasd_controls="")
+a_entity(.tag="camera", wasd_controls="")
 ## or
-a_entity(tag="camera", wasd_controls=NULL)
+a_entity(.tag="camera", wasd_controls=NULL)
 ```
 
 To require otherwise would mean cracking open the Non-Standard Evaluation can of
@@ -99,13 +106,13 @@ It's own position is interpreted as offset from its parent. So the sphere's
 absolute position is `2 1 1`.
 
 In `r2vr` child entities are nested as a list supplied to the parent's
-`children` argument. So the above pair are defined:
+`.children` argument. So the above pair are defined:
 
 ```r
-a_entity(tag = "box", position = c(1, 1, 1), rotation = c(45, 45, 45), 
+a_entity(.tag = "box", position = c(1, 1, 1), rotation = c(45, 45, 45), 
          color="blue",
-         children = list(
-           a_entity(tag = "sphere", positon = c(2, 1, 1))
+         .children = list(
+           a_entity(.tag = "sphere", positon = c(2, 1, 1))
          ))
 ```
 
@@ -113,9 +120,9 @@ Because the nested `a_entity` call returns an object it's possible to break up
 the nesting a bit, if it aids readability:
 
 ```r
-sphere <- a_entity(tag = "sphere", positon = c(2, 1, 1))
+sphere <- a_entity(.tag = "sphere", positon = c(2, 1, 1))
 
-box <- a_entity(tag = "box", position = c(1, 1, 1),
+box <- a_entity(.tag = "box", position = c(1, 1, 1),
                 rotation = c(45, 45, 45),
                 children = list(sphere))
 ```
@@ -123,7 +130,7 @@ box <- a_entity(tag = "box", position = c(1, 1, 1),
 ## Attaching Custom Components
 
 To use a custom component with an entity, a list of links to the component's
-javascript sources can be passed to `a_entity` using the `js_sources` argument.
+javascript sources can be passed to `a_entity` using the `.js_sources` argument.
 For an example let's crack open the source of `r2vr::a_json_model`, a
 convenience entity for defining JSON models, which do not have native A-Frame
 support:
@@ -133,14 +140,14 @@ support:
 
 
 a_json_model <- function(src_asset, 
-                         js_sources = list(.extras_model_loader), ...){
-  a_entity(json_model = list(src = src_asset), js_sources = js_sources, ...)
+                         .js_sources = list(.extras_model_loader), ...){
+  a_entity(json_model = list(src = src_asset), .js_sources = .js_sources, ...)
 }
 ```
 
 So every `a_json_model()` is not much more than an `a_entity()` with a `json_model`
 component attached along with a reference to the javascript that powers the
-component. You do not have do worry about duplicate `js_sources` being added to
+component. You do not have do worry about duplicate `.js_sources` being added to
 a scene. `r2vr` ensures only one reference to each unique javascript file makes
 it into the final HTML.
 
@@ -167,15 +174,18 @@ is defined in `r2vr` as:
 ```r
 my_scene <- 
   a_scene(fog="", stats="",
-          children = list(
-            a_entity(tag = "box", position = c(1, 1, 1),
+          .children = list(
+            a_entity(.tag = "box", position = c(1, 1, 1),
                      rotation = c(45, 45, 45),
-                     children = list(
-                       a_entity(tag = "sphere", positon = c(2, 1, 1))))))
+                     .children = list(
+                       a_entity(.tag = "sphere", positon = c(2, 1, 1))))))
 ```
 
 ### Scene templates
-In `r2vr` scenes work with a HTML templating system. This allows you to reduce the complexity of scenes in R, by creating a template for the static parts that are not likely to change, E.g. ground, sky, lighting etc. Templates are selected using the `template` argument. Built-in templates at the moment are:
+In `r2vr` scenes work with a HTML templating system. This allows you to reduce
+the complexity of scenes in R, by creating a template for the static parts that
+are not likely to change, E.g. ground, sky, lighting etc. Templates are selected
+using the `.template` argument. Built-in templates at the moment are:
 
 template name | description
 ---|---
@@ -183,7 +193,7 @@ template name | description
 `"basic"` | Has a grid ground added. Will use default A-Frame lights and camera. Defaults are removed if added to scene configuration.
 `"basic_map"` | Has a large grid ground, high point light source (A Sun) and high camera start position.V
 
-A custom HTML file can be supplied as a `template`. The following placeholders are populated by the scene object:
+A custom HTML file can be supplied as a `.template`. The following placeholders are populated by the scene object:
 
 placeholder | function
 ---|---
@@ -260,6 +270,13 @@ Passing `cube_model` to `cube` sets up the link between entity and asset in the
 underlying HTML using the id "#cube", as well as adding the "cube.json" file to
 the assets block.
 
+### Assets needed later
+It is possible the you may wish to declare an asset that is not initially
+assigned in the `src` of any entity when the scene initially renders. The
+intention may be for this asset to be used in response to some event. Entities
+and scenes have a `.assets` argument for declaring assets of this type. See
+vignette 'Communicating between R and WebVR sessions' for an example.
+
 ### Assets not required for the scene to render.
 In general is recommended that all assets are loaded before the scene is rendered. This is because when an asset is loaded it can cause the scene to stutter which can contribute to VR sickness symptoms in users.
 
@@ -271,13 +288,13 @@ fetching the asset may be inappropriate.
 Inline mode is just enabled with an argument to `a_asset()`:
 
 ```r
-cube_model <- a_asset(id = "cube", src = "./cube.json", inline = TRUE)
+cube_model <- a_asset(id = "cube", src = "./cube.json", .inline = TRUE)
 
 cube <- a_json_model(src = cube_model,
                      position = c(0, 0, -2),
                      scale = c(0.2, 0.2, 0.2))
 
-my_scene <- a_scene(children = list(cube))
+my_scene <- a_scene(.children = list(cube))
 
 ```
 
@@ -292,17 +309,17 @@ library(r2vr)
   cube <- a_asset(id = "cube", src = "./cube.json")
   kangaroo <- a_asset(id = "kangaroo",
                       src = "./Kangaroo_01.gltf",
-                      parts = "./Kangaroo_01.bin")
+                      .parts = "./Kangaroo_01.bin")
 
   ## Scene structure
-  my_scene <- a_scene(template = "empty",
+  my_scene <- a_scene(.template = "empty",
                       title = "A kangaroo and a cube.",
-                      children = list(
-                        a_json_model(src_asset = cube,
+                      .children = list(
+                        a_json_model(src = cube,
                                      position = c(-2,1,-5),
                                      scale = c(0.3, 0.3, 0.3)),
                           
-                        a_entity(tag = "gltf-model",
+                        a_entity(.tag = "gltf-model",
                                  src = kangaroo,
                                  position = c(2, -1, -5),
                                  scale = c(0.3,0.3,0.3),
@@ -362,17 +379,17 @@ dev.off()
 ## https://github.com/feiss/aframe-environment-component
 backdrop <- a_entity(environment = list(preset= "tron", dressingAmount = 40,
                                         playArea = 0), 
-                     js_sources = "https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js")
+                     .js_sources = "https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js")
 
 ## rendering the image on a canvas
-visdat_plot <- a_asset(tag = "img", id = "vrisdat", src = "VRisdat.png")
+visdat_plot <- a_asset(.tag = "img", id = "vrisdat", src = "VRisdat.png")
 
-canvas <- a_entity(tag = "plane", position = c(0, 10, -10), height = 20, width = 20,
+canvas <- a_entity(.tag = "plane", position = c(0, 10, -10), height = 20, width = 20,
           src = visdat_plot)
 
-my_scene <- a_scene(title = "A VR ggplot",
-                    template = "empty",
-                    children = list(backdrop, canvas))
+my_scene <- a_scene(.title = "A VR ggplot",
+                    .template = "empty",
+                    .children = list(backdrop, canvas))
                     
 my_scene$serve()
 
@@ -381,3 +398,7 @@ my_scene$serve()
 ```
 Which creates this scene:
 ![](https://cdn.rawgit.com/MilesMcBain/r2vr/29143b68/vignettes/visdat_tron.png)
+
+## Local Variables:
+## ess-r-package--project-cache: (r2vr . "/home/miles/repos/r2vr/")
+## End:

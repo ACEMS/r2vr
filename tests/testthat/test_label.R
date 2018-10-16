@@ -16,7 +16,7 @@ test_that("Text label can be rendered correctly and served", {
   })
 
   my_scene <-
-    a_scene(template = "empty", children = list(my_label) )
+    a_scene(.template = "empty", .children = list(my_label) )
   my_scene$serve()
 
   expect_equal({

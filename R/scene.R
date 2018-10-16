@@ -13,36 +13,36 @@ A_Scene <-
                 aframe_version = NULL,
                 global_id = NULL,
                 ws_message_hooks = list(),
-                initialize = function(template = "basic_map",
-                                      title = "A-Frame VR scene created with r2vr",
-                                      description = title,
-                                      aframe_version = "0.8.2",
-                                      js_sources = NULL,
-                                      children = NULL,
+                initialize = function(.template = "basic_map",
+                                      .title = "A-Frame VR scene created with r2vr",
+                                      .description = .title,
+                                      .aframe_version = "0.8.2",
+                                      .js_sources = NULL,
+                                      .children = NULL,
                                       ...){
 
                   ## If template is not a file, assume it is a built-in
-                  if (!file.exists(template)){
+                  if (!file.exists(.template)){
                     template_file <-
-                      paste0(file.path("templates",template),".html")
+                      paste0(file.path("templates",.template),".html")
                     template_file_path <- system.file(template_file, package = "r2vr")
                     if (!file.exists(template_file_path)){
-                      stop("A-Frame Scene template: ", template ,", not found")
+                      stop("A-Frame Scene template: ", .template ,", not found")
                     }
                   } else{
-                    template_file_path <- template
+                    template_file_path <- .template
                   }
                   self$template <- readr::read_file(template_file_path)
 
 
                   self$global_id <- uuid::UUIDgenerate(use.time = TRUE)
-                  self$title <- title
-                  self$description <- description
-                  self$aframe_version <- aframe_version
+                  self$title <- .title
+                  self$description <- .description
+                  self$aframe_version <- .aframe_version
 
                   ## Call constructor for A_Entity
-                  super$initialize(js_sources = js_sources,
-                                   children = children, ...)
+                  super$initialize(.js_sources = .js_sources,
+                                   .children = .children, ...)
                 },
 
                 render = function(){
@@ -105,8 +105,7 @@ A_Scene <-
                   } else{
                     template_env$js_sources <- ""
                   }
-
-                  stringr::str_interp(self$template, template_env)
+                  stringr::str_interp(string = self$template, env = template_env)
                 },
 
                 indent_to_level = function(text, element){
@@ -358,34 +357,34 @@ A_Scene <-
 ##' Child entities are passed as list in the `children` argument.
 ##'
 ##' @title a_scene
-##' @param template A name of a built in template or a path to a custom html template.
-##' @param title Title of the scene passed into the HTML
-##' @param description meta description of the scene passed into the HTML
-##' @param aframe_version The version of A-Frame to serve the scene with, defaults to 0.8.2
-##' @param js_sources a character vector of javascript scources to be added to
+##' @param .template A name of a built in template or a path to a custom html template.
+##' @param .title Title of the scene passed into the HTML
+##' @param .description meta description of the scene passed into the HTML
+##' @param .aframe_version The version of A-Frame to serve the scene with, defaults to 0.8.2
+##' @param .js_sources a character vector of javascript scources to be added to
 ##'   scene html. Local sources will be served remote sources will not.
-##' @param children a list of child A-Frame entities of this scene.
-##' @param websocket TRUE if this scene should try to connect to its server with
+##' @param .children a list of child A-Frame entities of this scene.
+##' @param .websocket TRUE if this scene should try to connect to its server with
 ##'   a websocket connection when served. This can be used to pass messages
 ##'   containing aframe events or entity updates from R to VR.
 ##' @param ... components to be added to the scene.
 ##' @return An R6 object representing an A-Frame scene.
 ##' @export
-a_scene <- function(template = "basic_map",
-                    title = "A-Frame VR scene created with r2vr",
-                    description = title,
-                    aframe_version = "0.8.2",
-                    js_sources = NULL,
-                    children = NULL,
-                    websocket = FALSE,
+a_scene <- function(.template = "basic_map",
+                    .title = "A-Frame VR scene created with r2vr",
+                    .description = .title,
+                    .aframe_version = "0.8.2",
+                    .js_sources = NULL,
+                    .children = NULL,
+                    .websocket = FALSE,
                     ...){
-  scene_args <- list(template = template, title = title,
-                     description = title, aframe_version = aframe_version,
-                     js_sources = js_sources,
-                     children = children, ...)
-  if(websocket){
+  scene_args <- list(.template = .template, .title = .title,
+                     .description = .title, .aframe_version = .aframe_version,
+                     .js_sources = .js_sources,
+                     .children = .children, ...)
+  if(.websocket){
     ## If websocket desired, add the local js source.
-    scene_args$js_sources <- c(scene_args$js_sources,
+    scene_args$.js_sources <- c(scene_args$.js_sources,
                     system.file("js/r2vr_components.js", package = "r2vr"))
     scene_args$r2vr_message_router = list()
   }

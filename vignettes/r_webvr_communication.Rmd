@@ -31,7 +31,7 @@ and we can discuss).
 
 ## Websocket enabled r2vr server
 The communication layer is enabled by creating scene object using `a_scene()`
-with the `websocket = TRUE` argument. This will cause each user browser session
+with the `.websocket = TRUE` argument. This will cause each user browser session
 to open a websocket connection with the `r2vr` server as part of the scene
 rendering process.
 
@@ -90,17 +90,17 @@ img_assets <- map2(img_ids, img_urls, ~a_asset(id = .x,
                                                src = .y,
                                                tag = "img"))
 
-canvas_360 <- a_entity(tag = "sky",
+canvas_360 <- a_entity(.tag = "sky",
                        id = "canvas360",
                        position = c(0, 0, 0),
                        src = img_assets[[1]], ## src is the inital texture asset
                        .assets = img_assets   ## these are the assets we will change to
                        )
 
-the_scene <- a_scene(title = "A 360 image slideshow",
-                     template = "empty",
-                     children = list(canvas_360),
-                     websocket = TRUE) ## Enable coms with R server
+the_scene <- a_scene(.title = "A 360 image slideshow",
+                     .template = "empty",
+                     .children = list(canvas_360),
+                     .websocket = TRUE) ## Enable coms with R server
 
 the_scene$serve()
 ```
@@ -159,7 +159,7 @@ island <- a_entity(gltf_model = island_model,
                    position = c(0, 2, 0))
 
 water <- a_entity(id = "water",
-                  tag = "box",
+                  .tag = "box",
                   width = 30,
                   depth = 30,
                   height = 5,
@@ -170,8 +170,8 @@ water <- a_entity(id = "water",
                                )
                   )
 
-the_scene <- a_scene(children = list(island, water),
-                     websocket = TRUE)
+the_scene <- a_scene(.children = list(island, water),
+                     .websocket = TRUE)
 
 the_scene$serve()
 
@@ -209,7 +209,7 @@ server <- function(input, output){
                      position = c(0, 2, 0))
 
   water <- a_entity(id = "water",
-                    tag = "box",
+                    .tag = "box",
                     width = 30,
                     depth = 30,
                     height = 5,
@@ -220,8 +220,8 @@ server <- function(input, output){
                                     )
                     )
 
-  the_scene <- a_scene(children = list(island, water),
-                       websocket = TRUE)
+  the_scene <- a_scene(.children = list(island, water),
+                       .websocket = TRUE)
   the_scene$serve()
 
 

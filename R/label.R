@@ -22,7 +22,7 @@
 ##' @export
 a_label <- function(text, color = "#000000", font = "roboto", ...){
 
-  a_entity(tag = "text", value = text,
+  a_entity(.tag = "text", value = text,
            color = color,
            font = font,
            align = "center",

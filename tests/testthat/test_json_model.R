@@ -19,8 +19,8 @@ test_that("JSON model can render correctly and be served", {
     list("https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.loaders.min.js")
   })
 
-  my_scene <- a_scene(template = "empty",
-                      children = list(my_model))
+  my_scene <- a_scene(.template = "empty",
+                      .children = list(my_model))
 
   expect_true(stringr::str_detect(my_scene$render(),
                                   "<a-scene >\n            <a-assets>\n                <a-asset-item id=\"cube\" src=\"cube.json\"></a-asset-item>\n            </a-assets>\n            \n            <!-- Entities added in R -->\n            <a-entity json-model=\"src: #cube;\" position=\"0 0 -2\" scale=\"0.2 0.2 0.2\"></a-entity>\n            \n\n        </a-scene>\n"))

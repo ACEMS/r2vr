@@ -4,26 +4,26 @@
 \alias{a_scene}
 \title{a_scene}
 \usage{
-a_scene(template = "basic_map",
-  title = "A-Frame VR scene created with r2vr", description = title,
-  aframe_version = "0.8.2", js_sources = NULL, children = NULL,
-  websocket = FALSE, ...)
+a_scene(.template = "basic_map",
+  .title = "A-Frame VR scene created with r2vr", .description = .title,
+  .aframe_version = "0.8.2", .js_sources = NULL, .children = NULL,
+  .websocket = FALSE, ...)
 }
 \arguments{
-\item{template}{A name of a built in template or a path to a custom html template.}
+\item{.template}{A name of a built in template or a path to a custom html template.}
 
-\item{title}{Title of the scene passed into the HTML}
+\item{.title}{Title of the scene passed into the HTML}
 
-\item{description}{meta description of the scene passed into the HTML}
+\item{.description}{meta description of the scene passed into the HTML}
 
-\item{aframe_version}{The version of A-Frame to serve the scene with, defaults to 0.8.2}
+\item{.aframe_version}{The version of A-Frame to serve the scene with, defaults to 0.8.2}
 
-\item{js_sources}{a character vector of javascript scources to be added to
+\item{.js_sources}{a character vector of javascript scources to be added to
 scene html. Local sources will be served remote sources will not.}
 
-\item{children}{a list of child A-Frame entities of this scene.}
+\item{.children}{a list of child A-Frame entities of this scene.}
 
-\item{websocket}{TRUE if this scene should try to connect to its server with
+\item{.websocket}{TRUE if this scene should try to connect to its server with
 a websocket connection when served. This can be used to pass messages
 containing aframe events or entity updates from R to VR.}
 

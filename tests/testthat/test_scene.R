@@ -1,7 +1,7 @@
 context("test scene class")
 
 test_that("Scenes can read a built-in template",{
-  test_scene <- A_Scene$new(template = "basic_map")
+  test_scene <- A_Scene$new(.template = "basic_map")
 
   expect_equal(
   {
@@ -15,7 +15,7 @@ test_that("Scenes can read a built-in template",{
 
 })
 test_that("Scenes determine template indent levels correctly and apply indents",{
-  test_scene <- A_Scene$new(template = "basic_map")
+  test_scene <- A_Scene$new(.template = "basic_map")
 
   expect_equal(
   {
@@ -43,14 +43,15 @@ test_that("A scene can render the basic_map template",{
   ## with simple entities using assets and js_sources
   expect_equal(
   {
-    my_scene  <- a_scene(template = "basic_map",
+    my_scene  <- a_scene(.template = "basic_map",
                          fog = NULL, stats = NULL,
-                         children = list(
-                         a_entity(tag = "avatar",
-                                  wasd_controls = list(acceleration = 100, fly = TRUE),
+                         .children = list(
+                         a_entity(.tag = "avatar",
+                                  wasd_controls = list(acceleration = 100,
+                                                       fly = TRUE),
                                   an_extremely_long_component_name = NULL),
 
-                         a_entity(id = "mine", tag = "box",
+                         a_entity(id = "mine", .tag = "box",
                                       position = c(0,0,0),
                                       scale="0 0 0",
                                   material = list(shader = "flat", sides = "double")),
@@ -58,27 +59,27 @@ test_that("A scene can render the basic_map template",{
                                   gltf_model = a_asset(id = "monster",
                                                        src = test_path("Kangaroo_01.gltf")),
                                   animation_mixer = NULL,
-                                  js_sources = list("./entitysource.js"))),
-                         js_sources = list("./toplevelsource.js"))
+                                  .js_sources = list("./entitysource.js"))),
+                         .js_sources = list("./toplevelsource.js"))
 
     my_scene$render()
   }
  ,{
 ### Interpolated HTML
-"<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title>A-Frame VR scene created with r2vr</title>\n    <meta name=\"description\" content= \"A-Frame VR scene created with r2vr\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.2/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js\"></script>\n    <script crossorigin src=\"./toplevelsource.js\"></script>\n    <script crossorigin src=\"./entitysource.js\"></script>\n    </head>\n    <body>\n        <a-scene fog stats>\n            <a-assets>\n                <a-asset-item id=\"monster\" src=\"Kangaroo_01.gltf\"></a-asset-item>\n            </a-assets>\n            <a-camera movement-controls=\"fly: true; easingY: 15\" position=\"0 1.8 0\"\n                      rotation=\"0 0 0\"></a-camera>\n            <a-entity position=\"0 100 -30\" light=\"intensity:0.80;type:point\"></a-entity>\n            \n            <!-- Entities added in R -->\n            <a-avatar wasd-controls=\"acceleration: 100; fly: true;\" an-extremely-long-component-name></a-avatar>\n            <a-box id=\"mine\" position=\"0 0 0\" scale=\"0 0 0\" material=\"shader: flat; sides: double;\"></a-box>\n            <a-entity id=\"tst\" gltf-model=\"#monster\" animation-mixer></a-entity>\n            \n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n"
+"<!DOCTYPE html>\n<html>\n    <head>\n    <meta charset=\"utf-8\">\n    <title>A-Frame VR scene created with r2vr</title>\n    <meta name=\"description\" content= \"A-Frame VR scene created with r2vr\">\n    <script crossorigin src=\"https://aframe.io/releases/0.8.2/aframe.min.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.loaders.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.controls.js\"></script>\n    <script crossorigin src=\"https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.0.2/dist/aframe-extras.primitives.js\"></script>\n    <script crossorigin src=\"./toplevelsource.js\"></script>\n    <script crossorigin src=\"./entitysource.js\"></script>\n    </head>\n    <body>\n        <a-scene fog stats>\n            <a-assets>\n                <a-asset-item id=\"monster\" src=\"Kangaroo_01.gltf\"></a-asset-item>\n            </a-assets>\n            <a-camera movement-controls=\"fly: true; easingY: 15\" position=\"0 1.8 0\"\n                      rotation=\"0 0 0\"></a-camera>\n            <a-entity position=\"0 100 -30\" light=\"intensity:0.80;type:point\"></a-entity>\n            \n            <!-- Entities added in R -->\n            <a-avatar wasd-controls=\"acceleration: 100; fly: true;\" an-extremely-long-component-name></a-avatar>\n            <a-box id=\"mine\" position=\"0 0 0\" scale=\"0 0 0\" material=\"shader: flat; sides: double;\"></a-box>\n            <a-entity id=\"tst\" gltf-model=\"#monster\" animation-mixer></a-entity>\n            \n\n            <!-- Ground -->\n            <a-grid geometry='height: 10; width: 10'></a-grid>\n        </a-scene>\n    </body>\n</html>\n" 
  }
  )
   ## with nested entities using assets and js_sources
   expect_equal(
   {
-    my_scene  <- a_scene(template = "basic_map",
+    my_scene  <- a_scene(.template = "basic_map",
                          fog = NULL, stats = NULL,
-                         children = list(
-                         a_entity(tag = "avatar",
+                         .children = list(
+                         a_entity(.tag = "avatar",
                                   wasd_controls = list(acceleration = 100, fly = TRUE),
                                   an_extremely_long_component_name = NULL,
-                                  children = list(
-                                    a_entity(id = "mine", tag = "box",
+                                  .children = list(
+                                    a_entity(id = "mine", .tag = "box",
                                              position = c(0,0,0),
                                              scale="0 0 0",
                                              material = list(shader = "flat", sides = "double")),
@@ -86,15 +87,15 @@ test_that("A scene can render the basic_map template",{
                                              gltf_model = a_asset(id = "monster",
                                                                   src = test_path("Kangaroo_01.gltf")),
                                              animation_mixer = NULL,
-                                             js_sources = list("./entitysource.js"),
-                                             children = list(
+                                             .js_sources = list("./entitysource.js"),
+                                             .children = list(
                                                a_entity(gltf_model =
                                                           a_asset(
                                                             id = "mask",
                                                             src = test_path("Kangaroo_01.gltf"))))
                                              )
                                              ))),
-                         js_sources = list("./toplevelsource.js"))
+                         .js_sources = list("./toplevelsource.js"))
 
     my_scene$render()
   }
@@ -107,9 +108,9 @@ test_that("A scene can render the basic_map template",{
 test_that("A scene can serve itself and some assets", {
 
   my_scene <-
-    a_scene(children = list(
-              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
-                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+    a_scene(.children = list(
+              a_entity(.tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(.tag = "img", id = "qut", src = test_path("QUT.png")))
             ))
   my_scene$serve()
 
@@ -142,11 +143,11 @@ test_that("A scene can serve itself and some assets", {
 test_that("A scene can serve itself and glTF models", {
 
   my_scene <-
-    a_scene(template = "empty",
-            children = list(
-              a_entity(tag = "gltf-model", position = c(0, 2, -3), height = 1, width = 1,
+    a_scene(.template = "empty",
+            .children = list(
+              a_entity(.tag = "gltf-model", position = c(0, 2, -3), height = 1, width = 1,
                        src = a_asset(id = "kangaroo", src = test_path("Kangaroo_01.gltf"),
-                                     parts = test_path("Kangaroo_01.bin")))
+                                     .parts = test_path("Kangaroo_01.bin")))
             ))
   my_scene$serve()
 
@@ -176,16 +177,16 @@ test_that("A scene can serve itself and glTF models", {
 
 test_that("Multiple Scenes can be stopped at once using kill_all", {
   scene_a <-
-      a_scene(children = list(
-                a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
-                         src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+      a_scene(.children = list(
+                a_entity(.tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                         src = a_asset(.tag = "img", id = "qut", src = test_path("QUT.png")))
               ))
   scene_a$serve()
 
   scene_b <-
-    a_scene(children = list(
-              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
-                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+    a_scene(.children = list(
+              a_entity(.tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(.tag = "img", id = "qut", src = test_path("QUT.png")))
             ))
   scene_b$serve(port = 8082)
 
@@ -216,10 +217,10 @@ test_that("Multiple Scenes can be stopped at once using kill_all", {
 test_that("Local javascript files can be added as js_sources and routed to.", {
 
   scene_a <-
-    a_scene(js_sources = test_path("ws_test.js"),
-            children = list(
-              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
-                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+    a_scene(.js_sources = test_path("ws_test.js"),
+            .children = list(
+              a_entity(.tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(.tag = "img", id = "qut", src = test_path("QUT.png")))
             ))
 
   scene_a$serve()
