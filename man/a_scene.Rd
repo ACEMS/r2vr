@@ -6,7 +6,8 @@
 \usage{
 a_scene(template = "basic_map",
   title = "A-Frame VR scene created with r2vr", description = title,
-  aframe_version = "0.8.2", children = NULL, ...)
+  aframe_version = "0.8.2", js_sources = NULL, children = NULL,
+  websocket = FALSE, ...)
 }
 \arguments{
 \item{template}{A name of a built in template or a path to a custom html template.}
@@ -17,7 +18,14 @@ a_scene(template = "basic_map",
 
 \item{aframe_version}{The version of A-Frame to serve the scene with, defaults to 0.8.2}
 
+\item{js_sources}{a character vector of javascript scources to be added to
+scene html. Local sources will be served remote sources will not.}
+
 \item{children}{a list of child A-Frame entities of this scene.}
+
+\item{websocket}{TRUE if this scene should try to connect to its server with
+a websocket connection when served. This can be used to pass messages
+containing aframe events or entity updates from R to VR.}
 
 \item{...}{components to be added to the scene.}
 }
@@ -36,8 +44,14 @@ behaviour.
 A scene has a html representation that is based off a template supplied in
 the `template` argument. The template is a partially filled out A-Frame html
 that contains some Javascript js_sources, and potentially some convenient
-entities, for example: a flat plane that forms the 'ground' of the scene in
-the included "basic_map" template.
+entities. Included templates are:
+    * 'basic' Scene which is empty but for a 10m x 10m grid for ground.
+    Default lights are injected by A-Frame.
+    * 'basic_map' As per basic but camera position starts higher, and WASD
+    movement controls are added. A bright light is situated high in the sky.
+    * 'empty' an empty scene. Default lights are injected by A-Frame.
+The built-in templates are intended for debugging/construction purposes. Use
+'empty' for real scenes or build your own template.
 
 A scene can render itself and all its child entities and assets to a single
 html file that defines a WebVR scene that can be viewed in a browser. In

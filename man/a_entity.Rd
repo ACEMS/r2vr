@@ -4,8 +4,8 @@
 \alias{a_entity}
 \title{a_entity}
 \usage{
-a_entity(tag = "entity", js_sources = NULL, id = NULL, children = NULL,
-  ...)
+a_entity(tag = "entity", js_sources = NULL, id = NULL,
+  children = NULL, .assets = NULL, ...)
 }
 \arguments{
 \item{tag}{text for the entity tag. The default is "a-entity", but it can be
@@ -19,6 +19,12 @@ will be automatically be sourced in the html header by the parent scene.}
 
 \item{children}{a list of A-Frame entities to be nested within the HTML tag
 of this entity.}
+
+\item{.assets}{any assets needed by this entity that are not assigned in
+component configuration. For example it may be that this entity begins
+the scene with one texture and later is changed to second texture due to
+an event. It is preferable that the second texture is loaded in the asset
+block and so is cached and ready to go when the event happens.}
 
 \item{...}{components to be added to the entity. See description.}
 }

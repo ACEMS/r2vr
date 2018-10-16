@@ -130,9 +130,16 @@ A_Asset <-
 ##' can delay the scene at a blank white page while they are fetched. Assets
 ##' defined inline do not delay scene rendering.
 ##'
+##' Assets can be located on local disk, or at remote URLs. The asset
+##' declaration will examine the `src` parameter to see if it conforms to known
+##' URL conventions. If so r2vr will not attempt to serve the asset, but it will
+##' generate the required references to is in the output scene.
+##'
 ##' @title a_asset
-##' @param id an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.
-##' @param tag the tag text to use in the asset block. Defaults to `a-asset-item`.
+##' @param id an an id to be used by the asset item in the asset block. #id will
+##'   be used to refernce the asset in component configuratuion.
+##' @param tag the tag text to use in the asset block. Defaults to
+##'   `a-asset-item`. Another common choices is "img" for images.
 ##' @param src the location of the asset
 ##' @param parts the location(s) of files referred to in the `src` file that
 ##'   need to be served with it. Examples are `.bin` files that accompany glTF
@@ -146,3 +153,11 @@ a_asset <- function(id = "", src, parts = NULL,
                     tag = "a-asset-item", inline = FALSE){ 
   A_Asset$new(id = id, src = src, parts = parts, tag = tag, inline = inline)
 }
+
+##' is this an A-Frame Asset
+##'
+##' @title is_a_asset
+##' @param x an object
+##' @return true if object is an "A_Asset"
+##' @export
+is_a_asset <- function(x) inherits(x, "A_Asset")

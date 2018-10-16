@@ -8,7 +8,8 @@ a_asset(id = "", src, parts = NULL, tag = "a-asset-item",
   inline = FALSE)
 }
 \arguments{
-\item{id}{an an id to be used by the asset item in the asset block. #id will be used to refernce the asset in component configuratuion.}
+\item{id}{an an id to be used by the asset item in the asset block. #id will
+be used to refernce the asset in component configuratuion.}
 
 \item{src}{the location of the asset}
 
@@ -18,7 +19,8 @@ models or texture images that accompany `.mtl` files. These are referred
 to in 'src' by relative paths, so must reside at or below the same
 directory as `src`.}
 
-\item{tag}{the tag text to use in the asset block. Defaults to `a-asset-item`.}
+\item{tag}{the tag text to use in the asset block. Defaults to
+`a-asset-item`. Another common choices is "img" for images.}
 
 \item{inline}{boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.}
 }
@@ -41,4 +43,9 @@ link into the component configuration.
 Assets in the <a-assets> block are loaded before the scene is rendered. This
 can delay the scene at a blank white page while they are fetched. Assets
 defined inline do not delay scene rendering.
+
+Assets can be located on local disk, or at remote URLs. The asset
+declaration will examine the `src` parameter to see if it conforms to known
+URL conventions. If so r2vr will not attempt to serve the asset, but it will
+generate the required references to is in the output scene.
 }

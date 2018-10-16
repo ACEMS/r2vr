@@ -173,3 +173,70 @@ test_that("A scene can serve itself and glTF models", {
 
   my_scene$stop()
 })
+
+test_that("Multiple Scenes can be stopped at once using kill_all", {
+  scene_a <-
+      a_scene(children = list(
+                a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                         src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+              ))
+  scene_a$serve()
+
+  scene_b <-
+    a_scene(children = list(
+              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+            ))
+  scene_b$serve(port = 8082)
+
+  expect_equal({
+    length(ls(envir = .r2vr_all_running_scenes))
+  },
+  {
+    2
+  })
+
+  a_kill_all_scenes()
+
+  expect_error({
+    scene_a$stop()
+  }, regexp = "Cannot stop serving scene. Not currently serving scene.")
+
+  expect_error({
+    scene_b$stop()
+  }, regexp = "Cannot stop serving scene. Not currently serving scene.")
+
+  expect_equal({
+    length(ls(envir = .r2vr_all_running_scenes))
+  },{
+    0
+  })
+})
+
+test_that("Local javascript files can be added as js_sources and routed to.", {
+
+  scene_a <-
+    a_scene(js_sources = test_path("ws_test.js"),
+            children = list(
+              a_entity(tag = "plane", position = c(0, 2, -3), height = 1, width = 1,
+                       src = a_asset(tag = "img", id = "qut", src = test_path("QUT.png")))
+            ))
+
+  scene_a$serve()
+  
+  expect_equal({
+
+    response1 <-
+      scene_a$scene$test_request(
+                      fiery::fake_request(url = paste0("https://127.0.0.1:8080/",
+                                                       test_path("ws_test.js"))))
+    response1$body
+
+  },
+  {
+    readr::read_file(test_path("ws_test.js"))
+  })
+
+scene_a$stop()
+
+})
