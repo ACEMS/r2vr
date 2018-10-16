@@ -19,7 +19,7 @@ test_that("A non-inline asset outputs its tag and reference",{
 })
 
 test_that("An inline asset ouputs a url reference and no tag.",{
-  my_asset <- A_Asset$new(id = "QUT", src = "QUT.jpg", inline = TRUE)
+  my_asset <- A_Asset$new(id = "QUT", src = "QUT.jpg", .inline = TRUE)
   expect_equal({
     my_asset$render()
   },
@@ -38,7 +38,7 @@ test_that("An inline asset ouputs a url reference and no tag.",{
 
 test_that("Asset data reflects assets and parts",{
   my_asset <- a_asset(id = "kangaroo", src = test_path("Kangaroo_01.gltf"),
-                       parts = test_path("Kangaroo_01.bin"))
+                       .parts = test_path("Kangaroo_01.bin"))
   my_asset_data <- my_asset$get_asset_data()
 
   expect_equal({
@@ -64,7 +64,7 @@ test_that("Asset errors early when file are not found", {
 
   expect_error(a_asset(id = "kangaroo",
                        src = test_path("Kangaroo_01.gltf"),
-                       parts = c(test_path("Kangaroo_01.bin"), "notfound.gltf"))$get_asset_data(),
+                       .parts = c(test_path("Kangaroo_01.bin"), "notfound.gltf"))$get_asset_data(),
                "Error when rendering asset, file not found.*")
 
 })
@@ -73,7 +73,7 @@ test_that("Asset errors if path not below src", {
 
   expect_error(a_asset(id = "kangaroo",
                        src = test_path("Kangaroo_01.gltf"),
-                       parts = c(test_path("../Kangaroo_01.bin"), "notfound.gltf")),
+                       .parts = c(test_path("../Kangaroo_01.bin"), "notfound.gltf")),
                "Path to part must be at or below src.*")
 })
 
@@ -88,14 +88,14 @@ test_that("Assets pointing to URLs error if called upon to fetch data.",{
 
 test_that("A url asset can be used as a texture", {
   my_asset <- a_asset(id = "QUT",
-                      tag = "img",
-                          src = "https://cdn.rawgit.com/MilesMcBain/r2vr/9987bbd2/tests/testthat/QUT.png")
+                      .tag = "img",
+                      src = "https://cdn.rawgit.com/MilesMcBain/r2vr/9987bbd2/tests/testthat/QUT.png")
 
   my_cube <- a_entity("box", depth="2", height="2", width="2",
                       position = c(0, 2, -2),
                       src = my_asset)
 
-  my_scene <- a_scene(children = list(my_cube))
+  my_scene <- a_scene(.children = list(my_cube))
 
   expect_true({
     my_scene$serve()

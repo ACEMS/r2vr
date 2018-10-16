@@ -4,11 +4,11 @@
 \alias{a_pc_control_camera}
 \title{a_pc_control_camera}
 \usage{
-a_pc_control_camera(js_sources = list(.extras_controls), easingY = 15,
+a_pc_control_camera(.js_sources = list(.extras_controls), easingY = 15,
   acceleration = 100, ...)
 }
 \arguments{
-\item{js_sources}{Defaults to version 4.0.2 of the controls.}
+\item{.js_sources}{Defaults to version 4.0.2 of the controls.}
 
 \item{easingY}{Easing rate of movement in the y direction (up).}
 

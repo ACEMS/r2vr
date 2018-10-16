@@ -7,16 +7,16 @@ A_Entity <-
             children = NULL,
             tag = NULL,
             id = NULL,
-            initialize = function(tag = "entity", js_sources = NULL, id = NULL,
-                                  children = NULL, .assets = NULL, ...){
+            initialize = function(.tag = "entity", .js_sources = NULL, id = NULL,
+                                  .children = NULL, .assets = NULL, ...){
               components <- list(...)
-              self$tag <- tag
+              self$tag <- .tag
               self$components <- list(...)
               self$js_sources <- list()
 
               ## add provided js sources if supplied.
-              if(!is.null(js_sources)){
-                self$add_js_sources(js_sources)
+              if(!is.null(.js_sources)){
+                self$add_js_sources(.js_sources)
               }
 
               ## check assets supplied in .assets are all asset objects
@@ -31,14 +31,14 @@ A_Entity <-
               ## Add children. It's imporant to do this after settting up assets
               ## and js_sources, since adding children will update these lists.
               self$children <- list()
-              if (!is.null(children)){
-                if (!is.list(children)){
-                  stop("children must be of type list or NULL.")
+              if (!is.null(.children)){
+                if (!is.list(.children)){
+                  stop(".children must be of type list or NULL.")
                 }
                 ## There are child entities to add.
                 ## We call add_children on ourselves, but since it is setup to
                 ## take ... we lift it to take list.
-                purrr::lift_dl(self$add_children)(children)
+                purrr::lift_dl(self$add_children)(.children)
               }
 
               if (!is.null(id) && !is.character(id)){
@@ -262,12 +262,12 @@ A_Entity <-
 ##'
 ##' @title a_entity
 ##' @param id an optional id for the entity, useful if you want to later add children to it.
-##' @param tag text for the entity tag. The default is "a-entity", but it can be
+##' @param .tag text for the entity tag. The default is "a-entity", but it can be
 ##'   used to create any of the A-Frame built-ins for example using "a-sphere"
-##' @param js_sources a vector of links to Javascript files this entity depends on.
+##' @param .js_sources a vector of links to Javascript files this entity depends on.
 ##'   Useful if adding a community-made component to an entity. The script file
 ##'   will be automatically be sourced in the html header by the parent scene.
-##' @param children a list of A-Frame entities to be nested within the HTML tag
+##' @param .children a list of A-Frame entities to be nested within the HTML tag
 ##'   of this entity.
 ##' @param .assets any assets needed by this entity that are not assigned in
 ##'   component configuration. For example it may be that this entity begins
@@ -277,9 +277,9 @@ A_Entity <-
 ##' @param ... components to be added to the entity. See description.
 ##' @return A_Entity object
 ##' @export
-a_entity <- function(tag = "entity", js_sources = NULL, id = NULL,
-                     children = NULL, .assets = NULL, ...){
-  A_Entity$new(tag = tag, js_sources = js_sources, id = id, children = children,
+a_entity <- function(.tag = "entity", .js_sources = NULL, id = NULL,
+                     .children = NULL, .assets = NULL, ...){
+  A_Entity$new(.tag = .tag, .js_sources = .js_sources, id = id, .children = .children,
                .assets = .assets, ...)
 }
 

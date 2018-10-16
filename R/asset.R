@@ -7,9 +7,9 @@ A_Asset <-
                 src = NULL,
                 parts = NULL,
                 inline = NULL,
-                initialize = function(id = "", src, parts = NULL,
-                                      tag = "a-asset-item", inline = FALSE){
-                  if (!inline){
+                initialize = function(id = "", src, .parts = NULL,
+                                      .tag = "a-asset-item", .inline = FALSE){
+                  if (!.inline){
                     if(!is.character(id) | length(id) != 1 | !nzchar(id)){
                       stop("An asset id is a length 1, non-empty character vector. Got:", id)
                     }
@@ -19,25 +19,25 @@ A_Asset <-
                           length 1 character vector. Got:", src)
                   }
 
-                  if (!is.null(parts)) {
-                    if (!is.character(parts) | !all(nzchar(parts))){
+                  if (!is.null(.parts)) {
+                    if (!is.character(.parts) | !all(nzchar(.parts))){
                       stop("parts must be a character vector of files.")
                     }
 
-                    purrr::walk(parts, function(part){
+                    purrr::walk(.parts, function(part){
                       relative_path <- fs::path_rel(part, fs::path_dir(src))
                       if (stringr::str_detect(relative_path, "\\.\\.")){
                         stop("Path to part must be at or below src. Not so for: ", part)
                       }
                     })
 
-                    self$parts <- parts
+                    self$parts <- .parts
                   }
 
                   self$id <- id
                   self$src <- src
-                  self$tag <- tag
-                  self$inline <- inline
+                  self$tag <- .tag
+                  self$inline <- .inline
                 },
 
                 ## called by a_entity
@@ -138,20 +138,20 @@ A_Asset <-
 ##' @title a_asset
 ##' @param id an an id to be used by the asset item in the asset block. #id will
 ##'   be used to refernce the asset in component configuratuion.
-##' @param tag the tag text to use in the asset block. Defaults to
+##' @param .tag the tag text to use in the asset block. Defaults to
 ##'   `a-asset-item`. Another common choices is "img" for images.
 ##' @param src the location of the asset
-##' @param parts the location(s) of files referred to in the `src` file that
+##' @param .parts the location(s) of files referred to in the `src` file that
 ##'   need to be served with it. Examples are `.bin` files that accompany glTF
 ##'   models or texture images that accompany `.mtl` files. These are referred
 ##'   to in 'src' by relative paths, so must reside at or below the same
 ##'   directory as `src`.
-##' @param inline boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.
+##' @param .inline boolean signifying if the asset is to be specified inline with the entity. If true, the containing A-Frame scene does not wait for the asset to load.
 ##' @return an asset object.
 ##' @export
-a_asset <- function(id = "", src, parts = NULL,
-                    tag = "a-asset-item", inline = FALSE){ 
-  A_Asset$new(id = id, src = src, parts = parts, tag = tag, inline = inline)
+a_asset <- function(id = "", src, .parts = NULL,
+                    .tag = "a-asset-item", .inline = FALSE){ 
+  A_Asset$new(id = id, src = src, .parts = .parts, .tag = .tag, .inline = .inline)
 }
 
 ##' is this an A-Frame Asset

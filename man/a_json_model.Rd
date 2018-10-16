@@ -5,7 +5,7 @@
 \title{a_json_model}
 \usage{
 a_json_model(src, version_num = "4.1.2", mesh_smooth = FALSE,
-  js_sources = list(), ...)
+  .js_sources = list(), ...)
 }
 \arguments{
 \item{src}{an a_asset describing a JSON file.}
@@ -15,7 +15,7 @@ a_json_model(src, version_num = "4.1.2", mesh_smooth = FALSE,
 \item{mesh_smooth}{if true, compute normals in browser to give the model a
 smoothed appearance.}
 
-\item{js_sources}{defaults to version 4.0.2 of the JSON model loader, supply
+\item{.js_sources}{defaults to version 4.0.2 of the JSON model loader, supply
 another version using a list here. e.g. `js_sources` =
 list("https://cdn.rawgit.com/donmccurdy/aframe-extras/<path_to_js_file>")}
 
