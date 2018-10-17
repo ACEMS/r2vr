@@ -195,11 +195,11 @@ simple shiny app that can control the water with a slider.
 library(shiny)
 
 ui <- flowLayout(
-  sliderInput("level", "Set the sea level", min = -2, max = 4, 0.1)
+  sliderInput("level", "Set the sea level", 
+              min = -2, max = 4, step = 0.1, round = FALSE)
 )
 
-server <- function(input, output){
-
+onStart <- function(){
   ## Setup VR Scene
   island_model <- a_asset(id = "island",
                           src = "https://cdn.glitch.com/7cadb230-57b2-4aae-9de9-e60de097035e%2Fisland.gltf?1510323826393")
@@ -219,11 +219,13 @@ server <- function(input, output){
                                     shader = "flat"
                                     )
                     )
-
-  the_scene <- a_scene(.children = list(island, water),
+  ## need to use global assign to make it visible to server
+  the_scene <<- a_scene(.children = list(island, water),
                        .websocket = TRUE)
   the_scene$serve()
+}
 
+server <- function(input, output){
 
   ## Setup response to silder
   slider_value <-
@@ -238,10 +240,10 @@ server <- function(input, output){
       the_scene$send_messages(update_message)
     }
     )
+}
 
-
-  runApp(shinyApp(ui,server), launch.browser = TRUE)} 
+  runApp(shinyApp(ui,server, onStart), launch.browser = TRUE)
 
 a_kill_all_scenes()
 ```
-The VR app needs to be embedded inside the shiny app since the Shiny event loop takes over the R process.
+The VR app needs to be embedded inside the shiny app since the Shiny event loop takes over the R process. However care must be taken to only start it once, which is why it is in the onStart function. Correpsondlingly it would go in global.R for a directory based app.
