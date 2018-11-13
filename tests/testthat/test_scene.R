@@ -241,3 +241,9 @@ test_that("Local javascript files can be added as js_sources and routed to.", {
 scene_a$stop()
 
 })
+
+test_that("scenes can be served with components", {
+  my_scene <- a_scene(.websocket = TRUE, stats = NULL)
+
+  expect_match(my_scene$render(), "<a-scene stats")
+})

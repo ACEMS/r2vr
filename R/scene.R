@@ -367,6 +367,10 @@ A_Scene <-
 ##' @param .websocket TRUE if this scene should try to connect to its server with
 ##'   a websocket connection when served. This can be used to pass messages
 ##'   containing aframe events or entity updates from R to VR.
+##' @param .websocket_host The host for the websocket in the client's browser to
+##'   connect to (IP of r2vr sever).
+##' @param .websocket_port The port for the
+##'   websocket in the client's browser to connect to on the host.
 ##' @param ... components to be added to the scene.
 ##' @return An R6 object representing an A-Frame scene.
 ##' @export
@@ -377,6 +381,8 @@ a_scene <- function(.template = "basic_map",
                     .js_sources = NULL,
                     .children = NULL,
                     .websocket = FALSE,
+                    .websocket_host = "localhost",
+                    .websocket_port = 8080,
                     ...){
   scene_args <- list(.template = .template, .title = .title,
                      .description = .title, .aframe_version = .aframe_version,
@@ -386,7 +392,8 @@ a_scene <- function(.template = "basic_map",
     ## If websocket desired, add the local js source.
     scene_args$.js_sources <- c(scene_args$.js_sources,
                     system.file("js/r2vr_components.js", package = "r2vr"))
-    scene_args$r2vr_message_router = list()
+    scene_args$r2vr_message_router = list(host = .websocket_host,
+                                          port = .websocket_port)
   }
   do.call(A_Scene$new, scene_args)
 }
