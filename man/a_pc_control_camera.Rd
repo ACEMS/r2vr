@@ -4,16 +4,18 @@
 \alias{a_pc_control_camera}
 \title{a_pc_control_camera}
 \usage{
-a_pc_control_camera(.js_sources = list(.extras_controls), easingY = 15,
-  acceleration = 100, ...)
+a_pc_control_camera(.js_sources = list(), easingY = 15,
+  acceleration = 100, .version_num = "4.1.2", ...)
 }
 \arguments{
-\item{.js_sources}{Defaults to version 4.0.2 of the controls.}
+\item{.js_sources}{Defaults to version 4.1.2 of the controls.}
 
 \item{easingY}{Easing rate of movement in the y direction (up).}
 
 \item{acceleration}{Acceleration of movement in forward, backward, left, and
 right directions.}
+
+\item{.version_num}{A-Frame extras version number.}
 
 \item{...}{additional components to be added to this entity.}
 }
