@@ -389,9 +389,9 @@ a_scene <- function(.template = "basic_map",
                      .js_sources = .js_sources,
                      .children = .children, ...)
   if(.websocket){
-    ## If websocket desired, add the local js source.
+    ## If websocket desired, add the r2vr components js source.
     scene_args$.js_sources <- c(scene_args$.js_sources,
-                    system.file("js/r2vr_components.js", package = "r2vr"))
+                                "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst/js/r2vr_components.js")
     scene_args$r2vr_message_router = list(host = .websocket_host,
                                           port = .websocket_port)
   }
