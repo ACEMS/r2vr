@@ -53,13 +53,13 @@ camera <- a_entity(
 )
 
 jaguar_question_label <- a_label(
-  text = "What features suggest this is a Jaguar habitat?",
+  text = "Do you see any of these habitat features in this image? If you do see a feature, click on the box to select it.",
   id = "questionPlaneText",
   color = black,
   font = "mozillavr",
   height = 1,
   width = 1,
-  position = c(0, 0, 0)
+  position = c(0, 0.02, 0)
 )
 
 jaguar_question_plane <- a_entity(
@@ -74,7 +74,7 @@ jaguar_question_plane <- a_entity(
 )
 
 post_label <- a_label(
-  text = "POST",
+  text = "Submit Answer",
   id = "postText",
   color = black,
   font = "mozillavr",
@@ -122,27 +122,27 @@ jaguar_water_plane <- a_entity(
   .children = list(jaguar_water_label),
   id = "waterPlane",
   visible = FALSE,
-  position = c(-0.25, -0.4, -2),
+  position = c(-0.35, -0.45, -2),
   color = white,
-  height = 0.3,
-  width = 0.3
+  height = 0.4,
+  width = 0.4
 )
 
 # Outer boundary for intersection detection
 jaguar_water_plane_boundary <- a_entity(
   .tag = "ring",
   id = "waterPlaneBoundary",
-  position = c(-0.25, -0.4, -2),
+  position = c(-0.35, -0.45, -2),
   visible = FALSE,
   color = dark_red,
-  radius_inner = 0.24,
-  radius_outer = 0.25,
+  radius_inner = 0.34,
+  radius_outer = 0.35,
   segments_theta = 4,
   theta_start = 45
 )
 
 jaguar_prey_label <- a_label(
-  text = "Prey",
+  text = "Jaguar tracks", # TODO: Change prey to jaguar tracks
   id = "preyText",
   color = black,
   font = "mozillavr",
@@ -156,27 +156,27 @@ jaguar_prey_plane <- a_entity(
   .children = list(jaguar_prey_label),
   id = "preyPlane",
   visible = FALSE,
-  position = c(-0.25, -0.8, -2),
+  position = c(-0.35, -1, -2),
   color = white,
-  height = 0.3,
-  width = 0.3
+  height = 0.4,
+  width = 0.4
 )
 
 # Outer boundary for intersection detection
 jaguar_prey_plane_boundary <- a_entity(
   .tag = "ring",
   id = "preyPlaneBoundary",
-  position = c(-0.25, -0.8, -2),
+  position = c(-0.35, -1, -2),
   visible = FALSE,
   color = dark_red,
-  radius_inner = 0.24,
-  radius_outer = 0.25,
+  radius_inner = 0.34,
+  radius_outer = 0.35,
   segments_theta = 4,
   theta_start = 45
 )
 
 jaguar_trees_label <- a_label(
-  text = "Trees",
+  text = "Scratch marks", # TODO: change treesplane to Scratch marks
   id = "treesText",
   color = black,
   font = "mozillavr",
@@ -190,10 +190,10 @@ jaguar_trees_plane <- a_entity(
   .children = list(jaguar_trees_label),
   id = "treesPlane",
   visible = FALSE,
-  position = c(0.25, -0.4, -2),
+  position = c(0.35, -0.45, -2),
   color = white,
-  height = 0.3,
-  width = 0.3,
+  height = 0.4,
+  width = 0.4,
 )
 
 # Outer boundary for intersection detection
@@ -201,16 +201,16 @@ jaguar_trees_plane_boundary <- a_entity(
   .tag = "ring",
   id = "treesPlaneBoundary",
   visible = FALSE,
-  position = c(0.25, -0.4, -2),
+  position = c(0.35, -0.45, -2),
   color = dark_red,
-  radius_inner = 0.24,
-  radius_outer = 0.25,
+  radius_inner = 0.34,
+  radius_outer = 0.35,
   segments_theta = 4,
   theta_start = 45
 )
 
 jaguar_vegetation_label <- a_label(
-  text = "Vegetation",
+  text = "Dense Vegetation",
   id = "vegetationText",
   color = black,
   font = "mozillavr",
@@ -224,10 +224,10 @@ jaguar_vegetation_plane <- a_entity(
   .children = list(jaguar_vegetation_label),
   id = "vegetationPlane",
   visible = FALSE,
-  position = c(0.25, -0.8, -2),
+  position = c(0.35, -1, -2),
   color = white,
-  height = 0.3,
-  width = 0.3,
+  height = 0.4,
+  width = 0.4,
 )
 
 # Outer boundary for intersection detection
@@ -235,10 +235,10 @@ jaguar_vegetation_plane_boundary <- a_entity(
   .tag = "ring",
   id = "vegetationPlaneBoundary",
   visible = FALSE,
-  position = c(0.25, -0.8, -2),
+  position = c(0.35, -1, -2),
   color = dark_red,
-  radius_inner = 0.24,
-  radius_outer = 0.25,
+  radius_inner = 0.34,
+  radius_outer = 0.35,
   segments_theta = 4,
   theta_start = 45
 )

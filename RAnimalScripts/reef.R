@@ -53,13 +53,13 @@ camera <- a_entity(
 )
 
 reef_question_label <- a_label(
-  text = "Is the reef complex?",
+  text = "Do the live corals on this reef form a structurally complex habitat?",
   id = "questionPlaneText",
   color = black,
   font = "mozillavr",
   height = 1,
   width = 1,
-  position = c(0, 0, 0)
+  position = c(0, 0.02, 0)
 )
 
 reef_question_plane <- a_entity(

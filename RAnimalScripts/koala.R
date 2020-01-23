@@ -53,13 +53,13 @@ camera <- a_entity(
 )
 
 koala_question_label <- a_label(
-  text = "Do you see a koala?",
+  text = "Do you see any koalas in this image?",
   id = "questionPlaneText",
   color = black,
   font = "mozillavr",
   height = 0.2,
   width = 1,
-  position = c(0, 0, 0)
+  position = c(0, 0.02, 0)
 )
 
 koala_question_plane <- a_entity(
