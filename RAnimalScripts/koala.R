@@ -31,7 +31,9 @@ canvas_3d <- a_entity(.tag = "sky",
 # Create a cursor
 cursor <- a_entity(
   .tag = "cursor",
-  color = "#ff0000"
+  color = "#ff0000",
+  id = "fileID",
+  class = "koala"
 )
 
 # Position cursor in center of camera

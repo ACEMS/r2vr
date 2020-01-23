@@ -4,6 +4,9 @@ AFRAME.registerComponent("binary-button-controls", {
     const yesPlane = document.getElementById("yesPlane");
     const noPlane = document.getElementById("noPlane");
 
+    const fileID = document.getElementById("fileID");
+    const fileIDClass = fileID.getAttribute('class');
+
     let imageAnnotated = [];
 
     let controlsEl = document.querySelector("[button-controls]");
@@ -15,15 +18,17 @@ AFRAME.registerComponent("binary-button-controls", {
         let data = {
           image_id: image_id,
           image_file: image_file,
-          is_koala: binary // TODO: rename is_present
+          is_present: binary
         };
 
         if (!imageAnnotated.includes(image_id)) {
           imageAnnotated.push(image_id);
           console.log('imageAnnotated:', imageAnnotated);
         }
+        
+        const endPoint = fileIDClass === 'koala' ? "https://test-api-koala.herokuapp.com/koala" : "https://test-api-koala.herokuapp.com/reef"
 
-        fetch("https://test-api-koala.herokuapp.com/koala", {
+        fetch(endPoint, {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
