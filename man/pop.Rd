@@ -38,24 +38,6 @@ a_update(id = "noPlaneBoundary",
 ## Display messages in VR scene
 pop(show_messages)
 
-hide_messages <- list(
-a_update(id = "questionPlane",
-         component = "visible",
-         attributes = FALSE),
-a_update(id = "yesPlane",
-         component = "visible",
-         attributes = FALSE),
-a_update(id = "noPlane",
-         component = "visible",
-         attributes = FALSE),
-a_update(id = "yesPlaneBoundary",
-         component = "visible",
-         attributes = FALSE),
-a_update(id = "noPlaneBoundary",
-         component = "visible",
-         attributes = FALSE)
-)
-
 ## Remove messages
 pop(show_messages, visible = FALSE)
 }
