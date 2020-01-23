@@ -360,7 +360,8 @@ go <- function(index = NA){
 }
 
 # Get data from database with API GET request
-read <- function(){
+read <- function(url = "https://test-api-koala.herokuapp.com/jaguar"){
   # Deserialize the payload so data can be read and converted from JSON to data frame
-  jaguar_data.df <<- jsonlite::fromJSON(httr::content(httr::GET("https://test-api-koala.herokuapp.com/jaguar"), "text"), flatten = TRUE)
+  data.df <<- jsonlite::fromJSON(httr::content(httr::GET(url), "text"), flatten = TRUE)
+  return(data.df)
 }
