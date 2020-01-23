@@ -6,15 +6,20 @@ LOCAL_IP <- "192.168.43.72"
 # Define image paths
 image_paths <- c("../images/koalas/KP5.jpg", "../images/koalas/SP10.jpg", "../images/koalas/foundKoala1.jpg", "../images/koalas/foundKoala2.jpg")
 
+# Colours
+dark_red <- "#8c0000"
+bright_red <- "#ff0000"
+white <- "#ffffff"
+black <- "#000000"
 
 # Assign asset for each image path
 for (i in 1:length(image_paths)) {
   image_number <- paste("image", i, sep = "")
-    
+
   current_image <- a_asset(.tag = "image",
                         id = paste("img", i, sep = ""),
                         src = image_paths[i])
-  
+
   assign(image_number, current_image)
 }
 
@@ -31,7 +36,7 @@ canvas_3d <- a_entity(.tag = "sky",
 # Create a cursor
 cursor <- a_entity(
   .tag = "cursor",
-  color = "#ff0000",
+  color = bright_red,
   id = "fileID",
   class = "koala"
 )
@@ -48,9 +53,9 @@ camera <- a_entity(
 koala_question_label <- a_label(
   text = "Do you see a koala?",
   id = "questionPlaneText",
-  color = "#FF0000",
+  color = black,
   font = "mozillavr",
-  height = 1,
+  height = 0.2,
   width = 1,
   position = c(0, 0, 0)
 )
@@ -61,15 +66,15 @@ koala_question_plane <- a_entity(
   id = "questionPlane",
   visible = FALSE,
   position = c(0, 0, -1),
-  color = "#FFFFFF",
-  height = 0.4,
-  width = 0.8,
+  color = white,
+  height = 0.15,
+  width = 0.8
 )
 
 koala_yes_label <- a_label(
   text = "Yes",
   id = "yesText",
-  color = "#FF0000",
+  color = black,
   font = "mozillavr",
   height = 1,
   width = 1,
@@ -81,8 +86,8 @@ koala_yes_plane <- a_entity(
   .children = list(koala_yes_label),
   id = "yesPlane",
   visible = FALSE,
-  position = c(-0.25, -0.4, -1),
-  color = "#FFFFFF",
+  position = c(-0.25, -0.3, -1),
+  color = white,
   height = 0.3,
   width = 0.3
 )
@@ -91,9 +96,9 @@ koala_yes_plane <- a_entity(
 koala_yes_plane_boundary <- a_entity(
   .tag = "ring",
   id = "yesPlaneBoundary",
-  position = c(-0.25, -0.4, -1),
+  position = c(-0.25, -0.3, -1),
   visible = FALSE,
-  color = "#FF0000",
+  color = dark_red,
   radius_inner = 0.24,
   radius_outer = 0.25,
   segments_theta = 4,
@@ -103,7 +108,7 @@ koala_yes_plane_boundary <- a_entity(
 koala_no_label <- a_label(
   text = "No",
   id = "noText",
-  color = "#FF0000",
+  color = black,
   font = "mozillavr",
   height = 1,
   width = 1,
@@ -115,10 +120,10 @@ koala_no_plane <- a_entity(
   .children = list(koala_no_label),
   id = "noPlane",
   visible = FALSE,
-  position = c(0.25, -0.4, -1),
-  color = "#FFFFFF",
+  position = c(0.25, -0.3, -1),
+  color = white,
   height = 0.3,
-  width = 0.3,
+  width = 0.3
 )
 
 # Outer boundary for intersection detection
@@ -126,8 +131,8 @@ koala_no_plane_boundary <- a_entity(
   .tag = "ring",
   id = "noPlaneBoundary",
   visible = FALSE,
-  position = c(0.25, -0.4, -1),
-  color = "#FF0000",
+  position = c(0.25, -0.3, -1),
+  color = dark_red,
   radius_inner = 0.24,
   radius_outer = 0.25,
   segments_theta = 4,
@@ -156,7 +161,7 @@ end <- function(){
 
 # Toggle Question
 pop <- function(visible = TRUE){
-  
+
   animals$send_messages(list(
     a_update(id = "questionPlane",
              component = "visible",
@@ -187,20 +192,20 @@ context_rotations <- list(list(x = 0, y = 0, z = 0),
 
 # Next (or particular) image
 go <- function(index = NA){
-  
+
   if(!is.na(index)) CONTEXT_INDEX <<- index
-  
+
   if(is.na(index)) {
     CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(koala_contexts) - 1,
                              yes = 1,
                              no = CONTEXT_INDEX + 1)
   }
-  
-  
+
+
   next_image <- koala_contexts[[CONTEXT_INDEX]]
-  
+
   pop(FALSE)
-  
+
   animals$send_messages(list(
     a_update(id = "canvas3d",
              component = "material",
@@ -216,9 +221,9 @@ go <- function(index = NA){
              attributes = image_paths[CONTEXT_INDEX]),
     a_update(id = "yesPlane",
              component = "color",
-             attributes = "#FFFFFF"),
+             attributes = white),
     a_update(id = "noPlane",
              component = "color",
-             attributes = "#FFFFFF")
+             attributes = white)
   ))
 }
