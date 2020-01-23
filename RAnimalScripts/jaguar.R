@@ -71,6 +71,40 @@ jaguar_question_plane <- a_entity(
   width = 1.1,
 )
 
+post_label <- a_label(
+  text = "POST",
+  id = "postText",
+  color = black,
+  font = "mozillavr",
+  height = 1,
+  width = 1,
+  position = c(0, 0, 0)
+)
+
+post_plane <- a_entity(
+  .tag = "plane",
+  .children = list(post_label),
+  id = "postPlane",
+  visible = FALSE,
+  position = c(0.8, 0, -2),
+  color = white,
+  height = 0.3,
+  width = 0.3,
+)
+
+# Outer boundary for intersection detection
+post_plane_boundary <- a_entity(
+  .tag = "ring",
+  id = "postPlaneBoundary",
+  visible = FALSE,
+  position = c(0.8, 0, -2),
+  color = dark_red,
+  radius_inner = 0.24,
+  radius_outer = 0.25,
+  segments_theta = 4,
+  theta_start = 45
+)
+
 jaguar_water_label <- a_label(
   text = "Water",
   id = "waterText",
@@ -208,7 +242,7 @@ jaguar_vegetation_plane_boundary <- a_entity(
 )
 
 # Create Scene
-animals <- a_scene(.children = list(canvas_3d, jaguar_water_plane_boundary, jaguar_trees_plane_boundary, jaguar_vegetation_plane_boundary, jaguar_prey_plane_boundary, camera, jaguar_question_plane, jaguar_water_plane, jaguar_trees_plane, jaguar_vegetation_plane, jaguar_prey_plane),
+animals <- a_scene(.children = list(canvas_3d, jaguar_water_plane_boundary, jaguar_trees_plane_boundary, jaguar_vegetation_plane_boundary, jaguar_prey_plane_boundary, camera, jaguar_question_plane, jaguar_water_plane, jaguar_trees_plane, jaguar_vegetation_plane, jaguar_prey_plane, post_plane, post_plane_boundary),
                    .websocket = TRUE,
                    .websocket_host = LOCAL_IP,
                    .template = "empty",
@@ -244,6 +278,12 @@ pop <- function(visible = TRUE){
              component = "visible",
              attributes = visible),
     a_update(id = "preyPlane",
+             component = "visible",
+             attributes = visible),
+    a_update(id = "postPlane",
+             component = "visible",
+             attributes = visible),
+    a_update(id = "postPlaneBoundary",
              component = "visible",
              attributes = visible),
     a_update(id = "waterPlaneBoundary",
@@ -309,6 +349,9 @@ go <- function(index = NA){
              component = "color",
              attributes = white),
     a_update(id = "preyPlane",
+             component = "color",
+             attributes = white),
+    a_update(id = "postPlane",
              component = "color",
              attributes = white)
   ))
