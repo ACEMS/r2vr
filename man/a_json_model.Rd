@@ -4,8 +4,13 @@
 \alias{a_json_model}
 \title{a_json_model}
 \usage{
-a_json_model(src, .version_num = "4.1.2", mesh_smooth = FALSE,
-  .js_sources = list(), ...)
+a_json_model(
+  src,
+  .version_num = "4.1.2",
+  mesh_smooth = FALSE,
+  .js_sources = list(),
+  ...
+)
 }
 \arguments{
 \item{src}{an a_asset describing a JSON file.}

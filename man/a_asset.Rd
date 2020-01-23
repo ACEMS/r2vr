@@ -4,8 +4,7 @@
 \alias{a_asset}
 \title{a_asset}
 \usage{
-a_asset(id = "", src, .parts = NULL, .tag = "a-asset-item",
-  .inline = FALSE)
+a_asset(id = "", src, .parts = NULL, .tag = "a-asset-item", .inline = FALSE)
 }
 \arguments{
 \item{id}{an an id to be used by the asset item in the asset block. #id will

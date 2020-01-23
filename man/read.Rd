@@ -9,6 +9,9 @@ read(url)
 \arguments{
 \item{url}{url for database}
 }
+\value{
+
+}
 \description{
 Get data from database with API GET request
 }

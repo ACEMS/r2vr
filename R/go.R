@@ -3,6 +3,35 @@
 #' @param image_paths character string of image paths 
 #' @param setup_scene aframe entities for scene setup
 #' @param index optional input to select a specific image
+#' 
+#' @examples 
+#' \donttest{
+#' 
+#' image_paths <- c("img1.jpg", "img2.jpg", "img3.jpg")
+#' 
+#' setup_scene <- list(
+#' a_update(id = "canvas3d",
+#'          component = "material",
+#'          attributes = list(src = paste0("#",next_image))),
+#' a_update(id = "canvas3d",
+#'          component = "src",
+#'         attributes = paste0("#",next_image)),
+#' a_update(id = "canvas3d",
+#'          component = "rotation",
+#'          attributes = context_rotations[[CONTEXT_INDEX]]),
+#' a_update(id = "canvas3d",
+#'          component = "class",
+#'          attributes = image_paths[CONTEXT_INDEX]),
+#' a_update(id = "yesPlane",
+#'          component = "color",
+#'          attributes = white),
+#' a_update(id = "noPlane",
+#'          component = "color",
+#'          attributes = white))
+#' 
+#' go(image_paths, setup_scene)
+#' 
+#' }
 #'
 #' @export
 go <- function(image_paths, setup_scene, index = NA){

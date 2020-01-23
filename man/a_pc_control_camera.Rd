@@ -4,8 +4,13 @@
 \alias{a_pc_control_camera}
 \title{a_pc_control_camera}
 \usage{
-a_pc_control_camera(.js_sources = list(), easingY = 15,
-  acceleration = 100, .version_num = "4.1.2", ...)
+a_pc_control_camera(
+  .js_sources = list(),
+  easingY = 15,
+  acceleration = 100,
+  .version_num = "4.1.2",
+  ...
+)
 }
 \arguments{
 \item{.js_sources}{Defaults to version 4.1.2 of the controls.}

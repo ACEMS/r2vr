@@ -16,3 +16,33 @@ go(image_paths, setup_scene, index = NA)
 \description{
 Go to next VR scene
 }
+\examples{
+\donttest{
+
+image_paths <- c("img1.jpg", "img2.jpg", "img3.jpg")
+
+setup_scene <- list(
+a_update(id = "canvas3d",
+         component = "material",
+         attributes = list(src = paste0("#",next_image))),
+a_update(id = "canvas3d",
+         component = "src",
+        attributes = paste0("#",next_image)),
+a_update(id = "canvas3d",
+         component = "rotation",
+         attributes = context_rotations[[CONTEXT_INDEX]]),
+a_update(id = "canvas3d",
+         component = "class",
+         attributes = image_paths[CONTEXT_INDEX]),
+a_update(id = "yesPlane",
+         component = "color",
+         attributes = white),
+a_update(id = "noPlane",
+         component = "color",
+         attributes = white))
+
+go(image_paths, setup_scene)
+
+}
+
+}

@@ -4,8 +4,14 @@
 \alias{a_entity}
 \title{a_entity}
 \usage{
-a_entity(.tag = "entity", .js_sources = NULL, id = NULL,
-  .children = NULL, .assets = NULL, ...)
+a_entity(
+  .tag = "entity",
+  .js_sources = NULL,
+  id = NULL,
+  .children = NULL,
+  .assets = NULL,
+  ...
+)
 }
 \arguments{
 \item{.tag}{text for the entity tag. The default is "a-entity", but it can be

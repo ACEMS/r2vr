@@ -4,11 +4,18 @@
 \alias{a_scene}
 \title{a_scene}
 \usage{
-a_scene(.template = "basic_map",
-  .title = "A-Frame VR scene created with r2vr", .description = .title,
-  .aframe_version = "0.8.2", .js_sources = NULL, .children = NULL,
-  .websocket = FALSE, .websocket_host = "localhost",
-  .websocket_port = 8080, ...)
+a_scene(
+  .template = "basic_map",
+  .title = "A-Frame VR scene created with r2vr",
+  .description = .title,
+  .aframe_version = "0.8.2",
+  .js_sources = NULL,
+  .children = NULL,
+  .websocket = FALSE,
+  .websocket_host = "localhost",
+  .websocket_port = 8080,
+  ...
+)
 }
 \arguments{
 \item{.template}{A name of a built in template or a path to a custom html template.}
