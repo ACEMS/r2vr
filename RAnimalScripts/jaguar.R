@@ -6,7 +6,7 @@ library(jsonlite)
 IPv4_ADDRESS <- "192.168.43.72"
 
 # Define image paths
-image_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg", "../inst/ext/images/jaguars/WP55_360_001.jpg", "../inst/ext/images/jaguars/WP56_360_001.jpg", "../inst/ext/images/jaguars/WP60_360_001.jpg")
+img_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg", "../inst/ext/images/jaguars/WP55_360_001.jpg", "../inst/ext/images/jaguars/WP56_360_001.jpg", "../inst/ext/images/jaguars/WP60_360_001.jpg")
 
 # Colours
 dark_red <- "#8c0000"
@@ -15,12 +15,12 @@ white <- "#ffffff"
 black <- "#000000"
 
 # Assign asset for each image path
-for (i in 1:length(image_paths)) {
+for (i in 1:length(img_paths)) {
   image_number <- paste("image", i, sep = "")
   
   current_image <- a_asset(.tag = "image",
                            id = paste("img", i, sep = ""),
-                           src = image_paths[i])
+                           src = img_paths[i])
   
   assign(image_number, current_image)
 }
@@ -29,7 +29,7 @@ for (i in 1:length(image_paths)) {
 canvas_3d <- a_entity(.tag = "sky",
                       .js_sources = list("../inst/js/button_controls.js", "../inst/js/selection_interactions.js"),
                       id = "canvas3d",
-                      class = image_paths[1],
+                      class = img_paths[1],
                       src = image1,
                       rotation = c(0, 0, 0),
                       .assets = list(
@@ -349,7 +349,7 @@ pop <- function(animal_messages = displayed_messages, visible = TRUE){
 # Current image number
 CONTEXT_INDEX <- 1
 
-jaguar_contexts <- paste("img", seq(1,length(image_paths),1), sep="")
+contexts <- paste("img", seq(1,length(img_paths),1), sep="")
 context_rotations <- list(list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0),
@@ -361,13 +361,13 @@ go <- function(index = NA){
   if(!is.na(index)) CONTEXT_INDEX <<- index
   
   if(is.na(index)) {
-    CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(jaguar_contexts) - 1,
+    CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(contexts) - 1,
                              yes = 1,
                              no = CONTEXT_INDEX + 1)
   }
   
   
-  next_image <- jaguar_contexts[[CONTEXT_INDEX]]
+  next_image <- contexts[[CONTEXT_INDEX]]
   
   pop(FALSE)
   
@@ -383,7 +383,7 @@ go <- function(index = NA){
              attributes = context_rotations[[CONTEXT_INDEX]]),
     a_update(id = "canvas3d",
              component = "class",
-             attributes = image_paths[CONTEXT_INDEX]),
+             attributes = img_paths[CONTEXT_INDEX]),
     a_update(id = "waterPlane",
              component = "color",
              attributes = white),

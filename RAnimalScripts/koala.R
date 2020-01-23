@@ -6,7 +6,7 @@ library(jsonlite)
 IPv4_ADDRESS <- "192.168.43.72"
 
 # Define image paths
-image_paths <- c("../inst/ext/images/koalas/KP5.jpg", "../inst/ext/images/koalas/SP10.jpg", "../inst/ext/images/koalas/foundKoala1.jpg", "../inst/ext/images/koalas/foundKoala2.jpg")
+img_paths <- c("../inst/ext/images/koalas/KP5.jpg", "../inst/ext/images/koalas/SP10.jpg", "../inst/ext/images/koalas/foundKoala1.jpg", "../inst/ext/images/koalas/foundKoala2.jpg")
 
 # Colours
 dark_red <- "#8c0000"
@@ -15,12 +15,12 @@ white <- "#ffffff"
 black <- "#000000"
 
 # Assign asset for each image path
-for (i in 1:length(image_paths)) {
+for (i in 1:length(img_paths)) {
   image_number <- paste("image", i, sep = "")
 
   current_image <- a_asset(.tag = "image",
                         id = paste("img", i, sep = ""),
-                        src = image_paths[i])
+                        src = img_paths[i])
 
   assign(image_number, current_image)
 }
@@ -29,9 +29,9 @@ for (i in 1:length(image_paths)) {
 canvas_3d <- a_entity(.tag = "sky",
                       .js_sources = list("../inst/js/button_controls.js", "../inst/js/binary_interactions.js"),
                       id = "canvas3d",
-                      class = image_paths[1],
+                      class = img_paths[1],
                       src = image1,
-                      rotation = c(0, 0, 0),
+                      rotation = c(0, 0, 0), # TODO: Check all rotations
                       .assets = list(
                         image2, image3, image4))
 
@@ -210,25 +210,28 @@ pop <- function(animal_messages = displayed_messages, visible = TRUE){
 # Current image number
 CONTEXT_INDEX <- 1
 
-koala_contexts <- paste("img", seq(1,length(image_paths),1), sep="")
+contexts <- paste("img", seq(1,length(img_paths),1), sep="")
+# TODO: Rotation of images should be passed in
+# NOTE: These rotations are on the go() fn => the first image needs to be rotated when its rendered (near top: canvas_3d - rotation)
 context_rotations <- list(list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0))
 
 # Next (or particular) image
-go <- function(index = NA){
-
+# TODO: Either add more params or refactor or both - emphasis on changing setup_scene
+go <- function(image_paths = img_paths, setup_scene = context_rotations , index = NA){
+  
   if(!is.na(index)) CONTEXT_INDEX <<- index
 
   if(is.na(index)) {
-    CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(koala_contexts) - 1,
+    CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(contexts) - 1,
                              yes = 1,
                              no = CONTEXT_INDEX + 1)
   }
 
 
-  next_image <- koala_contexts[[CONTEXT_INDEX]]
+  next_image <- contexts[[CONTEXT_INDEX]]
 
   pop(FALSE)
 

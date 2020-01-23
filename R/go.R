@@ -12,6 +12,7 @@ go <- function(image_paths, setup_scene, index = NA){
   
   animal_contexts <- paste("img", seq(1,length(image_paths),1), sep="")
   
+  # TODO: Refactor as an argument?
   context_rotations <- list(list(x = 0, y = 0, z = 0),
                             list(x = 0, y = 0, z = 0),
                             list(x = 0, y = 0, z = 0),
@@ -30,6 +31,7 @@ go <- function(image_paths, setup_scene, index = NA){
   
   pop(FALSE)
   
+  # TODO: Consider passing this in as an argument as binary and multiple selections differ
   animals$send_messages(list(
     a_update(id = "canvas3d",
              component = "material",
