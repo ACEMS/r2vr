@@ -1,9 +1,37 @@
 #' Pop messages in VR scene
 #'
-#' @param animal_messages list of a_update() objects
+#' @param show_messages list of a_update() objects
 #' @param visible optional logical to unpop or repop
 #'
+#' @examples 
+#' \donttest{
+#' 
+#' show_messages <- list(
+#' a_update(id = "questionPlane",
+#'          component = "visible",
+#'          attributes = TRUE),
+#' a_update(id = "yesPlane",
+#'          component = "visible",
+#'          attributes = TRUE),
+#' a_update(id = "noPlane",
+#'          component = "visible",
+#'          attributes = TRUE),
+#' a_update(id = "yesPlaneBoundary",
+#'          component = "visible",
+#'          attributes = TRUE),
+#' a_update(id = "noPlaneBoundary",
+#'          component = "visible",
+#'          attributes = TRUE)
+#' )
+#' 
+#' ## Display messages in VR scene
+#' pop(show_messages)
+#' 
+#' ## Remove messages
+#' pop(show_messages, visible = FALSE)
+#' }
+#' 
 #' @export
-pop <- function(animal_messages, visible = TRUE){
-  animals$send_messages(animal_messages)
+pop <- function(show_messages, visible = TRUE){
+  animals$send_messages(change_message(show_messages, visible))
 }
