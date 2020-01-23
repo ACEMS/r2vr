@@ -306,7 +306,7 @@ pop <- function(visible = TRUE){
 # Current image number
 CONTEXT_INDEX <- 1
 
-jaguar_contexts <- c("img1", "img2", "img3", "img4")
+jaguar_contexts <- paste("img", seq(1,length(image_paths),1), sep="")
 context_rotations <- list(list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0),
                           list(x = 0, y = 0, z = 0),
