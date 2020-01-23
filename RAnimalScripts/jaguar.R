@@ -3,7 +3,7 @@ library(httr)
 library(jsonlite)
 
 # Enter IP
-LOCAL_IP <- "192.168.43.72"
+IPv4_ADDRESS <- "192.168.43.72"
 
 # Define image paths
 image_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg", "../inst/ext/images/jaguars/WP55_360_001.jpg", "../inst/ext/images/jaguars/WP56_360_001.jpg", "../inst/ext/images/jaguars/WP60_360_001.jpg")
@@ -254,7 +254,7 @@ animals <- a_scene(.children = list(canvas_3d, jaguar_water_plane_boundary, jagu
 
 
 # Start the server
-start <- function(){
+start <- function(LOCAL_IP = IPv4_ADDRESS){
   animals$serve(host = LOCAL_IP)
 }
 
