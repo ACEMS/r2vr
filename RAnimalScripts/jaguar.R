@@ -263,44 +263,87 @@ end <- function(){
   a_kill_all_scenes()
 }
 
-# Toggle Question
-pop <- function(visible = TRUE){
-  
-  animals$send_messages(list(
+# TODO: Refactor
+
+show_messages <-  list(
     a_update(id = "questionPlane",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "waterPlane",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "treesPlane",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "vegetationPlane",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "preyPlane",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "postPlane",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "postPlaneBoundary",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "waterPlaneBoundary",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "treesPlaneBoundary",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "vegetationPlaneBoundary",
              component = "visible",
-             attributes = visible),
+             attributes = TRUE),
     a_update(id = "preyPlaneBoundary",
              component = "visible",
-             attributes = visible)
-  ))
+             attributes = TRUE)
+  )
+
+hide_messages <-  list(
+  a_update(id = "questionPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "waterPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "treesPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "vegetationPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "preyPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "postPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "postPlaneBoundary",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "waterPlaneBoundary",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "treesPlaneBoundary",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "vegetationPlaneBoundary",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "preyPlaneBoundary",
+           component = "visible",
+           attributes = FALSE)
+)
+
+# Toggle Question
+pop <- function(animal_messages = displayed_messages, visible = TRUE){
+  if (visible) {
+    animals$send_messages(show_messages)
+  } else {
+    animals$send_messages(hide_messages)
+  }
 }
 
 # Current image number

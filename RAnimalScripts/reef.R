@@ -161,26 +161,52 @@ end <- function(){
   a_kill_all_scenes()
 }
 
-# Toggle Question
-pop <- function(visible = TRUE){
+# TODO: Refactor
 
-  animals$send_messages(list(
-    a_update(id = "questionPlane",
-             component = "visible",
-             attributes = visible),
-    a_update(id = "yesPlane",
-             component = "visible",
-             attributes = visible),
-    a_update(id = "noPlane",
-             component = "visible",
-             attributes = visible),
-    a_update(id = "yesPlaneBoundary",
-             component = "visible",
-             attributes = visible),
-    a_update(id = "noPlaneBoundary",
-             component = "visible",
-             attributes = visible)
-  ))
+show_messages <- list(
+  a_update(id = "questionPlane",
+           component = "visible",
+           attributes = TRUE),
+  a_update(id = "yesPlane",
+           component = "visible",
+           attributes = TRUE),
+  a_update(id = "noPlane",
+           component = "visible",
+           attributes = TRUE),
+  a_update(id = "yesPlaneBoundary",
+           component = "visible",
+           attributes = TRUE),
+  a_update(id = "noPlaneBoundary",
+           component = "visible",
+           attributes = TRUE)
+)
+
+hide_messages <- list(
+  a_update(id = "questionPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "yesPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "noPlane",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "yesPlaneBoundary",
+           component = "visible",
+           attributes = FALSE),
+  a_update(id = "noPlaneBoundary",
+           component = "visible",
+           attributes = FALSE)
+)
+
+
+# Toggle Question
+pop <- function(animal_messages = displayed_messages, visible = TRUE){
+  if (visible) {
+    animals$send_messages(show_messages)
+  } else {
+    animals$send_messages(hide_messages)
+  }
 }
 
 # Current image number
