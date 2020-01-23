@@ -1,18 +1,33 @@
 library(r2vr)
 
+# Enter IP
 LOCAL_IP <- "192.168.43.72"
 
-image_path_3d <- "../images/koalas/KP5.jpg"
+# Define image paths
+image_paths <- c("../images/koalas/KP5.jpg", "../images/koalas/SP10.jpg", "../images/koalas/foundKoala1.jpg", "../images/koalas/foundKoala2.jpg")
 
-image_3d <- a_asset(.tag = "image",
-                    id = "img1",
-                    src = image_path_3d)
 
+# Assign asset for each image path
+for (i in 1:length(image_paths)) {
+  image_number <- paste("image", i, sep = "")
+    
+  current_image <- a_asset(.tag = "image",
+                        id = paste("img", i, sep = ""),
+                        src = image_paths[i])
+  
+  assign(image_number, current_image)
+}
+
+# Create 3D Image
 canvas_3d <- a_entity(.tag = "sky",
                       .js_sources = list("../js/button_controls.js", "../js/binary_interactions.js"),
                       id = "canvas3d",
-                      src = image_3d,
-                      rotation = c(0, 0, 0))
+                      class = image_paths[1],
+                      src = image1,
+                      rotation = c(0, 0, 0),
+                      .assets = list(
+                        image2, image3, image4))
+
 # Create a cursor
 cursor <- a_entity(
   .tag = "cursor",
@@ -117,7 +132,8 @@ koala_no_plane_boundary <- a_entity(
   theta_start = 45
 )
 
-tour <- a_scene(.children = list(canvas_3d, koala_yes_plane_boundary, koala_no_plane_boundary, camera, koala_question_plane, koala_yes_plane, koala_no_plane),
+# Create Scene
+animals <- a_scene(.children = list(canvas_3d, koala_yes_plane_boundary, koala_no_plane_boundary, camera, koala_question_plane, koala_yes_plane, koala_no_plane),
                 .websocket = TRUE,
                 .websocket_host = LOCAL_IP,
                 .template = "empty",
@@ -125,9 +141,10 @@ tour <- a_scene(.children = list(canvas_3d, koala_yes_plane_boundary, koala_no_p
                 binary_button_controls = ""
                 )
 
+
 # Start the server
 start <- function(){
-  tour$serve(host = LOCAL_IP)
+  animals$serve(host = LOCAL_IP)
 }
 
 # End the server
@@ -135,8 +152,10 @@ end <- function(){
   a_kill_all_scenes()
 }
 
+# Toggle Question
 pop <- function(visible = TRUE){
-  tour$send_messages(list(
+  
+  animals$send_messages(list(
     a_update(id = "questionPlane",
              component = "visible",
              attributes = visible),
@@ -153,4 +172,51 @@ pop <- function(visible = TRUE){
              component = "visible",
              attributes = visible)
     ))
+}
+
+# Current image number
+CONTEXT_INDEX <- 1
+
+koala_contexts <- c("img1", "img2", "img3", "img4")
+context_rotations <- list(list(x = 0, y = 0, z = 0),
+                          list(x = 0, y = 0, z = 0),
+                          list(x = 0, y = 0, z = 0),
+                          list(x = 0, y = 0, z = 0))
+
+# Next (or particular) image
+go <- function(index = NA){
+  
+  if(!is.na(index)) CONTEXT_INDEX <<- index
+  
+  if(is.na(index)) {
+    CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(koala_contexts) - 1,
+                             yes = 1,
+                             no = CONTEXT_INDEX + 1)
+  }
+  
+  
+  next_image <- koala_contexts[[CONTEXT_INDEX]]
+  
+  pop(FALSE)
+  
+  animals$send_messages(list(
+    a_update(id = "canvas3d",
+             component = "material",
+             attributes = list(src = paste0("#",next_image))),
+    a_update(id = "canvas3d",
+             component = "src",
+             attributes = paste0("#",next_image)),
+    a_update(id = "canvas3d",
+             component = "rotation",
+             attributes = context_rotations[[CONTEXT_INDEX]]),
+    a_update(id = "canvas3d",
+             component = "class",
+             attributes = image_paths[CONTEXT_INDEX]),
+    a_update(id = "yesPlane",
+             component = "color",
+             attributes = "#FFFFFF"),
+    a_update(id = "noPlane",
+             component = "color",
+             attributes = "#FFFFFF")
+  ))
 }

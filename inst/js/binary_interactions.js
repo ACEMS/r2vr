@@ -1,22 +1,28 @@
-document.addEventListener("DOMContentLoaded", e => {
-  const image_id_el = document.getElementById("img1");
-  image_file = image_id_el.src.split("/").pop();
-  image_id = image_file.split(".")[0];
-});
-
 AFRAME.registerComponent("binary-button-controls", {
   init: function() {
+    let canvas_3d = document.getElementById("canvas3d");
     const yesPlane = document.getElementById("yesPlane");
     const noPlane = document.getElementById("noPlane");
 
+    let imageAnnotated = [];
+
     let controlsEl = document.querySelector("[button-controls]");
     controlsEl.addEventListener("buttondown", () => {
+      image_file = canvas_3d.getAttribute('class').split("/").pop();
+      image_id = image_file.split(".")[0];
+
       postBinaryResponse = binary => {
         let data = {
           image_id: image_id,
           image_file: image_file,
           is_koala: binary // TODO: rename is_present
         };
+
+        if (!imageAnnotated.includes(image_id)) {
+          imageAnnotated.push(image_id);
+          console.log('imageAnnotated:', imageAnnotated);
+        }
+
         fetch("https://test-api-koala.herokuapp.com/koala", {
           method: "POST",
           body: JSON.stringify(data),
@@ -36,10 +42,12 @@ AFRAME.registerComponent("binary-button-controls", {
             console.log(err);
           });
       };
-      if (isYesSelected) {
+      if (isYesSelected && !imageAnnotated.includes(image_id)) {
         postBinaryResponse(1);
-      } else if (isNoSelected) {
+        console.log(111, 'yes selected');
+      } else if (isNoSelected && !imageAnnotated.includes(image_id)) {
         postBinaryResponse(0);
+        console.log(112, 'no selected');
       }
     });
   }
