@@ -1,6 +1,6 @@
 library(r2vr)
 
-LOCAL_IP <- "192.168.0.101"
+LOCAL_IP <- "192.168.43.72"
 
 image_path_3d <- "../images/koalas/KP5.jpg"
 
@@ -9,7 +9,7 @@ image_3d <- a_asset(.tag = "image",
                     src = image_path_3d)
 
 canvas_3d <- a_entity(.tag = "sky",
-                      .js_sources = list("../js/button_controls.js", "../js/binary_interactions.js", "../js/selection_interactions.js"),
+                      .js_sources = list("../js/button_controls.js", "../js/binary_interactions.js"),
                       id = "canvas3d",
                       src = image_3d,
                       rotation = c(0, 0, 0))
@@ -50,7 +50,7 @@ koala_question_plane <- a_entity(
 
 koala_yes_label <- a_label(
   text = "Yes",
-  id = "koalaYesText",
+  id = "yesText",
   color = "#FF0000",
   font = "mozillavr",
   height = 1,
@@ -61,8 +61,7 @@ koala_yes_label <- a_label(
 koala_yes_plane <- a_entity(
   .tag = "plane",
   .children = list(koala_yes_label),
-  id = "koalaYesPlane",
-  button_controls="debug: true;",
+  id = "yesPlane",
   position = c(-0.25, -0.4, -1),
   color = "#FFFFFF",
   height = 0.3,
@@ -72,7 +71,7 @@ koala_yes_plane <- a_entity(
 # Outer boundary for intersection detection
 koala_yes_plane_boundary <- a_entity(
   .tag = "ring",
-  id = "koalaYesPlaneBoundary",
+  id = "yesPlaneBoundary",
   position = c(-0.25, -0.4, -1),
   color = "#FF0000",
   radius_inner = 0.24,
@@ -83,7 +82,7 @@ koala_yes_plane_boundary <- a_entity(
 
 koala_no_label <- a_label(
   text = "No",
-  id = "koalaNoText",
+  id = "noText",
   color = "#FF0000",
   font = "mozillavr",
   height = 1,
@@ -94,7 +93,7 @@ koala_no_label <- a_label(
 koala_no_plane <- a_entity(
   .tag = "plane",
   .children = list(koala_no_label),
-  id = "koalaNoPlane",
+  id = "noPlane",
   position = c(0.25, -0.4, -1),
   color = "#FFFFFF",
   height = 0.3,
@@ -104,7 +103,7 @@ koala_no_plane <- a_entity(
 # Outer boundary for intersection detection
 koala_no_plane_boundary <- a_entity(
   .tag = "ring",
-  id = "koalaNoPlaneBoundary",
+  id = "noPlaneBoundary",
   position = c(0.25, -0.4, -1),
   color = "#FF0000",
   radius_inner = 0.24,
@@ -117,7 +116,9 @@ tour <- a_scene(.children = list(canvas_3d, koala_yes_plane_boundary, koala_no_p
                 .websocket = TRUE,
                 .websocket_host = LOCAL_IP,
                 .template = "empty",
-                button_controls_test = "")
+                button_controls="debug: true;",
+                binary_button_controls = ""
+                )
 
 # Start the server
 start <- function(){

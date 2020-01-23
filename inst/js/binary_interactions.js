@@ -4,19 +4,19 @@ document.addEventListener("DOMContentLoaded", e => {
   image_id = image_file.split(".")[0];
 });
 
-AFRAME.registerComponent("button-controls-test", {
+AFRAME.registerComponent("binary-button-controls", {
   init: function() {
-    const kyp = document.getElementById("koalaYesPlane");
-    const knp = document.getElementById("koalaNoPlane");
+    const yesPlane = document.getElementById("yesPlane");
+    const noPlane = document.getElementById("noPlane");
 
     let controlsEl = document.querySelector("[button-controls]");
     controlsEl.addEventListener("buttondown", () => {
 
-      postKoalaSighting = isKoalaSighted => {
+      postBinaryResponse = binary => {
         let data = {
           image_id: image_id,
           image_file: image_file,
-          is_koala: isKoalaSighted
+          is_koala: binary // TODO: rename is_present
         };
         fetch("https://test-api-koala.herokuapp.com/koala", {
           method: "POST",
@@ -28,9 +28,9 @@ AFRAME.registerComponent("button-controls-test", {
           .then(res => {
             console.log("Record added!", res);
             if (isYesSelected) {
-              kyp.setAttribute("color", "green");
+              yesPlane.setAttribute("color", "green");
             } else if (isNoSelected) {
-              knp.setAttribute("color", "yellow");
+              noPlane.setAttribute("color", "yellow");
             }
           })
           .catch(err => {
@@ -38,9 +38,9 @@ AFRAME.registerComponent("button-controls-test", {
           });
       };
       if (isYesSelected) {
-        postKoalaSighting(1);
+        postBinaryResponse(1);
       } else if (isNoSelected) {
-        postKoalaSighting(0);
+        postBinaryResponse(0);
       }
     });
   }
@@ -52,8 +52,8 @@ let isNoSelected = false;
 AFRAME.registerComponent("intersection", {
   init: function() {
     // TODO: change somewhere more generic
-    const kyp = document.getElementById("koalaYesPlane");
-    const knp = document.getElementById("koalaNoPlane");
+    const yesPlane = document.getElementById("yesPlane");
+    const noPlane = document.getElementById("noPlane");
 
     this.el.addEventListener("raycaster-intersection", evt => {
       console.log("intersection occurred!");
@@ -64,26 +64,26 @@ AFRAME.registerComponent("intersection", {
         if (els.length > 4) {
           els = [];
         }
-        if (els.some(el => el.id === "koalaNoPlaneBoundary") || els.some(el => el.id === "koalaYesPlaneBoundary")) {
+        if (els.some(el => el.id === "noPlaneBoundary") || els.some(el => el.id === "yesPlaneBoundary")) {
           isNoSelected = false;
           isYesSelected = false;
         } else if (
-          els.some(el => el.id === "koalaYesPlane" || el.id === "koalaYesText")
+          els.some(el => el.id === "yesPlane" || el.id === "yesText")
         ) {
           isNoSelected = false;
           isYesSelected = true;
-          kyp.setAttribute("isYesSelected", true);
+          yesPlane.setAttribute("isYesSelected", true);
         } else if (
-          els.some(el => el.id === "koalaNoPlane" || el.id === "koalaNoText")
+          els.some(el => el.id === "noPlane" || el.id === "noText")
         ) {
           isYesSelected = false;
           isNoSelected = true;
-          knp.setAttribute("isNoSelected", true);
+          noPlane.setAttribute("isNoSelected", true);
         } else {
           isYesSelected = false;
           isNoSelected = false;
-          kyp.setAttribute("isYesSelected", false); // TODO: rename kyp
-          knp.setAttribute("isNoSelected", false);
+          yesPlane.setAttribute("isYesSelected", false);
+          noPlane.setAttribute("isNoSelected", false);
         }
       }
     });
