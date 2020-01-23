@@ -30,7 +30,7 @@ camera <- a_entity(
 
 koala_question_label <- a_label(
   text = "Do you see a koala?",
-  id = "koalaPlaneText",
+  id = "questionPlaneText",
   color = "#FF0000",
   font = "mozillavr",
   height = 1,
@@ -41,7 +41,8 @@ koala_question_label <- a_label(
 koala_question_plane <- a_entity(
   .tag = "plane",
   .children = list(koala_question_label),
-  id = "koalaPlane",
+  id = "questionPlane",
+  visible = FALSE,
   position = c(0, 0, -1),
   color = "#FFFFFF",
   height = 0.4,
@@ -62,6 +63,7 @@ koala_yes_plane <- a_entity(
   .tag = "plane",
   .children = list(koala_yes_label),
   id = "yesPlane",
+  visible = FALSE,
   position = c(-0.25, -0.4, -1),
   color = "#FFFFFF",
   height = 0.3,
@@ -73,6 +75,7 @@ koala_yes_plane_boundary <- a_entity(
   .tag = "ring",
   id = "yesPlaneBoundary",
   position = c(-0.25, -0.4, -1),
+  visible = FALSE,
   color = "#FF0000",
   radius_inner = 0.24,
   radius_outer = 0.25,
@@ -94,6 +97,7 @@ koala_no_plane <- a_entity(
   .tag = "plane",
   .children = list(koala_no_label),
   id = "noPlane",
+  visible = FALSE,
   position = c(0.25, -0.4, -1),
   color = "#FFFFFF",
   height = 0.3,
@@ -104,6 +108,7 @@ koala_no_plane <- a_entity(
 koala_no_plane_boundary <- a_entity(
   .tag = "ring",
   id = "noPlaneBoundary",
+  visible = FALSE,
   position = c(0.25, -0.4, -1),
   color = "#FF0000",
   radius_inner = 0.24,
@@ -128,4 +133,24 @@ start <- function(){
 # End the server
 end <- function(){
   a_kill_all_scenes()
+}
+
+pop <- function(visible = TRUE){
+  tour$send_messages(list(
+    a_update(id = "questionPlane",
+             component = "visible",
+             attributes = visible),
+    a_update(id = "yesPlane",
+             component = "visible",
+             attributes = visible),
+    a_update(id = "noPlane",
+             component = "visible",
+             attributes = visible),
+    a_update(id = "yesPlaneBoundary",
+             component = "visible",
+             attributes = visible),
+    a_update(id = "noPlaneBoundary",
+             component = "visible",
+             attributes = visible)
+    ))
 }

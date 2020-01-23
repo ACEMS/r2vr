@@ -11,7 +11,6 @@ AFRAME.registerComponent("binary-button-controls", {
 
     let controlsEl = document.querySelector("[button-controls]");
     controlsEl.addEventListener("buttondown", () => {
-
       postBinaryResponse = binary => {
         let data = {
           image_id: image_id,
@@ -52,38 +51,45 @@ let isNoSelected = false;
 AFRAME.registerComponent("intersection", {
   init: function() {
     // TODO: change somewhere more generic
+    const questionPlane = document.getElementById("questionPlane");
     const yesPlane = document.getElementById("yesPlane");
     const noPlane = document.getElementById("noPlane");
 
     this.el.addEventListener("raycaster-intersection", evt => {
-      console.log("intersection occurred!");
-      if (evt) {
-        let els = evt.detail.els;
-        console.log("all intersected elements: ", els);
-        // TODO: less arbitrary based on total dom els with ID's
-        if (els.length > 4) {
-          els = [];
-        }
-        if (els.some(el => el.id === "noPlaneBoundary") || els.some(el => el.id === "yesPlaneBoundary")) {
-          isNoSelected = false;
-          isYesSelected = false;
-        } else if (
-          els.some(el => el.id === "yesPlane" || el.id === "yesText")
-        ) {
-          isNoSelected = false;
-          isYesSelected = true;
-          yesPlane.setAttribute("isYesSelected", true);
-        } else if (
-          els.some(el => el.id === "noPlane" || el.id === "noText")
-        ) {
-          isYesSelected = false;
-          isNoSelected = true;
-          noPlane.setAttribute("isNoSelected", true);
-        } else {
-          isYesSelected = false;
-          isNoSelected = false;
-          yesPlane.setAttribute("isYesSelected", false);
-          noPlane.setAttribute("isNoSelected", false);
+      // if question plane visible, then all planes visible => detect intersection
+      if (questionPlane.getAttribute("visible")) {
+        console.log("intersection occurred!");
+        if (evt) {
+          let els = evt.detail.els;
+          console.log("all intersected elements: ", els);
+          // TODO: less arbitrary based on total dom els with ID's
+          if (els.length > 4) {
+            els = [];
+          }
+          if (
+            els.some(el => el.id === "noPlaneBoundary") ||
+            els.some(el => el.id === "yesPlaneBoundary")
+          ) {
+            isNoSelected = false;
+            isYesSelected = false;
+          } else if (
+            els.some(el => el.id === "yesPlane" || el.id === "yesText")
+          ) {
+            isNoSelected = false;
+            isYesSelected = true;
+            yesPlane.setAttribute("isYesSelected", true);
+          } else if (
+            els.some(el => el.id === "noPlane" || el.id === "noText")
+          ) {
+            isYesSelected = false;
+            isNoSelected = true;
+            noPlane.setAttribute("isNoSelected", true);
+          } else {
+            isYesSelected = false;
+            isNoSelected = false;
+            yesPlane.setAttribute("isYesSelected", false);
+            noPlane.setAttribute("isNoSelected", false);
+          }
         }
       }
     });
