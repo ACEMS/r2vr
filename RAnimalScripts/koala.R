@@ -6,7 +6,7 @@ library(jsonlite)
 LOCAL_IP <- "192.168.43.72"
 
 # Define image paths
-image_paths <- c("../images/koalas/KP5.jpg", "../images/koalas/SP10.jpg", "../images/koalas/foundKoala1.jpg", "../images/koalas/foundKoala2.jpg")
+image_paths <- c("../inst/ext/images/koalas/KP5.jpg", "../inst/ext/images/koalas/SP10.jpg", "../inst/ext/images/koalas/foundKoala1.jpg", "../inst/ext/images/koalas/foundKoala2.jpg")
 
 # Colours
 dark_red <- "#8c0000"
@@ -27,7 +27,7 @@ for (i in 1:length(image_paths)) {
 
 # Create 3D Image
 canvas_3d <- a_entity(.tag = "sky",
-                      .js_sources = list("../js/button_controls.js", "../js/binary_interactions.js"),
+                      .js_sources = list("../inst/js/button_controls.js", "../inst/js/binary_interactions.js"),
                       id = "canvas3d",
                       class = image_paths[1],
                       src = image1,
