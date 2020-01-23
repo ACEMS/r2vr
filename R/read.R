@@ -3,6 +3,11 @@
 #' @param url url for database
 #'
 #' @return
+#' 
+#' @examples 
+#' \donttest{
+#' read("https://test-api-koala.herokuapp.com/koala")
+#' }
 #' @export
 read <- function(url){
   # Deserialize the payload so data can be read and converted from JSON to data frame

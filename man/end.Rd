@@ -9,3 +9,8 @@ end()
 \description{
 End VR scene
 }
+\examples{
+\donttest{
+end()
+}
+}

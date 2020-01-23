@@ -15,3 +15,8 @@ read(url)
 \description{
 Get data from database with API GET request
 }
+\examples{
+\donttest{
+read("https://test-api-koala.herokuapp.com/koala")
+}
+}

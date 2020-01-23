@@ -12,3 +12,8 @@ start(LOCAL_IP)
 \description{
 Title
 }
+\examples{
+\donttest{
+start("192.168.43.72")
+}
+}
