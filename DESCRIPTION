@@ -16,7 +16,7 @@ Suggests: testthat,
     rmarkdown,
     jsonlite,
     ggplot2
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Imports:
     stringr,
     purrr,
