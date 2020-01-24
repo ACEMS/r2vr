@@ -7,11 +7,11 @@
 go(image_paths, index = NA, question_type = "binary")
 }
 \arguments{
-\item{image_paths}{character string of image paths}
+\item{image_paths}{Character string of image paths from current working directory.}
 
-\item{index}{optional input to select a specific image}
+\item{index}{Optional numeric input to select a specific image.}
 
-\item{question_type}{Question type from "binary" or "multivariable". Defaults to \code{"binary"}}
+\item{question_type}{Optional question type from \code{"binary"} or \code{"multivariable"}. Defaults to \code{"binary"}.}
 }
 \description{
 Go to next VR scene

@@ -1,8 +1,8 @@
 #' Go to next VR scene
 #'
-#' @param image_paths character string of image paths 
-#' @param index optional input to select a specific image
-#' @param question_type Question type from "binary" or "multivariable". Defaults to \code{"binary"}
+#' @param image_paths Character string of image paths from current working directory.
+#' @param index Optional numeric input to select a specific image.
+#' @param question_type Optional question type from \code{"binary"} or \code{"multivariable"}. Defaults to \code{"binary"}.
 #' 
 #' @examples 
 #' \donttest{

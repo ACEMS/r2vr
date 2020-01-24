@@ -1,7 +1,7 @@
 #' Pop messages in VR scene
 #'
-#' @param visible optional logical to unpop or repop
-#' @param question_type Question type from "binary" or "multivariable". Defaults to \code{"binary"}
+#' @param visible Optional logical to unpop or repop. Defaults to \code{TRUE}.
+#' @param question_type Optional question type from \code{"binary"} or \code{"multivariable"}. Defaults to \code{"binary"}.
 #'
 #' @examples 
 #' \donttest{

@@ -7,9 +7,9 @@
 pop(visible = TRUE, question_type = "binary")
 }
 \arguments{
-\item{visible}{optional logical to unpop or repop}
+\item{visible}{Optional logical to unpop or repop. Defaults to \code{TRUE}.}
 
-\item{question_type}{Question type from "binary" or "multivariable". Defaults to \code{"binary"}}
+\item{question_type}{Optional question type from \code{"binary"} or \code{"multivariable"}. Defaults to \code{"binary"}.}
 }
 \description{
 Pop messages in VR scene
