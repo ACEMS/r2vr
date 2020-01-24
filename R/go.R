@@ -55,7 +55,8 @@ go <- function(image_paths, index = NA){
   
   next_image <- animal_contexts[[CONTEXT_INDEX]]
   print(next_image)
-  # pop(FALSE)
+  
+  pop(FALSE)
   
   setup_scene <- list(
     a_update(id = "canvas3d",

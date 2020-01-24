@@ -14,14 +14,18 @@ img_paths <- c("../inst/ext/images/koalas/KP5.jpg",
 
 animals <- binary_question_scene("Do you see any koalas in this image?", "Yes", "No", img_paths)
 
+## Launch VR server
 start(IPv4_ADDRESS)
 
+## Pop a question for first scene
 pop()
 
-go(image_paths = img_paths, index = 2)
+## Move to new scene
+go(image_paths = img_paths, index = 3)
 
-pop(F)
+## Don't forget to pop the question!
+pop()
 
-
+## Read database results
 read(url = "https://test-api-koala.herokuapp.com/koala")
 
