@@ -10,37 +10,18 @@ go(image_paths, index = NA, question_type = "binary")
 \item{image_paths}{character string of image paths}
 
 \item{index}{optional input to select a specific image}
+
+\item{question_type}{Question type from "binary" or "multivariable". Defaults to \code{"binary"}}
 }
 \description{
 Go to next VR scene
 }
 \examples{
 \donttest{
-
 image_paths <- c("img1.jpg", "img2.jpg", "img3.jpg")
 
-setup_scene <- list(
-a_update(id = "canvas3d",
-         component = "material",
-         attributes = list(src = paste0("#",next_image))),
-a_update(id = "canvas3d",
-         component = "src",
-        attributes = paste0("#",next_image)),
-a_update(id = "canvas3d",
-         component = "rotation",
-         attributes = context_rotations),
-a_update(id = "canvas3d",
-         component = "class",
-         attributes = image_paths),
-a_update(id = "yesPlane",
-         component = "color",
-         attributes = white),
-a_update(id = "noPlane",
-         component = "color",
-         attributes = white))
-
-go(image_paths, setup_scene)
-
+go(image_paths, 2)
+go(image_paths, 3)
 }
 
 }

@@ -1,12 +1,12 @@
 #' Create a binary question scene
 #'
-#' @param the_question 
-#' @param answer_1 
-#' @param answer_2 
-#' @param img_paths 
-#' @param IPv4_ADDRESS 
-#' @param animal_class 
-#' @param message_height 
+#' @param the_question Question message to display
+#' @param answer_1 Binary answer for \code{1} (Yes)
+#' @param answer_2 Binary answer for \code{0} (No)
+#' @param img_paths Character string of image paths from current working directory
+#' @param IPv4_ADDRESS The same IPv4 addressed used to start VR server
+#' @param animal_class Character string for database 
+#' @param message_height Optional numeric value for height of question and answer boxes (default \code{1.5})
 #'
 #' @return
 #' @export

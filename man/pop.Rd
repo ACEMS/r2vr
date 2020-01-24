@@ -9,37 +9,18 @@ pop(visible = TRUE, question_type = "binary")
 \arguments{
 \item{visible}{optional logical to unpop or repop}
 
-\item{show_messages}{list of a_update() objects}
+\item{question_type}{Question type from "binary" or "multivariable". Defaults to \code{"binary"}}
 }
 \description{
 Pop messages in VR scene
 }
 \examples{
 \donttest{
-
-show_messages <- list(
-a_update(id = "questionPlane",
-         component = "visible",
-         attributes = TRUE),
-a_update(id = "yesPlane",
-         component = "visible",
-         attributes = TRUE),
-a_update(id = "noPlane",
-         component = "visible",
-         attributes = TRUE),
-a_update(id = "yesPlaneBoundary",
-         component = "visible",
-         attributes = TRUE),
-a_update(id = "noPlaneBoundary",
-         component = "visible",
-         attributes = TRUE)
-)
-
 ## Display messages in VR scene
-pop(show_messages)
+pop()
 
 ## Remove messages
-pop(show_messages, visible = FALSE)
+pop(FALSE)
 }
 
 }

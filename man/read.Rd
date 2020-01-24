@@ -17,6 +17,6 @@ Get data from database with API GET request
 }
 \examples{
 \donttest{
-read("https://test-api-koala.herokuapp.com/koala")
+data.df <- read("https://test-api-koala.herokuapp.com/koala")
 }
 }

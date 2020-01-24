@@ -1,4 +1,4 @@
-#' End VR scene
+#' End VR server
 #'
 #' @export
 #' 

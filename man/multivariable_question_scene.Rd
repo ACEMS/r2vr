@@ -11,23 +11,26 @@ multivariable_question_scene(
   answer_3,
   answer_4,
   img_paths,
+  IPv4_ADDRESS,
   message_height = 1.5
 )
 }
 \arguments{
-\item{the_question}{}
+\item{the_question}{Question message to display}
 
-\item{answer_1}{}
+\item{answer_1}{Answer option 1}
 
-\item{answer_2}{}
+\item{answer_2}{Answer option 2}
 
-\item{answer_3}{}
+\item{answer_3}{Answer option 3}
 
-\item{answer_4}{}
+\item{answer_4}{Answer option 4}
 
-\item{img_paths}{}
+\item{img_paths}{Character string of image paths from current working directory}
 
-\item{message_height}{}
+\item{IPv4_ADDRESS}{The same IPv4 addressed used to start VR server}
+
+\item{message_height}{Optional numeric value for height of question and answer boxes (default \code{1.5})}
 }
 \value{
 

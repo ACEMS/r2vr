@@ -1,6 +1,7 @@
 library(r2vr)
 library(httr)
 library(jsonlite)
+library(lubridate)
 
 # Enter IP
 IPv4_ADDRESS <- "192.168.43.72"
@@ -27,4 +28,6 @@ go(image_paths = img_paths, index = 3)
 pop()
 
 # Get data from database with API GET request
-read(url = "https://test-api-koala.herokuapp.com/reef")
+reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
+reef.df$recordedOn <-  ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
+reef.df
