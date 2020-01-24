@@ -1,12 +1,13 @@
 #' Create a multivariable question scene
 #'
-#' @param the_question 
-#' @param answer_1 
-#' @param answer_2 
-#' @param img_paths 
-#' @param answer_3 
-#' @param answer_4 
-#' @param message_height 
+#' @param the_question Question message to display
+#' @param answer_1 Answer option 1
+#' @param answer_2 Answer option 2
+#' @param answer_3 Answer option 3
+#' @param answer_4 Answer option 4
+#' @param img_paths Character string of image paths from current working directory
+#' @param IPv4_ADDRESS The same IPv4 addressed used to start VR server
+#' @param message_height Optional numeric value for height of question and answer boxes (default \code{1.5})
 #'
 #' @return
 #' @export
@@ -17,7 +18,7 @@
 #' "water", "Jaguar tracks", "Scratch marks", "Dense Vegetation", img_paths)
 #' }
 #' 
-multivariable_question_scene <- function(the_question, answer_1, answer_2, answer_3, answer_4, img_paths, message_height = 1.5){
+multivariable_question_scene <- function(the_question, answer_1, answer_2, answer_3, answer_4, img_paths, IPv4_ADDRESS, message_height = 1.5){
   
   # Colours
   dark_red <- "#8c0000"

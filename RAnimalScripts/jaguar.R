@@ -1,6 +1,7 @@
 library(r2vr)
 library(httr)
 library(jsonlite)
+library(lubridate)
 
 # Enter IP
 IPv4_ADDRESS <- "131.181.64.15"
@@ -22,10 +23,12 @@ start(IPv4_ADDRESS)
 pop(question_type = "multivariable")
 
 ## Move to new scene
-go(image_paths = img_paths, index = 2, question_type = "multivariable")
+go(image_paths = img_paths, index = 4, question_type = "multivariable")
 
 ## Don't forget to pop the question!
 pop(question_type = "multivariable")
 
 # Get data from database with API GET request
-read(url = "https://test-api-koala.herokuapp.com/jaguar")
+jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
+jaguar.df$recordedOn <-  ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
+jaguar.df

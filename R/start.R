@@ -1,6 +1,6 @@
-#' Title
+#' Start VR server
 #'
-#' @param LOCAL_IP Character string of local ip address. If unknow go to command window and enter 'ipconfig'.
+#' @param LOCAL_IP Character string of local ip address (\code{IPv4}). If unknow go to command window and enter 'ipconfig'.
 #'
 #' @examples 
 #' \donttest{

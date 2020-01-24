@@ -15,19 +15,19 @@ binary_question_scene(
 )
 }
 \arguments{
-\item{the_question}{}
+\item{the_question}{Question message to display}
 
-\item{answer_1}{}
+\item{answer_1}{Binary answer for \code{1} (Yes)}
 
-\item{answer_2}{}
+\item{answer_2}{Binary answer for \code{0} (No)}
 
-\item{img_paths}{}
+\item{img_paths}{Character string of image paths from current working directory}
 
-\item{IPv4_ADDRESS}{}
+\item{IPv4_ADDRESS}{The same IPv4 addressed used to start VR server}
 
-\item{animal_class}{}
+\item{animal_class}{Character string for database}
 
-\item{message_height}{}
+\item{message_height}{Optional numeric value for height of question and answer boxes (default \code{1.5})}
 }
 \value{
 

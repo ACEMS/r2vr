@@ -2,15 +2,15 @@
 % Please edit documentation in R/start.R
 \name{start}
 \alias{start}
-\title{Title}
+\title{Start VR server}
 \usage{
 start(LOCAL_IP)
 }
 \arguments{
-\item{LOCAL_IP}{Character string of local ip address. If unknow go to command window and enter 'ipconfig'.}
+\item{LOCAL_IP}{Character string of local ip address (\code{IPv4}). If unknow go to command window and enter 'ipconfig'.}
 }
 \description{
-Title
+Start VR server
 }
 \examples{
 \donttest{

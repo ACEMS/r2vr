@@ -2,12 +2,12 @@
 % Please edit documentation in R/end.R
 \name{end}
 \alias{end}
-\title{End VR scene}
+\title{End VR server}
 \usage{
 end()
 }
 \description{
-End VR scene
+End VR server
 }
 \examples{
 \donttest{
