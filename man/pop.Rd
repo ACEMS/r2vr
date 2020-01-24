@@ -4,12 +4,12 @@
 \alias{pop}
 \title{Pop messages in VR scene}
 \usage{
-pop(show_messages, visible = TRUE)
+pop(visible = TRUE, question_type = "binary")
 }
 \arguments{
-\item{show_messages}{list of a_update() objects}
-
 \item{visible}{optional logical to unpop or repop}
+
+\item{show_messages}{list of a_update() objects}
 }
 \description{
 Pop messages in VR scene

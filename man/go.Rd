@@ -4,12 +4,10 @@
 \alias{go}
 \title{Go to next VR scene}
 \usage{
-go(image_paths, setup_scene, index = NA)
+go(image_paths, index = NA)
 }
 \arguments{
 \item{image_paths}{character string of image paths}
-
-\item{setup_scene}{aframe entities for scene setup}
 
 \item{index}{optional input to select a specific image}
 }
@@ -30,10 +28,10 @@ a_update(id = "canvas3d",
         attributes = paste0("#",next_image)),
 a_update(id = "canvas3d",
          component = "rotation",
-         attributes = context_rotations[[CONTEXT_INDEX]]),
+         attributes = context_rotations),
 a_update(id = "canvas3d",
          component = "class",
-         attributes = image_paths[CONTEXT_INDEX]),
+         attributes = image_paths),
 a_update(id = "yesPlane",
          component = "color",
          attributes = white),

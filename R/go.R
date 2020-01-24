@@ -1,7 +1,6 @@
 #' Go to next VR scene
 #'
 #' @param image_paths character string of image paths 
-#' @param setup_scene aframe entities for scene setup
 #' @param index optional input to select a specific image
 #' 
 #' @examples 
@@ -18,10 +17,10 @@
 #'         attributes = paste0("#",next_image)),
 #' a_update(id = "canvas3d",
 #'          component = "rotation",
-#'          attributes = context_rotations[[CONTEXT_INDEX]]),
+#'          attributes = context_rotations),
 #' a_update(id = "canvas3d",
 #'          component = "class",
-#'          attributes = image_paths[CONTEXT_INDEX]),
+#'          attributes = image_paths),
 #' a_update(id = "yesPlane",
 #'          component = "color",
 #'          attributes = white),
@@ -34,10 +33,11 @@
 #' }
 #'
 #' @export
-go <- function(image_paths, setup_scene, index = NA){
+go <- function(image_paths, index = NA){
   
   # Current image number
-  CONTEXT_INDEX <- 1
+  if(is.na(index)) { CONTEXT_INDEX <- 1 }
+  if(!is.na(index)){ CONTEXT_INDEX <- index }
   
   animal_contexts <- paste("img", seq(1,length(image_paths),1), sep="")
   
@@ -47,38 +47,53 @@ go <- function(image_paths, setup_scene, index = NA){
                             list(x = 0, y = 0, z = 0),
                             list(x = 0, y = 0, z = 0))
   
-  if(!is.na(index)) CONTEXT_INDEX <<- index
-  
   if(is.na(index)) {
     CONTEXT_INDEX <<- ifelse(CONTEXT_INDEX > length(animal_contexts) - 1,
                              yes = 1,
                              no = CONTEXT_INDEX + 1)
   }
   
-  
   next_image <- animal_contexts[[CONTEXT_INDEX]]
+  print(next_image)
+  # pop(FALSE)
   
-  pop(FALSE)
-  
-  # TODO: Consider passing this in as an argument as binary and multiple selections differ
-  animals$send_messages(list(
+  setup_scene <- list(
     a_update(id = "canvas3d",
              component = "material",
-             attributes = list(src = paste0("#",next_image))),
+             attributes = list(src = paste0("#","img1"))),
     a_update(id = "canvas3d",
              component = "src",
-             attributes = paste0("#",next_image)),
+             attributes = paste0("#","img1")),
     a_update(id = "canvas3d",
              component = "rotation",
-             attributes = context_rotations[[CONTEXT_INDEX]]),
+             attributes = list(x = 0, y = 0, z = 0)),
     a_update(id = "canvas3d",
              component = "class",
-             attributes = image_paths[CONTEXT_INDEX]),
+             attributes = image_paths[1]),
     a_update(id = "yesPlane",
              component = "color",
              attributes = white),
     a_update(id = "noPlane",
              component = "color",
-             attributes = white)
-  ))
+             attributes = white))
+  
+  for(jj in 1:length(setup_scene)){
+    if(setup_scene[[jj]]$id == "canvas3d"){
+      if(setup_scene[[jj]]$component == "material"){
+        setup_scene[[jj]]$attributes <- list(src = paste0("#",next_image))
+      }
+      if(setup_scene[[jj]]$component == "src"){
+        setup_scene[[jj]]$attributes <- paste0("#",next_image)
+      }
+      if(setup_scene[[jj]]$component == "rotation"){
+        setup_scene[[jj]]$attributes <- context_rotations[[CONTEXT_INDEX]]
+      }
+      if(setup_scene[[jj]]$component == "class"){
+        setup_scene[[jj]]$attributes <- image_paths[CONTEXT_INDEX]
+      }
+    }
+  }
+  
+  # TODO: Consider passing this in as an argument as binary and multiple selections differ
+  animals$send_messages(setup_scene)
 } 

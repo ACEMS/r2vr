@@ -32,6 +32,46 @@
 #' }
 #' 
 #' @export
-pop <- function(show_messages, visible = TRUE){
-  animals$send_messages(change_message(show_messages, visible))
+pop <- function(visible = TRUE, question_type = "binary"){
+  
+  if(question_type == "binary"){
+    show_messages <- list(
+      a_update(id = "questionPlane",
+               component = "visible",
+               attributes = TRUE),
+      a_update(id = "yesPlane",
+               component = "visible",
+               attributes = TRUE),
+      a_update(id = "noPlane",
+               component = "visible",
+               attributes = TRUE),
+      a_update(id = "yesPlaneBoundary",
+               component = "visible",
+               attributes = TRUE),
+      a_update(id = "noPlaneBoundary",
+               component = "visible",
+               attributes = TRUE)
+    )
+  } 
+  # if(question_type = "multi"){
+  #   show_messages <- list(
+  #     a_update(id = "questionPlane",
+  #              component = "visible",
+  #              attributes = TRUE),
+  #     a_update(id = "yesPlane",
+  #              component = "visible",
+  #              attributes = TRUE),
+  #     a_update(id = "noPlane",
+  #              component = "visible",
+  #              attributes = TRUE),
+  #     a_update(id = "yesPlaneBoundary",
+  #              component = "visible",
+  #              attributes = TRUE),
+  #     a_update(id = "noPlaneBoundary",
+  #              component = "visible",
+  #              attributes = TRUE)
+  # }
+  
+  visible_message <- change_message(show_messages, visible)
+  animals$send_messages(visible_message)
 }
