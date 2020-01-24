@@ -26,10 +26,10 @@ AFRAME.registerComponent("binary-button-controls", {
         let data = {
           image_id: image_id,
           image_file: image_file,
-          water: res.water,
-          trees: res.trees,
-          vegetation: res.vegetation,
-          prey: res.prey
+          option_1: res.option_1,
+          option_3: res.option_3,
+          option_4: res.option_4,
+          option_2: res.option_2
         };
 
         const endPoint = "https://test-api-koala.herokuapp.com/jaguar";
@@ -55,10 +55,10 @@ AFRAME.registerComponent("binary-button-controls", {
         postPlane.setAttribute("color", "green");
         console.log("POST SELECTED!");
         let responses = {
-          water: isOption1Selected ? 1 : 0,
-          trees: isOption3Selected ? 1 : 0,
-          vegetation: isOption4Selected ? 1 : 0,
-          prey: isOption2Selected ? 1 : 0
+          option_1: isOption1Selected ? 1 : 0,
+          option_3: isOption3Selected ? 1 : 0,
+          option_4: isOption4Selected ? 1 : 0,
+          option_2: isOption2Selected ? 1 : 0
         }
         postResponse(responses);
       }

@@ -18,7 +18,7 @@ AFRAME.registerComponent("binary-button-controls", {
         let data = {
           image_id: image_id,
           image_file: image_file,
-          is_present: binary
+          binary_response: binary
         };
 
         if (!imageAnnotated.includes(image_id)) {
