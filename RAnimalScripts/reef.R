@@ -1,7 +1,6 @@
 library(r2vr)
 library(httr)
 library(jsonlite)
-devtools::document()
 
 # Enter IP
 IPv4_ADDRESS <- "131.181.64.15"
