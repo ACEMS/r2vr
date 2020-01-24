@@ -28,5 +28,6 @@ Imports:
     tibble,
     fs,
     uuid,
-    methods
+    methods,
+    httr
 VignetteBuilder: knitr

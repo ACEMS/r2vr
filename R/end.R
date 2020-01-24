@@ -4,6 +4,7 @@
 #' 
 #' @examples 
 #' \donttest{
+#' start("192.168.43.72")
 #' end()
 #' }
 end <- function(){
