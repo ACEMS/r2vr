@@ -104,3 +104,69 @@ Time for the exciting part which is to import our elicitation data. Note that th
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
 koala.df
 ```
+
+## Reef case study
+
+Repeat for reef case study.
+
+```{r}
+# Define image paths
+img_paths <- c("../inst/ext/images/reef/100030039.jpg", 
+               "../inst/ext/images/reef/120261897.jpg", 
+               "../inst/ext/images/reef/130030287.jpg", 
+               "../inst/ext/images/reef/130050093.jpg")
+
+## Create binary qestion scene for animals
+animals <- binary_question_scene("Do the live corals on this reef form a structurally complex habitat?", "Yes", "No", img_paths, IPv4_ADDRESS, "reef")
+
+## Launch VR server
+start(IPv4_ADDRESS)
+
+## Pop a question for first scene
+pop()
+
+## Move to new scene
+go(image_paths = img_paths, index = 3)
+
+## Don't forget to pop the question!
+pop()
+
+## Finish
+end()
+
+# Get data from database with API GET request
+reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
+reef.df$recordedOn <-  ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
+reef.df
+```
+
+## Jaguar case study 
+
+```{r}
+# Define image paths
+img_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg", 
+               "../inst/ext/images/jaguars/WP55_360_001.jpg", 
+               "../inst/ext/images/jaguars/WP56_360_001.jpg",
+               "../inst/ext/images/jaguars/WP60_360_001.jpg")
+
+
+animals <- multivariable_question_scene("Do you see any of these habitat features in this image? If you do see a feature, click on the box to select it.",
+                             "Water", "Jaguar tracks", "Scratch marks", "Dense Vegetation", img_paths, IPv4_ADDRESS)
+
+## Launch VR server
+start(IPv4_ADDRESS)
+
+## Pop a question for first scene
+pop(question_type = "multivariable")
+
+## Move to new scene
+go(image_paths = img_paths, index = 4, question_type = "multivariable")
+
+## Don't forget to pop the question!
+pop(question_type = "multivariable")
+
+# Get data from database with API GET request
+jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
+jaguar.df$recordedOn <-  ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
+jaguar.df
+```
