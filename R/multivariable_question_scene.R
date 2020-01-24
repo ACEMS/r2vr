@@ -141,7 +141,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   )
   
   # Outer boundary for intersection detection
-  option_1_boundary <- a_entity(
+  option_1_plane_boundary <- a_entity(
     .tag = "ring",
     id = "option1Boundary",
     position = c(-0.35, message_height-0.45, -2),
