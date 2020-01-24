@@ -3,7 +3,7 @@ library(httr)
 library(jsonlite)
 
 # Enter IP
-IPv4_ADDRESS <- "131.181.64.15"
+IPv4_ADDRESS <- "192.168.43.72"
 
 # Define image paths
 img_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg", 

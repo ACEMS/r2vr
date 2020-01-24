@@ -63,7 +63,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     intersection = ''
   )
   
-  jaguar_question_label <- a_label(
+  question_label <- a_label(
     text = the_question,
     id = "questionPlaneText",
     color = black,
@@ -73,9 +73,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     position = c(0, 0.02, 0)
   )
   
-  jaguar_question_plane <- a_entity(
+  question_plane <- a_entity(
     .tag = "plane",
-    .children = list(jaguar_question_label),
+    .children = list(question_label),
     id = "questionPlane",
     visible = FALSE,
     position = c(0, message_height, -2),
@@ -118,9 +118,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     theta_start = 45
   )
   
-  jaguar_water_label <- a_label(
+  option_1_label <- a_label(
     text = answer_1,
-    id = "waterText",
+    id = "option1Text",
     color = black,
     font = "mozillavr",
     height = 1,
@@ -128,10 +128,10 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     position = c(0, 0, 0)
   )
   
-  jaguar_water_plane <- a_entity(
+  option_1_plane <- a_entity(
     .tag = "plane",
-    .children = list(jaguar_water_label),
-    id = "waterPlane",
+    .children = list(option_1_label),
+    id = "option1Plane",
     visible = FALSE,
     position = c(-0.35, message_height-0.45, -2),
     color = white,
@@ -140,9 +140,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   )
   
   # Outer boundary for intersection detection
-  jaguar_water_plane_boundary <- a_entity(
+  option_1_boundary <- a_entity(
     .tag = "ring",
-    id = "waterPlaneBoundary",
+    id = "option1Boundary",
     position = c(-0.35, message_height-0.45, -2),
     visible = FALSE,
     color = dark_red,
@@ -152,9 +152,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     theta_start = 45
   )
   
-  jaguar_prey_label <- a_label(
-    text = answer_2, # TODO: Change prey to jaguar tracks
-    id = "preyText",
+  option_2_label <- a_label(
+    text = answer_2,
+    id = "option2Text",
     color = black,
     font = "mozillavr",
     height = 1,
@@ -162,10 +162,10 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     position = c(0, 0, 0)
   )
   
-  jaguar_prey_plane <- a_entity(
+  option_2_plane <- a_entity(
     .tag = "plane",
-    .children = list(jaguar_prey_label),
-    id = "preyPlane",
+    .children = list(option_2_label),
+    id = "option2Plane",
     visible = FALSE,
     position = c(-0.35, message_height-1, -2),
     color = white,
@@ -174,9 +174,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   )
   
   # Outer boundary for intersection detection
-  jaguar_prey_plane_boundary <- a_entity(
+  option_2_plane_boundary <- a_entity(
     .tag = "ring",
-    id = "preyPlaneBoundary",
+    id = "option2Boundary",
     position = c(-0.35, message_height-1, -2),
     visible = FALSE,
     color = dark_red,
@@ -186,9 +186,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     theta_start = 45
   )
   
-  jaguar_trees_label <- a_label(
-    text = answer_3, # TODO: change treesplane to Scratch marks
-    id = "treesText",
+  option_3_label <- a_label(
+    text = answer_3,
+    id = "option3Text",
     color = black,
     font = "mozillavr",
     height = 1,
@@ -196,10 +196,10 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     position = c(0, 0, 0)
   )
   
-  jaguar_trees_plane <- a_entity(
+  option_3_plane <- a_entity(
     .tag = "plane",
-    .children = list(jaguar_trees_label),
-    id = "treesPlane",
+    .children = list(option_3_label),
+    id = "option3Plane",
     visible = FALSE,
     position = c(0.35, message_height-0.45, -2),
     color = white,
@@ -208,9 +208,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   )
   
   # Outer boundary for intersection detection
-  jaguar_trees_plane_boundary <- a_entity(
+  option_3_plane_boundary <- a_entity(
     .tag = "ring",
-    id = "treesPlaneBoundary",
+    id = "option3Boundary",
     visible = FALSE,
     position = c(0.35, message_height-0.45, -2),
     color = dark_red,
@@ -220,9 +220,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     theta_start = 45
   )
   
-  jaguar_vegetation_label <- a_label(
+  option_4_label <- a_label(
     text = answer_4,
-    id = "vegetationText",
+    id = "option4Text",
     color = black,
     font = "mozillavr",
     height = 1,
@@ -230,10 +230,10 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     position = c(0, 0, 0)
   )
   
-  jaguar_vegetation_plane <- a_entity(
+  option_4_plane <- a_entity(
     .tag = "plane",
-    .children = list(jaguar_vegetation_label),
-    id = "vegetationPlane",
+    .children = list(option_4_label),
+    id = "option4Plane",
     visible = FALSE,
     position = c(0.35, message_height-1, -2),
     color = white,
@@ -242,9 +242,9 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   )
   
   # Outer boundary for intersection detection
-  jaguar_vegetation_plane_boundary <- a_entity(
+  option_4_plane_boundary <- a_entity(
     .tag = "ring",
-    id = "vegetationPlaneBoundary",
+    id = "option4PlaneBoundary",
     visible = FALSE,
     position = c(0.35, message_height-1, -2),
     color = dark_red,
@@ -255,7 +255,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   )
   
   # Create Scene
-  animals <- a_scene(.children = list(canvas_3d, jaguar_water_plane_boundary, jaguar_trees_plane_boundary, jaguar_vegetation_plane_boundary, jaguar_prey_plane_boundary, camera, jaguar_question_plane, jaguar_water_plane, jaguar_trees_plane, jaguar_vegetation_plane, jaguar_prey_plane, post_plane, post_plane_boundary),
+  animals <- a_scene(.children = list(canvas_3d, option_1_plane_boundary, option_2_plane_boundary, option_3_plane_boundary, option_4_plane_boundary, camera, question_plane, option_1_plane, option_2_plane, option_3_plane, option_4_plane, post_plane, post_plane_boundary),
                      .websocket = TRUE,
                      .websocket_host = IPv4_ADDRESS,
                      .template = "empty",

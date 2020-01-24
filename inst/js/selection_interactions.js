@@ -1,15 +1,15 @@
 AFRAME.registerComponent("binary-button-controls", {
   init: function() {
     let canvas_3d = document.getElementById("canvas3d");
-    const waterPlane = document.getElementById("waterPlane");
-    const preyPlane = document.getElementById("preyPlane");
-    const treesPlane = document.getElementById("treesPlane");
-    const vegetationPlane = document.getElementById("vegetationPlane");
+    const option1Plane = document.getElementById("option1Plane");
+    const option2Plane = document.getElementById("option2Plane");
+    const option3Plane = document.getElementById("option3Plane");
+    const option4Plane = document.getElementById("option4Plane");
 
-    let isWaterSelected = false;
-    let isPreySelected = false;
-    let isTreesSelected = false;
-    let isVegetationSelected = false;
+    let isOption1Selected = false;
+    let isOption2Selected = false;
+    let isOption3Selected = false;
+    let isOption4Selected = false;
 
     let imageAnnotated = [];
 
@@ -55,51 +55,51 @@ AFRAME.registerComponent("binary-button-controls", {
         postPlane.setAttribute("color", "green");
         console.log("POST SELECTED!");
         let responses = {
-          water: isWaterSelected ? 1 : 0,
-          trees: isTreesSelected ? 1 : 0,
-          vegetation: isVegetationSelected ? 1 : 0,
-          prey: isPreySelected ? 1 : 0
+          water: isOption1Selected ? 1 : 0,
+          trees: isOption3Selected ? 1 : 0,
+          vegetation: isOption4Selected ? 1 : 0,
+          prey: isOption2Selected ? 1 : 0
         }
         postResponse(responses);
       }
-      if (isWaterHovered && !imageAnnotated.includes(image_id)) {
-        waterPlane.setAttribute("color", "green");
-        console.log("WATER SELECTED!");
-        isWaterSelected = true;
+      if (isOption1Hovered && !imageAnnotated.includes(image_id)) {
+        option1Plane.setAttribute("color", "green");
+        console.log("OPTION 1 SELECTED!");
+        isOption1Selected = true;
       }
-      if (isPreyHovered && !imageAnnotated.includes(image_id)) {
-        preyPlane.setAttribute("color", "green");
-        console.log("PREY SELECTED!");
-        isPreySelected = true;
+      if (isOption2Hovered && !imageAnnotated.includes(image_id)) {
+        option2Plane.setAttribute("color", "green");
+        console.log("OPTION 2 SELECTED!");
+        isOption2Selected = true;
       }
-      if (isTreesHovered && !imageAnnotated.includes(image_id)) {
-        treesPlane.setAttribute("color", "green");
-        console.log("TREES SELECTED!");
-        isTreesSelected = true;
+      if (isOption3Hovered && !imageAnnotated.includes(image_id)) {
+        option3Plane.setAttribute("color", "green");
+        console.log("OPTION 3 SELECTED!");
+        isOption3Selected = true;
       }
-      if (isVegetationHovered && !imageAnnotated.includes(image_id)) {
-        vegetationPlane.setAttribute("color", "green");
-        console.log("VEGETATION SELECTED!");
-        isVegetationSelected = true;
+      if (isOption4Hovered && !imageAnnotated.includes(image_id)) {
+        option4Plane.setAttribute("color", "green");
+        console.log("OPTION 4 SELECTED!");
+        isOption4Selected = true;
       }
     });
   }
 });
 
-let isWaterHovered = false;
-let isPreyHovered = false;
-let isTreesHovered = false;
-let isVegetationHovered = false;
+let isOption1Hovered = false;
+let isOption2Hovered = false;
+let isOption3Hovered = false;
+let isOption4Hovered = false;
 let isPostHovered = false;
 
 AFRAME.registerComponent("intersection", {
   init: function() {
     // TODO: change somewhere more generic
     const questionPlane = document.getElementById("questionPlane");
-    const waterPlane = document.getElementById("waterPlane");
-    const preyPlane = document.getElementById("preyPlane");
-    const treesPlane = document.getElementById("treesPlane");
-    const vegetationPlane = document.getElementById("vegetationPlane");
+    const option1Plane = document.getElementById("option1Plane");
+    const option2Plane = document.getElementById("option2Plane");
+    const option3Plane = document.getElementById("option3Plane");
+    const option4Plane = document.getElementById("option4Plane");
 
     this.el.addEventListener("raycaster-intersection", evt => {
       // if question plane visible, then all planes visible => detect intersection
@@ -114,77 +114,77 @@ AFRAME.registerComponent("intersection", {
           }
           // TODO: Refactor
           if (
-            els.some(el => el.id === "waterPlaneBoundary") ||
-            els.some(el => el.id === "treesPlaneBoundary") ||
-            els.some(el => el.id === "vegetationPlaneBoundary") ||
-            els.some(el => el.id === "preyPlaneBoundary") ||
+            els.some(el => el.id === "option1PlaneBoundary") ||
+            els.some(el => el.id === "option3PlaneBoundary") ||
+            els.some(el => el.id === "option4PlaneBoundary") ||
+            els.some(el => el.id === "option2PlaneBoundary") ||
             els.some(el => el.id === "postPlaneBoundary")
           ) {
-            isWaterHovered = false;
-            isPreyHovered = false;
-            isTreesHovered = false;
-            isVegetationHovered = false;
+            isOption1Hovered = false;
+            isOption2Hovered = false;
+            isOption3Hovered = false;
+            isOption4Hovered = false;
             isPostHovered = false;
           } else if (
-            els.some(el => el.id === "waterPlane") ||
-            els.some(el => el.id === "waterText")
+            els.some(el => el.id === "option1Plane") ||
+            els.some(el => el.id === "option1Text")
           ) {
-            isWaterHovered = true;
-            isPreyHovered = false;
-            isTreesHovered = false;
-            isVegetationHovered = false;
-            waterPlane.setAttribute("isWaterHovered", true);
+            isOption1Hovered = true;
+            isOption2Hovered = false;
+            isOption3Hovered = false;
+            isOption4Hovered = false;
+            option1Plane.setAttribute("isOption1Hovered", true);
             isPostHovered = false;
           } else if (
-            els.some(el => el.id === "preyPlane") ||
-            els.some(el => el.id === "preyText")
+            els.some(el => el.id === "option2Plane") ||
+            els.some(el => el.id === "option2Text")
           ) {
-            isWaterHovered = false;
-            isPreyHovered = true;
-            isTreesHovered = false;
-            isVegetationHovered = false;
-            preyPlane.setAttribute("isPreyHovered", true);
+            isOption1Hovered = false;
+            isOption2Hovered = true;
+            isOption3Hovered = false;
+            isOption4Hovered = false;
+            option2Plane.setAttribute("isOption2Hovered", true);
             isPostHovered = false;
           } else if (
-            els.some(el => el.id === "treesPlane") ||
-            els.some(el => el.id === "treesText")
+            els.some(el => el.id === "option3Plane") ||
+            els.some(el => el.id === "option3Text")
           ) {
-            isWaterHovered = false;
-            isPreyHovered = false;
-            isTreesHovered = true;
-            isVegetationHovered = false;
-            treesPlane.setAttribute("isTreesHovered", true);
+            isOption1Hovered = false;
+            isOption2Hovered = false;
+            isOption3Hovered = true;
+            isOption4Hovered = false;
+            option3Plane.setAttribute("isOption3Hovered", true);
             isPostHovered = false;
           } else if (
-            els.some(el => el.id === "vegetationPlane") ||
-            els.some(el => el.id === "vegetationText")
+            els.some(el => el.id === "option4Plane") ||
+            els.some(el => el.id === "option4Text")
           ) {
-            isWaterHovered = false;
-            isPreyHovered = false;
-            isTreesHovered = false;
-            isVegetationHovered = true;
-            vegetationPlane.setAttribute("isVegetationHovered", true);
+            isOption1Hovered = false;
+            isOption2Hovered = false;
+            isOption3Hovered = false;
+            isOption4Hovered = true;
+            option4Plane.setAttribute("isOption4Hovered", true);
             isPostHovered = false;
           } else if (
             els.some(el => el.id === "postPlane") ||
             els.some(el => el.id === "postText")
           ) {
-            isWaterHovered = false;
-            isPreyHovered = false;
-            isTreesHovered = false;
-            isVegetationHovered = false;
+            isOption1Hovered = false;
+            isOption2Hovered = false;
+            isOption3Hovered = false;
+            isOption4Hovered = false;
             isPostHovered = true;
             postPlane.setAttribute("isPostHovered", true);
           } else {
-            isWaterHovered = false;
-            isPreyHovered = false;
-            isTreesHovered = false;
-            isVegetationHovered = false;
+            isOption1Hovered = false;
+            isOption2Hovered = false;
+            isOption3Hovered = false;
+            isOption4Hovered = false;
             isPostHovered = false;
-            waterPlane.setAttribute("isWaterHovered", false);
-            vegetationPlane.setAttribute("isVegetationHovered", false);
-            treesPlane.setAttribute("isTreesHovered", false);
-            preyPlane.setAttribute("isPreyHovered", false);
+            option1Plane.setAttribute("isOption1Hovered", false);
+            option4Plane.setAttribute("isOption4Hovered", false);
+            option3Plane.setAttribute("isOption3Hovered", false);
+            option2Plane.setAttribute("isOption2Hovered", false);
             postPlane.setAttribute("isPostHovered", false);
           }
         }

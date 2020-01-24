@@ -9,7 +9,7 @@ participant <- "Grace"
 record_times <- function(participant, status, users.df){users.df <- rbind(users.df, data.frame(userID = c(participant), datetime = Sys.time(), status = c(status)))}
 
 # Enter IP
-IPv4_ADDRESS <- "131.181.64.15"
+IPv4_ADDRESS <- "192.168.43.72"
 
 # Define image paths
 img_paths <- c("../inst/ext/images/koalas/KP5.jpg", 
