@@ -33,7 +33,9 @@
 #' }
 #'
 #' @export
-go <- function(image_paths, index = NA){
+go <- function(image_paths, index = NA, question_type = "binary"){
+  
+  white <- "#ffffff"
   
   # Current image number
   if(is.na(index)) { CONTEXT_INDEX <- 1 }
@@ -56,27 +58,59 @@ go <- function(image_paths, index = NA){
   next_image <- animal_contexts[[CONTEXT_INDEX]]
   print(next_image)
   
-  pop(FALSE)
   
-  setup_scene <- list(
-    a_update(id = "canvas3d",
-             component = "material",
-             attributes = list(src = paste0("#","img1"))),
-    a_update(id = "canvas3d",
-             component = "src",
-             attributes = paste0("#","img1")),
-    a_update(id = "canvas3d",
-             component = "rotation",
-             attributes = list(x = 0, y = 0, z = 0)),
-    a_update(id = "canvas3d",
-             component = "class",
-             attributes = image_paths[1]),
-    a_update(id = "yesPlane",
-             component = "color",
-             attributes = white),
-    a_update(id = "noPlane",
-             component = "color",
-             attributes = white))
+  pop(FALSE, question_type )
+  
+  if(question_type == "binary"){
+    setup_scene <- list(
+      a_update(id = "canvas3d",
+               component = "material",
+               attributes = list(src = paste0("#","img1"))),
+      a_update(id = "canvas3d",
+               component = "src",
+               attributes = paste0("#","img1")),
+      a_update(id = "canvas3d",
+               component = "rotation",
+               attributes = list(x = 0, y = 0, z = 0)),
+      a_update(id = "canvas3d",
+               component = "class",
+               attributes = image_paths[1]),
+      a_update(id = "yesPlane",
+               component = "color",
+               attributes = white),
+      a_update(id = "noPlane",
+               component = "color",
+               attributes = white))
+  } else {
+    setup_scene <-  list(
+      a_update(id = "canvas3d",
+               component = "material",
+               attributes = list(src = paste0("#",next_image))),
+      a_update(id = "canvas3d",
+               component = "src",
+               attributes = paste0("#",next_image)),
+      a_update(id = "canvas3d",
+               component = "rotation",
+               attributes = context_rotations[[CONTEXT_INDEX]]),
+      a_update(id = "canvas3d",
+               component = "class",
+               attributes = img_paths[CONTEXT_INDEX]),
+      a_update(id = "waterPlane",
+               component = "color",
+               attributes = white),
+      a_update(id = "treesPlane",
+               component = "color",
+               attributes = white),
+      a_update(id = "vegetationPlane",
+               component = "color",
+               attributes = white),
+      a_update(id = "preyPlane",
+               component = "color",
+               attributes = white),
+      a_update(id = "postPlane",
+               component = "color",
+               attributes = white))
+  }
   
   for(jj in 1:length(setup_scene)){
     if(setup_scene[[jj]]$id == "canvas3d"){

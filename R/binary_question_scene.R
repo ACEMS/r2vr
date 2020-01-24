@@ -13,15 +13,13 @@
 #' animals <- binary_question_scene("Do you see any koalas in this image?", "Yes", "No", img_paths)
 #' }
 #' 
-binary_question_scene <- function(the_question, answer_1, answer_2, img_paths){
+binary_question_scene <- function(the_question, answer_1, answer_2, img_paths, message_height = 1.5){
   
   # Colours
   dark_red <- "#8c0000"
   bright_red <- "#ff0000"
   white <- "#ffffff"
   black <- "#000000"
-  
-  message_height <- 1.5
   
   # Assign asset for each image path
   for (i in 1:length(img_paths)) {

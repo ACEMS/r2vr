@@ -4,7 +4,7 @@
 \alias{go}
 \title{Go to next VR scene}
 \usage{
-go(image_paths, index = NA)
+go(image_paths, index = NA, question_type = "binary")
 }
 \arguments{
 \item{image_paths}{character string of image paths}

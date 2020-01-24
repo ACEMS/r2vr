@@ -4,7 +4,13 @@
 \alias{binary_question_scene}
 \title{Create a binary question scene}
 \usage{
-binary_question_scene(the_question, answer_1, answer_2, img_paths)
+binary_question_scene(
+  the_question,
+  answer_1,
+  answer_2,
+  img_paths,
+  message_height = 1.5
+)
 }
 \arguments{
 \item{the_question}{}
