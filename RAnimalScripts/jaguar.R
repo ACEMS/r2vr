@@ -14,7 +14,7 @@ img_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg",
 
 
 animals <- multivariable_question_scene("Do you see any of these habitat features in this image? If you do see a feature, click on the box to select it.",
-                             "water", "Jaguar tracks", "Scratch marks", "Dense Vegetation", img_paths)
+                             "Water", "Jaguar tracks", "Scratch marks", "Dense Vegetation", img_paths, IPv4_ADDRESS)
 
 ## Launch VR server
 start(IPv4_ADDRESS)
