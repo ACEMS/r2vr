@@ -51,7 +51,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
     .tag = "cursor",
     color = bright_red,
     id = "fileID",
-    class = "animal"
+    class = "jaguar"
   )
   
   # Position cursor in center of camera

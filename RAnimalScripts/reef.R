@@ -12,7 +12,7 @@ img_paths <- c("../inst/ext/images/reef/100030039.jpg",
                "../inst/ext/images/reef/130050093.jpg")
 
 ## Create binary qestion scene for animals
-animals <- binary_question_scene("Do the live corals on this reef form a structurally complex habitat?", "Yes", "No", img_paths)
+animals <- binary_question_scene("Do the live corals on this reef form a structurally complex habitat?", "Yes", "No", img_paths, IPv4_ADDRESS, "reef")
 
 ## Launch VR server
 start(IPv4_ADDRESS)

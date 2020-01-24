@@ -4,6 +4,9 @@
 #' @param answer_1 
 #' @param answer_2 
 #' @param img_paths 
+#' @param IPv4_ADDRESS 
+#' @param animal_class 
+#' @param message_height 
 #'
 #' @return
 #' @export
@@ -13,7 +16,7 @@
 #' animals <- binary_question_scene("Do you see any koalas in this image?", "Yes", "No", img_paths)
 #' }
 #' 
-binary_question_scene <- function(the_question, answer_1, answer_2, img_paths, message_height = 1.5){
+binary_question_scene <- function(the_question, answer_1, answer_2, img_paths, IPv4_ADDRESS, animal_class, message_height = 1.5){
   
   # Colours
   dark_red <- "#8c0000"
@@ -47,7 +50,7 @@ binary_question_scene <- function(the_question, answer_1, answer_2, img_paths, m
     .tag = "cursor",
     color = bright_red,
     id = "fileID",
-    class = "animal"
+    class = animal_class
   )
   
   # Position cursor in center of camera

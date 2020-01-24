@@ -9,6 +9,8 @@ binary_question_scene(
   answer_1,
   answer_2,
   img_paths,
+  IPv4_ADDRESS,
+  animal_class,
   message_height = 1.5
 )
 }
@@ -20,6 +22,12 @@ binary_question_scene(
 \item{answer_2}{}
 
 \item{img_paths}{}
+
+\item{IPv4_ADDRESS}{}
+
+\item{animal_class}{}
+
+\item{message_height}{}
 }
 \value{
 
