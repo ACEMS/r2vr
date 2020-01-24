@@ -9,7 +9,7 @@ record_times <- function(participant, status, users.df){users.df <- rbind(users.
 # users.df <- data.frame(userID = participant, datetime = Sys.time(), status = c("start")) # initialise once
 
 # Enter IP
-IPv4_ADDRESS <- "192.168.43.72"
+IPv4_ADDRESS <- "131.181.64.15"
 
 # Define image paths
 img_paths <- c("../inst/ext/images/koalas/KP5.jpg", 
@@ -29,7 +29,7 @@ users.df <- record_times(participant, "start", users.df)
 pop()
 
 ## Move to new scene
-go(image_paths = img_paths, index = 3)
+go(image_paths = img_paths, index = 4)
 
 ## Don't forget to pop the question!
 pop()
