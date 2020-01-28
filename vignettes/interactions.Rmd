@@ -33,7 +33,7 @@ Next you will need to know your local IP address on your computer. You can find 
 ```{r}
 library(r2vr)
 ## Enter IP
-IPv4_ADDRESS <- "131.181.64.15"
+IPv4_ADDRESS <- "192.168.0.101"
 ```
   
 ### Create experiment
