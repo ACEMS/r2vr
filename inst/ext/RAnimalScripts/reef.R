@@ -1,6 +1,4 @@
 library(r2vr)
-library(httr)
-library(jsonlite)
 library(lubridate)
 
 # Enter IP
@@ -12,7 +10,7 @@ img_paths <- c("../inst/ext/images/reef/100030039.jpg",
                "../inst/ext/images/reef/130030287.jpg", 
                "../inst/ext/images/reef/130050093.jpg")
 
-## Create binary qestion scene for animals
+## Create Reef VR environment
 animals <- binary_question_scene("Do the live corals on this reef form a structurally complex habitat?", "Yes", "No", img_paths, IPv4_ADDRESS, "reef")
 
 ## Launch VR server
@@ -26,6 +24,9 @@ go(image_paths = img_paths, index = 3)
 
 ## Don't forget to pop the question!
 pop()
+
+## When participant is done:
+end()
 
 # Get data from database with API GET request
 reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")

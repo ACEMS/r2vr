@@ -1,10 +1,8 @@
 library(r2vr)
-library(httr)
-library(jsonlite)
 library(lubridate)
 
 ## Name of participant
-participant <- "Grace"
+participant <- "First participant"
 record_times <- function(participant, status, users.df){users.df <- rbind(users.df, data.frame(userID = c(participant), datetime = Sys.time(), status = c(status)))}
 # users.df <- data.frame(userID = participant, datetime = Sys.time(), status = c("start")) # initialise once
 
@@ -17,6 +15,7 @@ img_paths <- c("../inst/ext/images/koalas/KP5.jpg",
                "../inst/ext/images/koalas/foundKoala1.jpg", 
                "../inst/ext/images/koalas/foundKoala2.jpg")
 
+## Create Koala VR environment
 animals <- binary_question_scene("Do you see any koalas in this image?", "Yes", "No", img_paths, IPv4_ADDRESS, "koala")
 
 ## Launch VR server

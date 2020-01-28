@@ -1,6 +1,4 @@
 library(r2vr)
-library(httr)
-library(jsonlite)
 library(lubridate)
 
 # Enter IP
@@ -12,7 +10,7 @@ img_paths <- c("../inst/ext/images/jaguars/WP14_360_002.jpg",
                "../inst/ext/images/jaguars/WP56_360_001.jpg",
                "../inst/ext/images/jaguars/WP60_360_001.jpg")
 
-
+## Create Jaguar VR environment
 animals <- multivariable_question_scene("Do you see any of these habitat features in this image? If you do see a feature, click on the box to select it.",
                              "Water", "Jaguar tracks", "Scratch marks", "Dense Vegetation", img_paths, IPv4_ADDRESS)
 
@@ -27,6 +25,9 @@ go(image_paths = img_paths, index = 4, question_type = "multivariable")
 
 ## Don't forget to pop the question!
 pop(question_type = "multivariable")
+
+## When participant is done:
+end()
 
 # Get data from database with API GET request
 jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
