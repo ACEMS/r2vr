@@ -4,10 +4,10 @@ author: "Grace Heron, Jon Peppinck"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-%\VignetteIndexEntry{Interactions for Elicitation}
+  %\VignetteIndexEntry{Interactions for Elicitation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  ---
+---
   
 ```{r setup, include = FALSE}
   knitr::opts_chunk$set(
