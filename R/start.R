@@ -14,6 +14,4 @@ start <- function(LOCAL_IP){
   ## temporary fix (if needed)
   # animals$js_sources[[2]] <- paste0(dirname(animals$js_sources[[1]]),"/",basename(animals$js_sources[[2]]))
   # animals$js_sources[[3]] <- paste0(dirname(animals$js_sources[[1]]),"/",basename(animals$js_sources[[3]]))
-  
-  
 } 

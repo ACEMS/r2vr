@@ -9,12 +9,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   ---
   
-  ```{r setup, include = FALSE}
+```{r setup, include = FALSE}
   knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
-  )
-  ```
+)
+```
   
 # R objects for building A-Frame Scenes with Interactive Entities
   
@@ -32,7 +32,7 @@ Next you will need to know your local IP address on your computer. You can find 
   
 ```{r}
 library(r2vr)
-# Enter IP
+## Enter IP
 IPv4_ADDRESS <- "131.181.64.15"
 ```
   
@@ -41,10 +41,14 @@ IPv4_ADDRESS <- "131.181.64.15"
 You will need a folder of VR compatible images to use. Set up a variable that lists the paths to each image.
   
 ```{r}
-img_paths <- c("../ext/images/koalas/KP5.jpg", 
-               "../ext/images/koalas/SP10.jpg", 
-               "../ext/images/koalas/foundKoala1.jpg", 
-               "../ext/images/koalas/foundKoala2.jpg")
+r2vr_pkg <- find.package("r2vr")
+
+img_paths <- paste(r2vr_pkg,
+                   c("/ext/images/koalas/KP5.jpg", 
+                     "/ext/images/koalas/SP10.jpg", 
+                     "/ext/images/koalas/foundKoala1.jpg", 
+                     "/ext/images/koalas/foundKoala2.jpg"),
+                   sep = "")
 ```
 
 For this experiment we wish to ask a question with a yes or no answer so we will use `binary_question_scene()`. 
@@ -101,7 +105,7 @@ end()
 Time for the exciting part which is to import our elicitation data. Note that the end of the url is our animal class (koala). 
 
 ```{r}
-# Get data from database with API GET request
+## Get data from database with API GET request
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
 koala.df <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(koala.df)
@@ -112,11 +116,13 @@ knitr::kable(koala.df)
 Repeat for reef case study.
 
 ```{r}
-# Define image paths
-img_paths <- c("../ext/images/reef/100030039.jpg", 
-               "../ext/images/reef/120261897.jpg", 
-               "../ext/images/reef/130030287.jpg", 
-               "../ext/images/reef/130050093.jpg")
+## Define image paths
+img_paths <- paste(r2vr_pkg, 
+                   c("/ext/images/reef/100030039.jpg", 
+                     "/ext/images/reef/120261897.jpg", 
+                     "/ext/images/reef/130030287.jpg", 
+                     "/ext/images/reef/130050093.jpg"), 
+                   sep = "")
 
 ## Create binary qestion scene for animals
 animals <- binary_question_scene(
@@ -142,7 +148,7 @@ pop()
 ## Finish
 end()
 
-# Get data from database with API GET request
+## Get data from database with API GET request
 reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
 reef.df$recordedOn <-  lubridate::ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(reef.df)
@@ -151,11 +157,13 @@ knitr::kable(reef.df)
 ## Case Study 3: Jaguars
 
 ```{r}
-# Define image paths
-img_paths <- c("../ext/images/jaguars/WP14_360_002.jpg", 
-               "../ext/images/jaguars/WP55_360_001.jpg", 
-               "../ext/images/jaguars/WP56_360_001.jpg",
-               "../ext/images/jaguars/WP60_360_001.jpg")
+## Define image paths
+img_paths <- paste(r2vr_pkg,
+                   c("/ext/images/jaguars/WP14_360_002.jpg", 
+                     "/ext/images/jaguars/WP55_360_001.jpg", 
+                     "/ext/images/jaguars/WP56_360_001.jpg",
+                     "/ext/images/jaguars/WP60_360_001.jpg"),
+                   sep = "")
 
 animals <- multivariable_question_scene(
   the_question = "Do you see any of these habitat features in this image? If you do see a feature, click on the box to select it.",
@@ -180,7 +188,7 @@ pop(question_type = "multivariable")
 ## Finish
 end()
 
-# Get data from database with API GET request
+## Get data from database with API GET request
 jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
 jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(jaguar.df)
