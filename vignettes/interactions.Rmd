@@ -28,12 +28,12 @@ New additions to `r2vr` now include interactive entities that store the outputs 
   
 First you will need to install `ACEMS/r2vr` into your R library. Also you will need to set up a data base on [db4free](https://www.db4free.net/) with the same class name. For this example our class name is `koala`. 
   
-Next you will need to know your local IP address on your computer. You can find this by opening a command window (cmd) and running the command `ipconfig`. The IP address next to `IPv4 Address` is what you need. 
+Next you will need to know your local IP address on your computer. You can find this by opening a command window (cmd) and running the command `ipconfig` or using `find_IP()` within R. The IP address next to `IPv4 Address` is what you need. 
   
 ```{r}
 library(r2vr)
-## Enter IP
-IPv4_ADDRESS <- "192.168.0.101"
+## Find the IPv4 Address
+IPv4_ADDRESS <- find_IP()
 ```
   
 ### Create experiment
@@ -41,8 +41,10 @@ IPv4_ADDRESS <- "192.168.0.101"
 You will need a folder of VR compatible images to use. Set up a variable that lists the paths to each image.
   
 ```{r}
+## Find the path to the r2vr package
 r2vr_pkg <- find.package("r2vr")
 
+## Append to get full paths to images
 img_paths <- paste(r2vr_pkg,
                    c("/ext/images/koalas/KP5.jpg", 
                      "/ext/images/koalas/SP10.jpg", 

@@ -14,6 +14,6 @@ Start VR server
 }
 \examples{
 \donttest{
-start("192.168.43.72")
+start("YOUR-LOCAL-IP")
 }
 }
