@@ -8,8 +8,8 @@
 #' @examples
 #' find_IP()
 find_IP <- function(IP="IPv4"){
-  ## Works for windows but need to test for IOS and Linux
-  ip_config <- system("ipconfig", intern=TRUE)
-  ip_loc <- stringr::str_detect(ip_config, IP)
-  stringr::str_remove(ip_config[ip_loc], "   IPv4 Address. . . . . . . . . . . : ")
+  if(.Platform$OS.type == 'windows') {
+    ## Works for windows but need to test for IOS and Linux
+    gsub(".*? ([[:digit:]])", "\\1", system("ipconfig", intern=T)[grep("IPv4", system("ipconfig", intern = T))])
+  }
 }
