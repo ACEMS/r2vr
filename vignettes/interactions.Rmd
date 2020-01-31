@@ -42,7 +42,7 @@ You will need a folder of VR compatible images to use. Set up a variable that li
   
 ```{r}
 ## Find the path to the r2vr package
-r2vr_pkg <- find.package("r2vr")
+r2vr_pkg <- "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst"
 
 ## Append to get full paths to images
 img_paths <- paste(r2vr_pkg,
