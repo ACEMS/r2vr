@@ -41,7 +41,7 @@ IPv4_ADDRESS <- find_IP()
 You will need a folder of VR compatible images to use. Set up a variable that lists the paths to each image.
   
 ```{r}
-## Find the path to the r2vr package
+## Full path to image web locations
 r2vr_pkg <- "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst"
 
 ## Append to get full paths to images
@@ -110,7 +110,7 @@ Time for the exciting part which is to import our elicitation data. Note that th
 ## Get data from database with API GET request
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
 koala.df$recordedOn <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
-knitr::kable(koala.df)
+knitr::kable(tail(koala.df))
 ```
 
 ## Case Study 2: The Great Barrier Reef 
@@ -153,7 +153,7 @@ end()
 ## Get data from database with API GET request
 reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
 reef.df$recordedOn <-  lubridate::ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
-knitr::kable(reef.df)
+knitr::kable(tail(reef.df))
 ```
 
 ## Case Study 3: Jaguars
@@ -193,5 +193,5 @@ end()
 ## Get data from database with API GET request
 jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
 jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
-knitr::kable(jaguar.df)
+knitr::kable(tail(jaguar.df))
 ```
