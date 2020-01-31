@@ -109,7 +109,7 @@ Time for the exciting part which is to import our elicitation data. Note that th
 ```{r}
 ## Get data from database with API GET request
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
-koala.df <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
+koala.df$recordedOn <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(koala.df)
 ```
 
