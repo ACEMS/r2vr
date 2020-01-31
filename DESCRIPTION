@@ -29,5 +29,6 @@ Imports:
     fs,
     uuid,
     methods,
-    httr
+    httr,
+    lubridate
 VignetteBuilder: knitr
