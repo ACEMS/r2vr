@@ -3,6 +3,8 @@ title: "Interactions for Elicitation"
 author: "Grace Heron, Jon Peppinck"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+fig_width: 7
+fig_height: 3
 vignette: >
   %\VignetteIndexEntry{Interactions for Elicitation}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,8 +14,13 @@ vignette: >
 ```{r setup, include = FALSE}
   knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.height = 3,
+  fig.width = 7
 )
+library(ggplot2)
+library(reshape2)
+library(knitr)
 ```
   
 # R objects for building A-Frame Scenes with Interactive Entities
@@ -46,10 +53,10 @@ r2vr_pkg <- "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst"
 
 ## Append to get full paths to images
 img_paths <- paste(r2vr_pkg,
-                   c("/ext/images/koalas/KP5.jpg", 
-                     "/ext/images/koalas/SP10.jpg", 
-                     "/ext/images/koalas/foundKoala1.jpg", 
-                     "/ext/images/koalas/foundKoala2.jpg"),
+                   c("/ext/images/koalas/Site_1.jpg", 
+                     "/ext/images/koalas/Site_2.jpg", 
+                     "/ext/images/koalas/Site_3.jpg", 
+                     "/ext/images/koalas/Site_4.jpg"),
                    sep = "")
 ```
 
@@ -111,7 +118,14 @@ Time for the exciting part which is to import our elicitation data. Note that th
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
 koala.df$recordedOn <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(koala.df))
+## Basic visualisation of data
+ggplot2::ggplot(koala.df, aes(fill = as.factor(binary_response), x = image_id)) + 
+  geom_bar(colour = "black") + 
+  theme_bw() + 
+  labs(fill = "Do you see any\nkoalas in this image?") + 
+  ggtitle("Koala presence response")
 ```
+
 
 ## Case Study 2: The Great Barrier Reef 
 
@@ -154,6 +168,12 @@ end()
 reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
 reef.df$recordedOn <-  lubridate::ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(reef.df))
+## Basic visualisation of data
+ggplot2::ggplot(reef.df, aes(fill = as.factor(binary_response), x = image_id)) + 
+  geom_bar(colour = "black") + 
+  theme_bw() + 
+  labs(fill = "Do the live corals\non this reef form a\nstructurally complex\nhabitat?") + 
+  ggtitle("Structurally Complex Coral Habitat")
 ```
 
 ## Case Study 3: Jaguars
@@ -194,4 +214,16 @@ end()
 jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
 jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(jaguar.df))
+## Basic visualisation of data
+ggplot2::ggplot(
+  dplyr::filter(
+    reshape2::melt(
+      jaguar.df, measure.vars = c("option_1", "option_2", "option_3","option_4")), 
+    value == 1), 
+  aes(x = image_id, fill = variable)) + 
+  geom_bar(position = "dodge", colour = "black") +
+  facet_grid(cols = vars(image_id), scales = "free") +
+  theme_bw() +
+  labs(fill = "Observed\nhabitat\nfeatures") + 
+  ggtitle("Jaguar Habitat Features")
 ```
