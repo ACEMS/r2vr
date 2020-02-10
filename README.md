@@ -18,7 +18,7 @@ at run-time by viewers.
 
 # Installation
 
-`devtools::install_github("milesmcbain/r2vr")`
+`devtools::install_github("ACEMS/r2vr")`
 
 # Hello WebVR
 

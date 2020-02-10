@@ -118,13 +118,14 @@ Time for the exciting part which is to import our elicitation data. Note that th
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
 koala.df$recordedOn <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(koala.df))
+## Tidy dataframe for plotting
+koala.df <- dplyr::mutate(koala.df, 
+                binary_response = dplyr::case_when(binary_response == 0 ~ "No",
+                                                   binary_response == 1 ~ "Yes",
+                                                   TRUE ~ "unknown"))
 
 ## Basic visualisation of data
-ggplot2::ggplot(dplyr::mutate(koala.df, 
-                              binary_response = dplyr::case_when(binary_response == 0 ~ "No",
-                                                                 binary_response == 1 ~ "Yes",
-                                                                 TRUE ~ "unknown")), 
-                aes(fill = as.factor(binary_response), x = image_id)) + 
+ggplot2::ggplot(koala.df, aes(fill = as.factor(binary_response), x = image_id)) + 
   geom_bar(colour = "black") + 
   theme_bw() + 
   labs(fill = "Do you see any\nkoalas in this image?") + 
@@ -173,13 +174,14 @@ end()
 reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
 reef.df$recordedOn <-  lubridate::ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(reef.df))
+## Tidy dataframe for plotting
+reef.df <- dplyr::mutate(reef.df,  
+                binary_response = dplyr::case_when(binary_response == 0 ~ "No",
+                                                   binary_response == 1 ~ "Yes",
+                                                   TRUE ~ "unknown"))
 
 ## Basic visualisation of data
-ggplot2::ggplot(dplyr::mutate(reef.df,  
-                              binary_response = dplyr::case_when(binary_response == 0 ~ "No",
-                                                                 binary_response == 1 ~ "Yes",
-                                                                 TRUE ~ "unknown")), 
-                aes(fill = as.factor(binary_response), x = image_id)) + 
+ggplot2::ggplot(reef.df, aes(fill = as.factor(binary_response), x = image_id)) + 
   geom_bar(colour = "black") + 
   theme_bw() + 
   labs(fill = "Do the live corals\non this reef form a\nstructurally complex\nhabitat?") + 
@@ -222,11 +224,12 @@ end()
 
 ## Get data from database with API GET request
 jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
-jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
-knitr::kable(tail(jaguar.df))
-
-if(nrow(jaguar.df) > 1){
-  ## Basic visualisation of data
+## Check for empty data frame
+if(!is.null(nrow(jaguar.df))){
+  jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, 
+                                              tz = "Australia/Queensland")
+  knitr::kable(tail(jaguar.df))
+  ## Tidy dataframe for plotting
   jaguar.df <- dplyr::mutate(
     dplyr::filter(
       reshape2::melt(
@@ -237,11 +240,13 @@ if(nrow(jaguar.df) > 1){
                                 variable == "option_3" ~ "Scratch marks",
                                 variable == "option_4" ~ "Dense vegetation",
                                 TRUE ~ "unknown"))
-  
+
+  ## Basic visualisation of data
   ggplot2::ggplot(jaguar.df,aes(x = image_id, fill = response)) +
     geom_bar(position = "dodge", colour = "black") +
-    # if() {facet_grid(cols = vars(image_id), scales = "free")} +
+    facet_grid(cols = vars(image_id), scales = "free") +
     theme_bw() +
     labs(fill = "Observed\nhabitat\nfeatures") +
-    ggtitle("Jaguar Habitat Features")}
+    ggtitle("Jaguar Habitat Features")
+}
 ```
