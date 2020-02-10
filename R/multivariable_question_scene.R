@@ -40,7 +40,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   # Create 3D Image
   canvas_3d <- a_entity(.tag = "sky",
                         .js_sources = list("https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst/js/button_controls.js", 
-                                           "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst/js/binary_interactions.js"),
+                                           "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst/js/selection_interactions.js"),
                         id = "canvas3d",
                         class = img_paths[1],
                         src = image1,
@@ -262,7 +262,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
                      .websocket_host = IPv4_ADDRESS,
                      .template = "empty",
                      button_controls="debug: true;",
-                     binary_button_controls = ""
+                     selection_button_controls = ""
   )
   return(animals)
 }

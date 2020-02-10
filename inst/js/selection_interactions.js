@@ -1,4 +1,4 @@
-AFRAME.registerComponent("binary-button-controls", {
+AFRAME.registerComponent("selection-button-controls", {
   init: function() {
     let canvas_3d = document.getElementById("canvas3d");
     const option1Plane = document.getElementById("option1Plane");
