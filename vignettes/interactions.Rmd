@@ -16,7 +16,8 @@ vignette: >
   collapse = TRUE,
   comment = "#>",
   fig.height = 3,
-  fig.width = 7
+  fig.width = 7,
+  eval = F
 )
 library(ggplot2)
 library(reshape2)
@@ -118,6 +119,7 @@ Time for the exciting part which is to import our elicitation data. Note that th
 koala.df <- read(url = "https://test-api-koala.herokuapp.com/koala")
 koala.df$recordedOn <- lubridate::ymd_hms(koala.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(koala.df))
+
 ## Basic visualisation of data
 ggplot2::ggplot(dplyr::mutate(koala.df, 
     binary_response = dplyr::case_when(binary_response == 0 ~ "No",
@@ -172,6 +174,7 @@ end()
 reef.df <- read(url = "https://test-api-koala.herokuapp.com/reef")
 reef.df$recordedOn <-  lubridate::ymd_hms(reef.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(reef.df))
+
 ## Basic visualisation of data
 ggplot2::ggplot(dplyr::mutate(reef.df,  
                               binary_response = dplyr::case_when(binary_response == 0 ~ "No",
@@ -222,6 +225,7 @@ end()
 jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
 jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(jaguar.df))
+
 ## Basic visualisation of data
 ggplot2::ggplot(
   dplyr::mutate(
