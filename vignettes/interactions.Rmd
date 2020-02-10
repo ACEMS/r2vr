@@ -16,12 +16,11 @@ vignette: >
   collapse = TRUE,
   comment = "#>",
   fig.height = 3,
-  fig.width = 7,
-  eval = F
-)
-library(ggplot2)
-library(reshape2)
-library(knitr)
+  fig.width = 7
+  )
+require(ggplot2)
+require(reshape2)
+require(knitr)
 ```
   
 # R objects for building A-Frame Scenes with Interactive Entities
@@ -37,17 +36,17 @@ New additions to `r2vr` now include interactive entities that store the outputs 
 First you will need to install `ACEMS/r2vr` into your R library. Also you will need to set up a data base on [db4free](https://www.db4free.net/) with the same class name. For this example our class name is `koala`. 
   
 Next you will need to know your local IP address on your computer. You can find this by opening a command window (cmd) and running the command `ipconfig` or using `find_IP()` within R. The IP address next to `IPv4 Address` is what you need. 
-  
+
 ```{r}
 library(r2vr)
 ## Find the IPv4 Address
 IPv4_ADDRESS <- find_IP()
 ```
-  
+
 ### Create experiment
-  
+
 You will need a folder of VR compatible images to use. Set up a variable that lists the paths to each image.
-  
+
 ```{r}
 ## Full path to image web locations
 r2vr_pkg <- "https://cdn.jsdelivr.net/gh/milesmcbain/r2vr@master/inst"
@@ -122,10 +121,10 @@ knitr::kable(tail(koala.df))
 
 ## Basic visualisation of data
 ggplot2::ggplot(dplyr::mutate(koala.df, 
-    binary_response = dplyr::case_when(binary_response == 0 ~ "No",
-                                       binary_response == 1 ~ "Yes",
-                                       TRUE ~ "unknown")), 
-  aes(fill = as.factor(binary_response), x = image_id)) + 
+                              binary_response = dplyr::case_when(binary_response == 0 ~ "No",
+                                                                 binary_response == 1 ~ "Yes",
+                                                                 TRUE ~ "unknown")), 
+                aes(fill = as.factor(binary_response), x = image_id)) + 
   geom_bar(colour = "black") + 
   theme_bw() + 
   labs(fill = "Do you see any\nkoalas in this image?") + 
@@ -226,9 +225,9 @@ jaguar.df <- read(url = "https://test-api-koala.herokuapp.com/jaguar")
 jaguar.df$recordedOn <-  lubridate::ymd_hms(jaguar.df$recordedOn, tz = "Australia/Queensland")
 knitr::kable(tail(jaguar.df))
 
-## Basic visualisation of data
-ggplot2::ggplot(
-  dplyr::mutate(
+if(nrow(jaguar.df) > 1){
+  ## Basic visualisation of data
+  jaguar.df <- dplyr::mutate(
     dplyr::filter(
       reshape2::melt(
         jaguar.df, measure.vars = c("option_1", "option_2", "option_3","option_4")), 
@@ -237,11 +236,12 @@ ggplot2::ggplot(
                                 variable == "option_2" ~ "Jaguar tracks",
                                 variable == "option_3" ~ "Scratch marks",
                                 variable == "option_4" ~ "Dense vegetation",
-                                TRUE ~ "unknown")),
-  aes(x = image_id, fill = response)) + 
-  geom_bar(position = "dodge", colour = "black") +
-  facet_grid(cols = vars(image_id), scales = "free") +
-  theme_bw() +
-  labs(fill = "Observed\nhabitat\nfeatures") + 
-  ggtitle("Jaguar Habitat Features")
+                                TRUE ~ "unknown"))
+  
+  ggplot2::ggplot(jaguar.df,aes(x = image_id, fill = response)) +
+    geom_bar(position = "dodge", colour = "black") +
+    # if() {facet_grid(cols = vars(image_id), scales = "free")} +
+    theme_bw() +
+    labs(fill = "Observed\nhabitat\nfeatures") +
+    ggtitle("Jaguar Habitat Features")}
 ```
