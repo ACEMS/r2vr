@@ -43,6 +43,8 @@ AFRAME.registerComponent("selection-button-controls", {
         })
           .then(res => {
             console.log("Record added!", res);
+            isPostHovered = false;
+            console.log("isPostHovered reset to false to ensure the user will not POST the next image");
           })
           .catch(err => {
             console.log(err);
