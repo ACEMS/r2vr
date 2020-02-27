@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="description" content= "${description}">
+    <script crossorigin src="https://aframe.io/releases/${aframe_version}/aframe.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/gh/ACEMS/r2vr@interactions/inst/js/test.js"></script>
+    ${js_sources}
+    </head>
+    <body>
+        <a-scene ${scene_components}>
+            <a-assets>
+                ${assets}
+            </a-assets>
+            
+            <!-- Entities added in R -->
+            ${entities}
+
+        </a-scene>
+    </body>
+</html>
