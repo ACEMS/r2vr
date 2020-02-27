@@ -39,7 +39,7 @@ multivariable_question_scene <- function(the_question, answer_1, answer_2, answe
   
   # Create 3D Image
   canvas_3d <- a_entity(.tag = "sky",
-                        .js_sources = list("https://cdn.jsdelivr.net/gh/ACEMS/r2vr@interactions/inst/js/selection_interactions.js"),
+                        .js_sources = list("https://cdn.jsdelivr.net/gh/ACEMS/r2vr@master/inst/js/button_controls.js"),
                         id = "canvas3d",
                         class = img_paths[1],
                         src = image1,
