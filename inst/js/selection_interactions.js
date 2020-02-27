@@ -1,3 +1,5 @@
+console.log('changed this file');
+
 AFRAME.registerComponent("selection-button-controls", {
   init: function() {
     let canvas_3d = document.getElementById("canvas3d");
