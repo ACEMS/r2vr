@@ -31,7 +31,7 @@ AFRAME.registerComponent('r2vr-message-router', {
 
     init: function() {
         this.ws = new WebSocket("ws://" + this.data.host + ":" + this.data.port);
-        var sceneEl = this.el.sceneEl;
+        // var sceneEl = this.el.sceneEl;
         var ws = this.ws;
 
         //notify that the connection was opened.
@@ -49,16 +49,13 @@ AFRAME.registerComponent('r2vr-message-router', {
             //Assume payload is a list of events
             payload.map((r2vr_message) => {
                 //find target by id
-                // var target = sceneEl.querySelector("#" + r2vr_message.id);
-
-                // if (target === null){
-                //     throw new Error("r2vr-message-router received a message for entity with id '" +
-                //                     target + "', but no entity with this id was found.");
-                // }
-
+                var target = '';
+                if (r2vr_message.id) {
+                    target = sceneEl.querySelector("#" + r2vr_message.id);
+                }
                 if (r2vr_message.class == "event"){
                     //emit message
-                    sceneEl.querySelector("#" + r2vr_message.id).emit(r2vr_message.message.eventName,
+                    target.emit(r2vr_message.message.eventName,
                                 r2vr_message.message.eventDetail,
                                 r2vr_message.message.bubbles);
                 }
@@ -68,15 +65,15 @@ AFRAME.registerComponent('r2vr-message-router', {
                     // You would write custom message handler if you need this
                     // level of performance.
 
-                    sceneEl.querySelector("#" + r2vr_message.id).setAttribute(r2vr_message.component,
+                    target.setAttribute(r2vr_message.component,
                                         r2vr_message.attributes,
                                         r2vr_message.replaces_component);
                 }
                 else if (r2vr_message.class == "remove_component"){
-                    sceneEl.querySelector("#" + r2vr_message.id).removeAttribute(r2vr_message.component);
+                    target.removeAttribute(r2vr_message.component);
                 }
                 else if (r2vr_message.class == "remove_entity"){
-                    sceneEl.querySelector("#" + r2vr_message.id).removeFromParent();
+                    target.removeFromParent();
                 }
                 else if (r2vr_message.class == "add_entity"){
                     var sceneEl = document.querySelector('a-scene');
