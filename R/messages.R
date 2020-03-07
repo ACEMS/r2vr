@@ -86,6 +86,14 @@ a_remove_entity <- function(id){
   removal
 }
 
+##' TODO: describe function
+a_add_entity <- function(id){
+  add <- list(class = "add_entity",
+                  id = id)
+  class(add) <- c("list", "r2vr_message")
+  add
+}
+
 ## Unexported helpers
 is_r2vr_message <- function(x) inherits(x, "r2vr_message")
 
