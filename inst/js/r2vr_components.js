@@ -79,7 +79,6 @@ AFRAME.registerComponent('r2vr-message-router', {
           target.parentNode.removeChild(target);
         } else if (r2vr_message.class == 'add_entity') {
           console.log(r2vr_message.tag);
-          // TODO: check multiple worded entities i.e. - vs _
           const validEntities = [
             'box',
             'camera',
@@ -115,11 +114,24 @@ AFRAME.registerComponent('r2vr-message-router', {
               `${r2vr_message.tag} is not a primitive A-Frame entity.`
             );
           }
-          var sceneEl = document.querySelector('a-scene');
+          var parentEl = document.querySelector('a-scene');
+          if (r2vr_message.parentEntityId) {
+            parentEl = document.querySelector(
+              `#${r2vr_message.parentEntityId}`
+            );
+          }
+          if (!parentEl) {
+            throw new Error(
+              `${r2vr_message.parentEntityId} does not pertain to the ID of a DOM element.`
+            );
+          }
           var entityEl = document.createElement(`a-${r2vr_message.tag}`);
           console.log(entityEl);
           entityEl.id = r2vr_message.id;
-          sceneEl.appendChild(entityEl);
+          if (typeof r2vr_message.className !== 'undefined') {
+            entityEl.class = r2vr_message.className;
+          }
+          parentEl.appendChild(entityEl);
         } else {
           throw new Error(
             'r2vr-message-router received a message of unknown class.'

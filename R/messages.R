@@ -95,12 +95,16 @@ a_remove_entity <- function(id){
 ##' @title a_add_entity
 ##' @param tag primitive A-Frame entity.
 ##' @param id the id of the new entity to be created
+##' @param className the class of the new entity to be created
+##' @param parentEntityId new entity nested within parent via its id
 ##' @return An object that represents an A-Frame Event.
 ##' @export
-a_add_entity <- function(tag, id){
+a_add_entity <- function(tag, id, className = "", parentEntityId = NULL){
   add <- list(class = "add_entity",
-                  .tag = tag,
-                  id = id
+                  tag = tag,
+                  id = id,
+                  className = className,
+                  parentEntityId = parentEntityId)
   class(add) <- c("list", "r2vr_message")
   add
 }
