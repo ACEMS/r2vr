@@ -87,7 +87,7 @@ AFRAME.registerComponent('r2vr-message-router', {
             );
           }
           while (els[0]) {
-            els[0].classList.remove(`${r2vr_message.className}`);
+            els[0].parentNode.removeChild(els[0]);
           }
         } else if (r2vr_message.class == 'add_entity') {
           console.log(r2vr_message.tag);
