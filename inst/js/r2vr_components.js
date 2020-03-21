@@ -140,8 +140,8 @@ AFRAME.registerComponent('r2vr-message-router', {
           var entityEl = document.createElement(`a-${r2vr_message.tag}`);
           console.log(entityEl);
           entityEl.id = r2vr_message.id;
-          if (typeof r2vr_message.className !== 'undefined') {
-            entityEl.class = r2vr_message.className;
+          if (r2vr_message.className) {
+            entityEl.classList.add(`${r2vr_message.className}`);
           }
           parentEl.appendChild(entityEl);
         } else {

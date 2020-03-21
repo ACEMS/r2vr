@@ -114,7 +114,7 @@ a_remove_entity_class <- function(className){
 ##' @param parentEntityId new entity nested within parent via its id
 ##' @return An object that represents an A-Frame Event.
 ##' @export
-a_add_entity <- function(tag, id, className = "", parentEntityId = NULL){
+a_add_entity <- function(tag, id, className = "", parentEntityId = ""){
   add <- list(class = "add_entity",
                   tag = tag,
                   id = id,
