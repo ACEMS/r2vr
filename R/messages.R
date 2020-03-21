@@ -86,6 +86,21 @@ a_remove_entity <- function(id){
   removal
 }
 
+##' Remove all A-Frame entities from the scene by class
+##'
+##' Remove the entitities identified by 'className' from the scene.
+##'
+##' @title a_remove_entity_class
+##' @param className class of the entity to be removed.
+##' @return An object that represents an A-Frame Event.
+##' @export
+a_remove_entity_class <- function(className){
+  removal <- list(class = "remove_entity_class",
+                  className = className)
+  class(removal) <- c("list", "r2vr_message")
+  removal
+}
+
 ## TODO: Done by hand to test - look into R way (roxygen etc.)
 
 ##' Add an A-Frame entity from the scene

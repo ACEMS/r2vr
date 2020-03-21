@@ -77,6 +77,18 @@ AFRAME.registerComponent('r2vr-message-router', {
         } else if (r2vr_message.class == 'remove_entity') {
           target.removeFromParent();
           target.parentNode.removeChild(target);
+        } else if (r2vr_message.class == 'remove_entity_class') {
+          var els = document.getElementsByClassName(
+            `${r2vr_message.className}`
+          );
+          if (els.length === 0) {
+            throw new Error(
+              `${r2vr_message.className} does not pertain to the class of any DOM elements.`
+            );
+          }
+          while (els[0]) {
+            els[0].classList.remove(`${r2vr_message.className}`);
+          }
         } else if (r2vr_message.class == 'add_entity') {
           console.log(r2vr_message.tag);
           const validEntities = [
