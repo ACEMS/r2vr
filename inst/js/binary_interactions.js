@@ -69,7 +69,7 @@ AFRAME.registerComponent("intersection", {
     const noPlane = document.getElementById("noPlane");
 
     this.el.addEventListener("raycaster-intersection", evt => {
-      // if question plane visible, then all planes visible => detect intersection
+      // if question plane visible, then all planes visible => detect intersection.
       if (questionPlane.getAttribute("visible")) {
         console.log("intersection occurred!");
         if (evt) {

@@ -1,0 +1,257 @@
+id,region,label,label_morph_BLEACHED,label_morph,global_label,Dominant_morphologies,fg_global,full_name,grr,grr_description
+1,Atlantic,AARC,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Tube sponges,SpTube,Tube species: A. archeri; A. tubulata; C. plicifera; N. digitalis; unknown vase and small barrel group (tube opening ~ height; basal area < opening)
+2,Atlantic,ACER,ACR_BRA,ACR_BRA,ACR_BRA,branching and hispidose ,Hard corals,Acropora cervicornis,ACER,Acropora cervicornis
+3,Atlantic,ACOM,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Erect sponges,SpEre,Upright narrow tubes branches arborescent e.g. A. compressa. >1 cm height; height >>basal area
+4,Atlantic,Acra,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive sponges,SpMass,Large basal area to body size and height > 5 cm; compact shape; irregular shapes include: chain-tubes spherical castle; e.g. E. ferox; Verongula sp.
+5,Atlantic,AFIS,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Aplysina fistularis,AFIS,Aplysina fistularis
+6,Atlantic,AGAR,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Agaricia/Undaria/Leptoseris spp.,AGAR,Agariciidae. Plates and encrusting corals of the genera Agaricia Undaria and Helioseris
+7,Atlantic,AMAT,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Turf algae,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+8,Atlantic,APAL,ACR_BRA,ACR_BRA,ACR_BRA,branching and hispidose ,Hard corals,Acropora palmata,APAL,Acropora palmata
+9,Atlantic,ApFuCa,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Rope sponges,SpRope,Height >> basal area; Spread along the substrate. e.g. S. aura
+10,Atlantic,ATUB,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Tube sponges,SpTube,Tube species: A. archeri; A. tubulata; C. plicifera; N. digitalis; unknown vase and small barrel group (tube opening ~ height; basal area < opening)
+11,Atlantic,CCA,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,CCA,EAM,Multi-specific assemblages of filamentous algae and CCA smothering reef surface 1 cm or less in height (Epilithic algal matirx)
+12,Atlantic,CDEL,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Encrusting sponges,SpEnc,< 5 cm height (for whole individual); e.g. S. ruetzleri; Haliclona sp.; Monanchora sp.; Chondrilla sp.; Clathria sp.; C. varians
+13,Atlantic,CNAT,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Colpophyllia natans,CNAT,Colpophyllia natans
+14,Atlantic,CPLI,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Tube sponges,SpTube,Tube species: A. archeri; A. tubulata; C. plicifera; N. digitalis; unknown vase and small barrel group (tube opening ~ height; basal area < opening)
+15,Atlantic,CVAG,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Callyspongia vaginalis,CVAG,Callyspongia vaginalis
+16,Atlantic,CVIR,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Cliona viridis complex,Cliona,Cliona viridis complex
+17,Atlantic,CYAN,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Cyanobacteria ,CYANO,Multi-specific assemblages of filamentous algae 
+18,Atlantic,Dict,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+19,Atlantic,DLAB,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Diploria labyrinthiformis,DLAB,Diploria labyrinthiformis
+20,Atlantic,DLAB-BL,MSEM_BL,MSEM,BL,NA,Hard corals,Diploria labyrinthiformis bleached,DLAB,Diploria labyrinthiformis
+21,Atlantic,EFAS,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Eusmilia fastigiata,EFAS,Eusmilia fastigiata
+22,Atlantic,ENGR1,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Encrusting soft corals,OTH-SF,Other soft corals including erect and encrusting forms (Caribbean)
+23,Atlantic,ENSP,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Encrusting sponges,SpEnc,< 5 cm height (for whole individual); e.g. S. ruetzleri; Haliclona sp.; Monanchora sp.; Chondrilla sp.; Clathria sp.; C. varians
+24,Atlantic,ERGR,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Erect soft corals,OTH-SF,Other soft corals including erect and encrusting forms (Caribbean)
+25,Atlantic,ERHD,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+26,Atlantic,ERSP,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Erect sponges,SpEre,Upright narrow tubes branches arborescent e.g. A. compressa. >1 cm height; height >>basal area
+27,Atlantic,FISH,NAN,NAN,NAN,NAN,Other,Other,OTHER,Other including fish; trash; transect hardware; unknown
+28,Atlantic,Gnep,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive sponges,SpMass,Large basal area to body size and height > 5 cm; compact shape; irregular shapes include: chain-tubes spherical castle; e.g. E. ferox; Verongula sp.
+29,Atlantic,GORG,GORG,GORG,GORG,mixed soft,Soft Coral,Sea fans,GORG,Sea fans; e.g Gorgonia sp.
+30,Atlantic,Hali,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+31,Atlantic,IRCI,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Ircinia sp.,IRCI,Ircinia sp.
+32,Atlantic,Lvar,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+33,Atlantic,MADR,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Madracis ,MADR,Madracis sp.
+34,Atlantic,MCAV,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Montastraea cavernosa ,MCAV,Montastraea cavernosa 
+35,Atlantic,MEA-HC,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Coral meandroid,FAV-MUS,Meandroid corals including Dendrogyra; Isophyllia; Manicina; Mycetophyllia; Musa; Scolymia
+36,Atlantic,MEAN,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Meandrina ,MEAN,Meandrina sp.
+37,Atlantic,Mille,NON_HERM,NON_HERM,NON_HERM,non-hermatypic,Hard corals,Millepora,Mille,Millepora sp.
+38,Atlantic,Mille-BL,NON_HERM_BL,NON_HERM,BL,NA,Hard corals,Millepora bleached ,Mille,Millepora sp.
+39,Atlantic,MLAE,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Encrusting sponges,SpEnc,< 5 cm height (for whole individual); e.g. S. ruetzleri; Haliclona sp.; Monanchora sp.; Chondrilla sp.; Clathria sp.; C. varians
+40,Atlantic,MLAG,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+41,Atlantic,MOB-INV,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other Invertebrates,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+42,Atlantic,MSE-HC,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Coral submassive,OTH-HC,Sub-massive corlas including Dichocoenia; Favia; Solenastrea; Stephanocoenia
+43,Atlantic,MTUN,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other Invertebrates,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+44,Atlantic,Ndig,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Tube sponges,SpTube,Tube species: A. archeri; A. tubulata; C. plicifera; N. digitalis; unknown vase and small barrel group (tube opening ~ height; basal area < opening)
+45,Atlantic,OCOM,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Orcbicella complex,OCOM,Orbicella complex. O. Annularis; O. faveolata; O. franksi
+46,Atlantic,OCOM-BL,MSE_BL,MSE,BL,NA,Hard corals,Orcbicella complex bleached,OCOM,Orbicella complex. O. Annularis; O. faveolata; O. franksi
+47,Atlantic,OTH-SINV,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other Invertebrates,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+48,Atlantic,PASTR,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Porites astreoides,PASTR,Porites astreoides
+49,Atlantic,PLAK,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive sponges,SpMass,Large basal area to body size and height > 5 cm; compact shape; irregular shapes include: chain-tubes spherical castle; e.g. E. ferox; Verongula sp.
+50,Atlantic,PPOR,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Porites branching,PPOR,Porites porites; P. divaricata; P. furcata
+51,Atlantic,PSEU,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Pseudodiploria sp.,PSEU,Pseudodiploria strigosa; P. clivosa
+52,Atlantic,PSEU-BL,MSE_BL,MSE,BL,NA,Hard corals,Pseudodiploria bleached ,PSEU,Pseudodiploria strigosa; P. clivosa
+53,Atlantic,ROSP,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Rope sponges,SpRope,Height >> basal area; Spread along the substrate. e.g. S. aura
+54,Atlantic,Sand,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Sand,Sand,Sand. Unconsolidated reef sediment
+55,Atlantic,SCplu,GORG,GORG,GORG,mixed soft,Soft Coral,Soft Coral plumes ,SINV_SFC_E,Sea plumes and whips (Caribbean)
+56,Atlantic,Seagrass,NAN,NAN,NAN,NAN,Other,Seagrass ,Seagrass,Seagrass
+57,Atlantic,Sediment,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Terrigenous sediments ,Sediment,Terrigenous sediments
+58,Atlantic,SpMass,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive sponges,SpMass,Large basal area to body size and height > 5 cm; compact shape; irregular shapes include: chain-tubes spherical castle; e.g. E. ferox; Verongula sp.
+59,Atlantic,Sponge,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Other sponges ,SpOTH,Other sponges (undefined to species/morphology): e.g. A. wiedenmayeri; Niphates sp.
+60,Atlantic,SPvase,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Tube sponges,SpTube,Tube species: A. archeri; A. tubulata; C. plicifera; N. digitalis; unknown vase and small barrel group (tube opening ~ height; basal area < opening)
+61,Atlantic,SSID,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Siderastrea siderea ,SSID,Siderastrea siderea
+62,Atlantic,Turf,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Turf algae,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+63,Atlantic,Turfsa,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Terrigenous sediments ,Sediment,Terrigenous sediments
+64,Atlantic,Unc,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Unclear ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+65,Atlantic,UTEN,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,Undaria tenuifoila,AGAR,Agariciidae. Plates and encrusting corals of the genera Agaricia Undaria and Helioseris
+66,Atlantic,XMUT,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Xestospongia muta,XMUT,Xestospongia muta
+67,Atlantic,ZOAN,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other Invertebrates,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+68,Australia,ACR-BRA,ACR-BRA,ACR_BRA,ACR_BRA,branching and hispidose ,Hard corals,Acroporidae branching,ACR-BRA,Family Acroporidae; branching morphology (excluding hispidose type branching)
+69,Australia,ACR-HIP,ACR-HIP,ACR-HIP,ACR_BRA,branching and hispidose ,Hard corals,Acroporidae hispidose,ACR-HIP,Family Acroporidae; hispidose morphology
+70,Australia,ACR-OTH,ACR-OTH,ACR-OTH,ACR_BRA,branching and hispidose ,Hard corals,Other Acroporidae ,ACR-OTH,Other corals from the family Acroporidae (e.g. Isopora)
+71,Australia,ACR-PE,ACR-PE,ACR-PE,FLP,"foliose, laminar, plate",Hard corals,Acroporidae plate/encrusting,ACR-PE,Family Acroporidae; plate and encrusting morphologies
+72,Australia,ACR-TCD,ACR-TCD,ACR_TCD,ACR_TCD,"table, corymbose and digitate",Hard corals,Acroporidae table/corymbose/digitate,ACR-TCD,Family Acroporidae; table; corymbose and digitate morphologies
+73,Australia,ALC-SF,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Alcyoniidae,ALC-SF,Soft coral family Alcyoniidae; genera Lobophytum and Sarcophyton
+74,Australia,CCA,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Crustose Coralline Algae,CCA,Crustose coralline algae
+75,Australia,DSUB,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Epillithic Algal Matrix,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+76,Australia,FAV-MUS,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Favidae-Mussidae massive/meandroid,FAV-MUS,Families Favidae and Mussidae; massive and meandroid morphologies
+77,Australia,GORG,GORG,GORG,GORG,mixed soft,Soft Coral,Sea fans and plumes,SINV_SFC_E,Sea fans; whips; plumes
+78,Australia,MAENR,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae Encrusting red,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+79,Australia,MALG,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macroalgae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+80,Australia,MOB-INV,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Mobile invertebrates,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+81,Australia,OTH-HC,OTH-HC,OTH-HC,FLP,"foliose, laminar, plate",Hard corals,Other hard coral,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Australia
+82,Australia,OTH-SF,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Other soft coral,OTH-SF,Other soft-corals outside of the common Alcyoniidae and erect forms (sea fans plumes whips): e.g. Xeniidae; Nepthtydae; Tubipora; Briareum; Heliopora
+83,Australia,OTH-SINV,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other sessile invertebrates,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+84,Australia,Other,NAN,NAN,NAN,NAN,Other,Other,OTHER,Other including fish; trash; transect hardware; unknown
+85,Australia,POCI,POCI,POCI,BRA_nACR,branching,Hard corals,Pocilloporidae,POCI,Family Pocilloporidae; all genera and species
+86,Australia,POR-BRA,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Poritidae branching,POR-BRA,Family Poritidae; branching morphology e.g. P. cylindrica
+87,Australia,POR-ENC,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Poritidae encrusting,POR-ENC,Family Poritidae; encrusting morphology e.g.  P. lichen
+88,Australia,POR-MASS,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Poritidae massive,POR-MASS,Family Poritidae; massive/sub-massive morphology e.g. P. loACR_BRAta; P. lutea
+89,Australia,Sand,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Sand,Sand,Sand. Unconsolidated reef sediment
+90,Australia,Turf,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Turf algae,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+91,Australia,Turfsa,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Turf algae and sand,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+92,Australia,Unc,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Unclear,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+93,Australia,WATE,NAN,NAN,NAN,NAN,Other,Water,WATER,Water
+94,Indian Ocean,BRA_ARB_Ac,ACR-BRA,ACR_BRA,ACR_BRA,branching and hispidose ,Hard corals,BRA: Acropora Branching ,ACR-BRA,Family Acroporidae; branching morphology (including hispidose type branching)
+95,Indian Ocean,BRA_BLC,BRA_nACR_BL,BRA_nACR,BL,NA,Hard corals,Branching bleached ,BRA_OTH,Other branching genera including: Seriatopora; Anacropora; Echinopora; Montipora; TuACR_BRAstrea (excluding Pocillopora and Stylophora)
+96,Indian Ocean,BRA_DIG_Ac,ACR_TCD,ACR_TCD,ACR_TCD,"table, corymbose and digitate",Hard corals,Acropora digitate,BRA_DIG_Ac,Acropora with branches resembling fingers (digitate type); e.g. A. humulis
+97,Indian Ocean,BRA_FIN_Se,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Fine branching nonAcroporids Seriatopora,BRA_OTH,Other branching genera including: Seriatopora; Anacropora; Echinopora; Montipora; TuACR_BRAstrea (excluding Pocillopora and Stylophora)
+98,Indian Ocean,BRA_OTH,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,BRA: Other ,BRA_OTH,Other branching genera including: Seriatopora; Anacropora; Echinopora; Montipora; TuACR_BRAstrea (excluding Pocillopora and Stylophora)
+99,Indian Ocean,BRA_RND_St,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Branching Stylophora,BRA_RND_St,Branching Stylophora
+100,Indian Ocean,BRA_SMO_Po,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Branching Porites,POR-BRA,Family Poritidae; branching morphology e.g. P. cylindrica
+101,Indian Ocean,BRA_TAB-Ac,ACR_TCD,ACR_TCD,ACR_TCD,"table, corymbose and digitate",Hard corals,Acropora corymbose/tabular/plate ,ACR-TCD,Family Acroporidae; table and corymbose morphologies (no digitate)
+102,Indian Ocean,BRA_VER_Po,POCI,POCI,BRA_nACR,branching,Hard corals,Pocillopora species ,POCI,Family Pocilloporidae; all genera (excluding  Stylophora) and species 
+103,Indian Ocean,CAL_CCA_DC,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Calcifying calcareous crustose algae: DHC ,CCA,Crustose coralline algae
+104,Indian Ocean,CAL_CCA_RB,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Calcifying Calcareous Crustose Algae: Rubble ,CCA,Crustose coralline algae
+105,Indian Ocean,CYANO_DHC,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Cyanobacteria smothering dead coral ,CYANO,Cyanobacteria
+106,Indian Ocean,EAM_DHC,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,EAM: Dead Hard Coral ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+107,Indian Ocean,EAM_RB,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Epilithic algal matirx smotheting rubble ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+108,Indian Ocean,FISH,NAN,NAN,NAN,NAN,Other,Fish ,OTHER,Other including fish; trash; transect hardware; unknown
+109,Indian Ocean,GEAR,NAN,NAN,NAN,NAN,Other,Fishing gear ,OTHER,Other including fish; trash; transect hardware; unknown
+110,Indian Ocean,LSUB_SAND,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Loose Substrate: Sand ,Sand,Sand. Unconsolidated reef sediment
+111,Indian Ocean,MACR_Cal_H,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Calcifying algae: Halimeda ,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+112,Indian Ocean,MACR_Fil_A,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Filamentous Macroalgae ,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+113,Indian Ocean,MACR_Fol_O,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Foliose Algae: Other ,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+114,Indian Ocean,MASE_BLC,MSE_BL,MSE,BL,NA,Hard corals,Massive/Submassive/Encrusting bleached,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Maldives and Chagos (e.g. Fungia; bleached colonies)
+115,Indian Ocean,MASE_LRG_I,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Isopora ,ACR-OTH,Other corals from the family Acroporidae (e.g. Isopora)
+116,Indian Ocean,MASE_LRG_O,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Large Rounded Polyps ,MASE_LRG_O,Massive Submassive Encrusting colonies with large visible rounded polyps: Diploastrea; Favia; Favites; Montastraea; Galaxea; Goniopora; Astreopora
+117,Indian Ocean,MASE_MEA_L,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,MASE: Lobophyllia ,LOBO,Lobophyllia sp.
+118,Indian Ocean,MASE_MEA_O,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,MASE: Meandering Other ,MASE_MEA_O,Massive Submassive Encrusting colonies with meandering ridges and valleys resembling brain: Platygyra; Leptoria; Goniastrea
+119,Indian Ocean,MASE_SML_O,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Small or Invis Polyps ,MASE_SML_O,Massive Submassive Encrusting colonies with small or invisible polyps  (including columnar forms): Pavona; Psammocorra; Coscinaraea; Gardineroseris
+120,Indian Ocean,MASE_SMO_P,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Porites ,POR-MASS,Family Poritidae; massive/sub-massive morphology e.g. P. loACR_BRAta; P. lutea
+121,Indian Ocean,MINV_COTS,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Crown of Thorns Sea Star ,COTS,Crown of Thorns Sea Star 
+122,Indian Ocean,MINV_OTH,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Sea cucumbers/sea urchins/sea stars/lobster,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+123,Indian Ocean,NON_FREE,NON_HERM,NON_HERM,FREE,free living,Hard corals,Non hermatypic: Free living (Fungia etc) ,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Maldives and Chagos (e.g. Fungia; bleached colonies)
+123,Indian Ocean,NON_FREE,NON_HERM,NON_HERM,FREE,free living,Hard corals,Non hermatypic: Free living (Fungia etc) ,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Maldives and Chagos (e.g. Fungia; bleached colonies)
+124,Indian Ocean,NON_MIL,NON_HERM,NON_HERM,NON_HERM,non-hermatypic,Hard corals,Non Hermatypic: Millepora ,Mille,Millepora sp.
+125,Indian Ocean,SGRASS,NAN,NAN,NAN,NAN,Other,Seagrass,Seagrass,Seagrass
+126,Indian Ocean,SINV_HEX_O,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other sesile invertebrates soft hexacorrallia,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+127,Indian Ocean,SINV_HYD,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Hydroids feathery types,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+128,Indian Ocean,SINV_OTH,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other sesile invertebrates Bryozoa clams ,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+129,Indian Ocean,SINV_SFC_A,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Common LRG Alcyoniide ,ALC-SF,Soft coral family Alcyoniidae; genera Lobophytum and Sarcophyton
+130,Indian Ocean,SINV_SFC_E,GORG,GORG,GORG,mixed soft,Soft Coral,Sea fans/plumes/branching whipes,SINV_SFC_E,Sea fans; whips; plumes
+131,Indian Ocean,SINV_SFC_O,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Other soft-corals no common Alcyoniidae and e,OTH-SF,Other soft-corals outside of the common Alcyoniidae and erect forms (sea fans plumes whips): e.g. Xeniidae; Nepthtydae; Tubipora; Briareum; Heliopora
+132,Indian Ocean,SINV_SPO_C,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Encrusting Cliona spp.,Cliona,Encrusting Cliona spp.
+133,Indian Ocean,SINV_SPO_F,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Sponges: Fan shaped forms,SpOTH,Other sponges (outside massive/encrusting morphologies and Cliona)
+134,Indian Ocean,SINV_SPO_M,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive or encrusting sponges ,SpMass,Massive or encrusting sponges 
+135,Indian Ocean,SINV_TUN,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Individual Tunicates ,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+136,Indian Ocean,TFP_RDG_Al,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,TFP: Visible Relief Structures ,FOLI,Thin Foliose and Plate colonies (excluding genera Acropora Porites) with/without  visible relief structure: e.g. Echinophyllia; Turbinaria; Montipora; Echinopora
+137,Indian Ocean,TFP_RND_Al,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,TFP: Visible Round Corallites ,FOLI,Thin Foliose and Plate colonies (excluding genera Acropora Porites) with/without  visible relief structure: e.g. Echinophyllia; Turbinaria; Montipora; Echinopora
+138,Indian Ocean,TFP_SMO_Po,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,TFP: Porites ,POR-ENC,Family Poritidae; encrusting morphology e.g.  P. lichen
+139,Indian Ocean,Trans,NAN,NAN,NAN,NAN,Other,Transect hardware ,OTHER,Other including fish; trash; transect hardware; unknown
+140,Indian Ocean,Unc,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Unclear ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+141,Indian Ocean,Unk,NAN,NAN,NAN,NAN,Other,Unknown ,OTHER,Other including fish; trash; transect hardware; unknown
+142,Southeast Asia,ALGAE_OTH,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Other algae ,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+143,Southeast Asia,BRA_ARB_Ac,ACR_BRA,ACR_BRA,ACR_BRA,branching and hispidose ,Hard corals,BRA: Acropora Branching,ACR-BRA,Family Acroporidae; branching morphology (including hispidose type branching)
+144,Southeast Asia,BRA_BLC,ACR_BRA_BL,ACR_BRA,BL,NA,Hard corals,Branching bleached,BRA_OTH,Other branching genera including: Seriatopora; Anacropora; Echinopora; Montipora; TuACR_BRAstrea (excluding Pocillopora and Stylophora)
+145,Southeast Asia,BRA_BOT_Ac,ACR-HIP,ACR-HIP,ACR_BRA,branching and hispidose ,Hard corals,BRA: Acropora Bottlebrush,ACR-BRA,Family Acroporidae; branching morphology (including hispidose type branching)
+146,Southeast Asia,BRA_DIG_Ac,ACR_TCD,ACR_TCD,ACR_TCD,"table, corymbose and digitate",Hard corals,Acropora digitate,ACR-TCD,Family Acroporidae; table; corymbose and digitate morphologies
+147,Southeast Asia,BRA_FIN_Se,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Fine branching nonAcroporids Seriatopora,BRA_OTH,Other branching genera including: Seriatopora; Anacropora; Echinopora; Montipora; TuACR_BRAstrea (excluding Pocillopora and Stylophora)
+148,Southeast Asia,BRA_OTH,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Other branching genus: Anacropora/Echinopora/,BRA_OTH,Other branching genera including: Seriatopora; Anacropora; Echinopora; Montipora; TuACR_BRAstrea (excluding Pocillopora and Stylophora)
+149,Southeast Asia,BRA_RND_St,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Branching Stylophora,BRA_RND_St,Branching Stylophora
+150,Southeast Asia,BRA_SMO_Po,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Branching Porites,POR-BRA,Family Poritidae; branching morphology e.g. P. cylindrica
+151,Southeast Asia,BRA_TAB-Ac,ACR_TCD,ACR_TCD,ACR_TCD,"table, corymbose and digitate",Hard corals,Acropora corymbose/tabular/plate ,ACR-TCD,Family Acroporidae; table; corymbose and digitate morphologies
+152,Southeast Asia,BRA_VER_Po,POCI,POCI,BRA_nACR,branching,Hard corals,Pocillopora species,POCI,Family Pocilloporidae; all genera (excluding  Stylophora) and species 
+153,Southeast Asia,CAL_CCA_DC,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Calcifying calcareous crustose algae: DHC ,CCA,Crustose coralline algae
+154,Southeast Asia,CAL_CCA_RB,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Calcifying Calcareous Crustose Algae: Rubble,CCA,Crustose coralline algae
+155,Southeast Asia,CAL_CCA_S,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Calcifying Calcareous Crustose Algae: Sustrat,CCA,Crustose coralline algae
+156,Southeast Asia,CYANO_DHC,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Cyanobacteria smothering dead coral ,CYANO,Cyanobacteria
+157,Southeast Asia,CYANO_RB,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Cyanobacteria smothering rubble,CYANO,Cyanobacteria
+158,Southeast Asia,CYANO_Sub,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Cyanobacteria on rock or other substrates,CYANO,Cyanobacteria
+159,Southeast Asia,EAM_DHC,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,EAM: Dead Hard Coral ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+160,Southeast Asia,EAM_RB,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Epilithic algal matirx smotheting rubble,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+161,Southeast Asia,EAM_Sub,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Epilithic algal matrix on rock or other subst,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+162,Southeast Asia,FISH,NAN,NAN,NAN,NAN,Other,Fish,OTHER,Other including fish; trash; transect hardware; unknown
+163,Southeast Asia,GEAR,NAN,NAN,NAN,NAN,Other,Fishing gear,OTHER,Other including fish; trash; transect hardware; unknown
+164,Southeast Asia,H20,NAN,NAN,NAN,NAN,Other,Water,WATER,Water
+165,Southeast Asia,LSUB_RUB,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Loose Substrate: Rubble,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+166,Southeast Asia,LSUB_SAND,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Loose Substrate: Sand,Sand,Sand. Unconsolidated reef sediment
+167,Southeast Asia,LSUB_SEDI,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Loose Substrate: Sediment,Sediment,Terrigenous sediments
+168,Southeast Asia,MACR_Cal_H,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Calcifying algae: Halimeda ,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+169,Southeast Asia,MACR_Cal_O,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Calcifying algae: Other,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+170,Southeast Asia,MACR_Cal_P,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Calcifying macroalgae: Padina,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+171,Southeast Asia,MACR_Fil_A,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Filamentous Macroalgae ,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+172,Southeast Asia,MACR_Fol_B,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Foliose Strap/ Branched algae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+173,Southeast Asia,MACR_Fol_F,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Foliose Fan shaped algae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+174,Southeast Asia,MACR_Fol_O,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Foliose Algae: Other,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+175,Southeast Asia,MACR_Fol_P,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Foliose Feathery algae,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+176,Southeast Asia,MACR_Fol_S,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Foliose sheeting macroalage: (e.g Ulva),MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+177,Southeast Asia,MACR_GLOB,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Algae: Large Visible Globules,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+178,Southeast Asia,MACR_LTH_O,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Leathery Macrophyte: Other,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+179,Southeast Asia,MASE_BLC,OTH-HC,OTH-HC,BL,NA,Hard corals,Massive/Submassive/Encrusting bleached,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Southeast Asia (e.g. Fungia; bleached colonies)
+180,Southeast Asia,MASE_LRG_I,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Isopora,ACR-OTH,Other corals from the family Acroporidae (e.g. Isopora)
+181,Southeast Asia,MASE_LRG_O,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Large Rounded Polyps ,MASE_LRG_O,Massive Submassive Encrusting colonies with large visible rounded polyps: Diploastrea; Favia; Favites; Montastraea; Galaxea; Goniopora; Astreopora
+182,Southeast Asia,MASE_MEA_L,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,MASE: Lobophyllia,LOBO,Lobophyllia sp.
+183,Southeast Asia,MASE_MEA_O,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,MASE: Meandering Other ,MASE_MEA_O,Massive Submassive Encrusting colonies with meandering ridges and valleys resembling brain: Platygyra; Leptoria; Goniastrea
+184,Southeast Asia,MASE_SML_O,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Small or Invis Polyps,MASE_SML_O,Massive Submassive Encrusting colonies with small or invisible polyps  (including columnar forms): Pavona; Psammocorra; Coscinaraea; Gardineroseris
+185,Southeast Asia,MASE_SMO_P,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,MASE: Porites ,POR-MASS,Family Poritidae; massive/sub-massive morphology e.g. P. loACR_BRAta; P. lutea
+186,Southeast Asia,MINV_COTS,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Crown of Thorns Sea Star ,COTS,Crown of Thorns Sea Star 
+187,Southeast Asia,MINV_CRI,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Crinoids ,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+188,Southeast Asia,MINV_OTH,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Sea cucumbers/sea urchins/sea stars/lobster,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+189,Southeast Asia,NON_FREE,NON_HERM,NON_HERM,FREE,free living,Hard corals,Non hermatypic: Free living (Fungia etc) ,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Southeast Asia (e.g. Fungia; bleached colonies)
+189,Southeast Asia,NON_FREE,NON_HERM,NON_HERM,FREE,free living,Hard corals,Non hermatypic: Free living (Fungia etc) ,OTH-HC,Other hard coral including all other groups not represented by the other coral categories in Southeast Asia (e.g. Fungia; bleached colonies)
+190,Southeast Asia,NON_HEL,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Non hermatypic: Heliopora,OTH-SF,Other soft-corals outside of the common Alcyoniidae and erect forms (sea fans plumes whips): e.g. Xeniidae; Nepthtydae; Tubipora; Briareum; Heliopora
+191,Southeast Asia,NON_MIL,NON_HERM,NON_HERM,NON_HERM,non-hermatypic,Hard corals,Non Hermatypic: Millepora,Mille,Millepora sp.
+192,Southeast Asia,SINV_HEX_O,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other sesile invertebrates soft hexacorrallia,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+193,Southeast Asia,SINV_HYD,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Hydroids feathery types ,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+194,Southeast Asia,SINV_OTH,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other sesile invertebrates Bryozoa clams ,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+195,Southeast Asia,SINV_SFC_A,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Common LRG Alcyoniide,ALC-SF,Soft coral family Alcyoniidae; genera Lobophytum and Sarcophyton
+196,Southeast Asia,SINV_SFC_E,GORG,GORG,GORG,mixed soft,Soft Coral,Sea fans/plumes/branching whipes,SINV_SFC_E,Sea fans; whips; plumes
+197,Southeast Asia,SINV_SFC_O,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Other soft-corals no common Alcyoniidae and e,OTH-SF,Other soft-corals outside of the common Alcyoniidae and erect forms (sea fans plumes whips): e.g. Xeniidae; Nepthtydae; Tubipora; Briareum; Heliopora
+198,Southeast Asia,SINV_SPO_E,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Sponges: Branching/rope forms,SpRope,Height >> basal area; Spread along the substrate
+199,Southeast Asia,SINV_SPO_F,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Sponges: Fan shaped forms,SpOTH,Other sponges; undefined to species/morphology (outside massive/encrusting/rope/tube morphologies)
+200,Southeast Asia,SINV_SPO_M,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive or encrusting sponges ,SpMass,Massive or encrusting sponges 
+201,Southeast Asia,SINV_SPO_V,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Sponges: Hollow sponge forms/cups/barrels/tub,SpTube,Tube species: tube opening ~ height; basal area < opening
+202,Southeast Asia,SINV_TUN,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Individual Tunicates ,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+203,Southeast Asia,TFP_BLC,FLP_BL,FLP,BL,NA,Hard corals,TFP bleached,FOLI,Thin Foliose and Plate colonies (excluding genera Acropora Porites) with/without  visible relief structure: e.g. Echinophyllia; Turbinaria; Montipora; Echinopora
+204,Southeast Asia,TFP_RDG_Al,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,TFP: Visible Relief Structures,FOLI,Thin Foliose and Plate colonies (excluding genera Acropora Porites) with/without  visible relief structure: e.g. Echinophyllia; Turbinaria; Montipora; Echinopora
+205,Southeast Asia,TFP_RND_Al,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,TFP: Visible Round Corallites ,FOLI,Thin Foliose and Plate colonies (excluding genera Acropora Porites) with/without  visible relief structure: e.g. Echinophyllia; Turbinaria; Montipora; Echinopora
+206,Southeast Asia,TFP_SMO_Po,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,TFP: Porites ,POR-ENC,Family Poritidae; encrusting morphology e.g.  P. lichen
+207,Southeast Asia,Trans,NAN,NAN,NAN,NAN,Other,Transect hardware,OTHER,Other including fish; trash; transect hardware; unknown
+208,Southeast Asia,TSH,NAN,NAN,NAN,NAN,Other,Trash: Human Origin,OTHER,Other including fish; trash; transect hardware; unknown
+209,Southeast Asia,Unc,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Unclear ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+210,Southeast Asia,Unk,NAN,NAN,NAN,NAN,Other,Unknown,OTHER,Other including fish; trash; transect hardware; unknown
+211,Southeast Asia,NN_HEL,OTH-SF,OTH-SF,OTH-SF,encrusting and erect,Soft Coral,Non hermatypic: Heliopora,OTH-SF,Other soft-corals outside of the common Alcyoniidae and erect forms (sea fans plumes whips): e.g. Xeniidae; Nepthtydae; Tubipora; Briareum; Heliopora
+212,Indian Ocean,Seagrass,NAN,NAN,NAN,NAN,Other,Seagrass,Seagrass,Seagrass
+213,Southeast Asia,WATER,NAN,NAN,NAN,NAN,Other,Water,WATER,Water
+214,Australia,WATER,NAN,NAN,NAN,NAN,Other,Water,WATER,Water
+215,Pacific,CCA,EAM/CCA,EAM/CCA,CCA,encrusting algae,Algae,Crustose Coralline Algae,CCA,Crustose Coralline Algae
+216,Pacific,CYANO,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Cyanobacteria,CYANO,Cyanobacteria
+217,Pacific,EAM_DHC,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,EAM: Dead Hard Coral ,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+218,Pacific,MALGAE,MACRO,MACRO,MACRO,"Upright macroalgae > 1 cm in height, Cyanobacteria",Algae,Macrolagae all genera,MALG,Upright macroalgae > 1 cm in height  (all genera and species)
+219,Pacific,Unc,EAM/CCA,EAM/CCA,EAM,Multi-specific algal assemblage smothering reef surface 1 cm or less in height,Algae,Unclear,EAM,Multi-specific assemblages of filamentous algae < 1 cm in height
+220,Pacific,B_Monti,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,Bleached Montipora,MONT,Montipora species
+221,Pacific,Blpocill,POCI_BL,POCI,BL,NA,Hard corals,Bleached Pocillopora,POCI,Family Pocilloporidae; all genera and species
+222,Pacific,FAV_SID,MSEM,MSEM,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Faviidae Siderastreidae,OTH-HC,Other hard coral genera/species from Faviidae Siderastreidae Agariciidae: Psammocora; Leptastrea; Cyphastrea; Coscinaraea; Pavona duerdeni; P. maldivensis; P.  Varians; P. Leptoseris
+223,Pacific,Lepto,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Leptoseris,OTH-HC,Other hard coral genera/species from Faviidae Siderastreidae Agariciidae: Psammocora; Leptastrea; Cyphastrea; Coscinaraea; Pavona duerdeni; P. maldivensis; P.  Varians; P. Leptoseris
+224,Pacific,MFLAB,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Montipora flabellata,MONT,Montipora species
+225,Pacific,MON_Cap_br,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Montipora capitata  morpho 2 branching,MONT,Montipora species
+226,Pacific,MON_Cap_pl,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,Montipora capitata morpho 1 plate,MONT,Montipora species
+227,Pacific,MPATU,FLP,FLP,FLP,"foliose, laminar, plate",Hard corals,Montipora patula,MONT,Montipora species
+228,Pacific,PAV_Due,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Pavona duerdeni,OTH-HC,Other hard coral genera/species from Faviidae Siderastreidae Agariciidae: Psammocora; Leptastrea; Cyphastrea; Coscinaraea; Pavona duerdeni; P. maldivensis; P.  Varians; P. Leptoseris
+229,Pacific,PDAM,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Pocillopora damicornis,POCI,Family Pocilloporidae; all genera and species
+230,Pacific,PEYDO,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Pocillopora eydouxi,POCI,Family Pocilloporidae; all genera and species
+231,Pacific,Pmal,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Pavona maldivensis,OTH-HC,Other hard coral genera/species from Faviidae Siderastreidae Agariciidae: Psammocora; Leptastrea; Cyphastrea; Coscinaraea; Pavona duerdeni; P. maldivensis; P.  Varians; P. Leptoseris
+232,Pacific,POCI_CAU,POCI,POCI,MSEM,"massive, sub-massive, encrusting mendroid",Hard corals,Pocillopora meandrina/ligulata,POCI,Family Pocilloporidae; all genera and species
+233,Pacific,POR_Com_fi,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Porties compressa mopho 1 fingres,PCOM,Porites compressa
+234,Pacific,POR_Com_fu,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Porites compressa morpho 2 fused branches,PCOM,Porites compressa
+235,Pacific,POR_EP_B,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Bleached Plate-encrusting Porites,POR_OTH,Porites other; nodular ; encrusting; all other Porites not represented by the other Porites categories in Hawaii
+236,Pacific,POR_NOD,BRA_nACR,BRA_nACR,BRA_nACR,branching,Hard corals,Porites nodular branches,POR_OTH,Porites other; nodular ; encrusting; all other Porites not represented by the other Porites categories in Hawaii
+237,Pacific,POR_OTH_EP,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Porites rus/monticulosa,POR-RUS/MON,Porites rus/monticulosa
+238,Pacific,POR-ENC,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Porites lichen,POR_OTH,Porites other; nodular ; encrusting; all other Porites not represented by the other Porites categories in Hawaii
+239,Pacific,POR-MASS,MSE,MSE,MSE,"massive, sub-massive, encrusting",Hard corals,Porites loACR_BRAta/lutea,POR-MASS,Family Poritidae; massive/sub-massive morphology e.g. P. loACR_BRAta; P. lutea
+240,Pacific,POR-MASS-B,MSE_BL,MSE,BL,NA,Hard corals,Bleached Porites loACR_BRAta/lutea,POR-MASS,Family Poritidae; massive/sub-massive morphology e.g. P. loACR_BRAta; P. lutea
+241,Pacific,PVAR,ELS,ELS,ELS,"encrusting, laminar and submassive",Hard corals,Pavona varinas,OTH-HC,Other hard coral genera/species from Faviidae Siderastreidae Agariciidae: Psammocora; Leptastrea; Cyphastrea; Coscinaraea; Pavona duerdeni; P. maldivensis; P.  Varians; P. Leptoseris
+242,Pacific,FISH,NAN,NAN,NAN,NAN,Other,Fish,OTHER,Other including fish; trash; transect hardware; unknown
+243,Pacific,LSUB_SAND,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Sand. Unconsolidated reef sediment,Sand,Sand. Unconsolidated reef sediment
+244,Pacific,LSUB_SEDI,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Terrigenous sediments,Sediment,Terrigenous sediments
+245,Pacific,LSUB_VOL,NON_COLONIZABLE,NON_COLONIZABLE,NON_COLONIZABLE,unconsolidated,Other,Volcanic sediment,Sediment,Terrigenous sediments
+246,Pacific,Other,NAN,NAN,NAN,NAN,Other,Other,OTHER,Other including fish; trash; transect hardware; unknown
+247,Pacific,Unk,NAN,NAN,NAN,NAN,Other,Unknown ,OTHER,Other including fish; trash; transect hardware; unknown
+248,Pacific,MINV_COTS,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Crown of Thorns Sea Star,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+249,Pacific,MINV_Dia,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Diadema/Ehinothix,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+250,Pacific,MINV_Ech,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Echinometra,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+251,Pacific,MINV_OTH,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other mobile invertebrates: i.e Echinoderms; ,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+252,Pacific,MINV_Tri,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Tripneustes,MINV_OTH,Other mobile invertebrates: i.e Echinoderms; lobster
+253,Pacific,SINV_HEX_O,OTHER,OTHER,OTHER,mobile invertebrates,Other Invertebrates,Other sesile invertebrates soft hexacorrallia,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids
+254,Pacific,SINV_SPO_M,SPONG,SPONG,SPONG,mixed sponges,Other Invertebrates,Massive or encrusting sponges,OTH-SINV,Other sesile invertebrates: bryozoa; clams; tunicates (ascidians); soft hexacorrallia; hydroids

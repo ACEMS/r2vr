@@ -5,8 +5,9 @@
 #' @examples 
 #' \donttest{
 #' start("YOUR-LOCAL-IP")
+#' start()
 #' }
 #' @export
-start <- function(LOCAL_IP){
+start <- function(LOCAL_IP = find_IP()){
   animals$serve(host = LOCAL_IP)
 } 

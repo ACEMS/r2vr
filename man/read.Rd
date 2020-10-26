@@ -7,7 +7,7 @@
 read(url)
 }
 \arguments{
-\item{url}{url for database.}
+\item{url}{url to API end point}
 }
 \value{
 

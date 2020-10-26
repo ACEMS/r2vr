@@ -1,7 +1,10 @@
 Package: r2vr
 Title: Compose and Serve WebVR Scenes
-Version: 0.0.0.9000
-Authors@R: person("Miles", "McBain", email = "miles.mcbain@gmail.com", role = c("aut", "cre"))
+Version: 0.0.0.9001
+Authors@R: as.person(c(
+    "Miles McBain <miles.mcbain@gmail.com> [aut, cre]", 
+    "Jon Peppinck <mrjonpeppinck@gmail.com> [aut]"
+  ))
 Description: Building on top of Mozilla's A-Frame Framework, a suite of objects
     are provided for composing WebVR scenes with a functional R interface. Thanks to
     the power and versatility of A-Frame and WebVR, scenes will be viewable on
@@ -17,7 +20,7 @@ Suggests: testthat,
     jsonlite,
     ggplot2,
     reshape2
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Imports:
     stringr,
     purrr,

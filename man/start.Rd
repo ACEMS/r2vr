@@ -4,7 +4,7 @@
 \alias{start}
 \title{Start VR server}
 \usage{
-start(LOCAL_IP)
+start(LOCAL_IP = find_IP())
 }
 \arguments{
 \item{LOCAL_IP}{Character string of local ip address (\code{IPv4}). If unknown go to command window and enter \code{'ipconfig'}.}
@@ -15,5 +15,6 @@ Start VR server
 \examples{
 \donttest{
 start("YOUR-LOCAL-IP")
+start()
 }
 }

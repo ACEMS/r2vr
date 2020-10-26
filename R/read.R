@@ -1,6 +1,6 @@
 #' Get data from database with API GET request
 #'
-#' @param url url for database.
+#' @param url url to API end point
 #'
 #' @return
 #' 

@@ -86,6 +86,63 @@ a_remove_entity <- function(id){
   removal
 }
 
+##' Remove all A-Frame entities from the scene by class
+##'
+##' Remove the entitities identified by 'className' from the scene.
+##'
+##' @title a_remove_entity_class
+##' @param className class of the entity to be removed.
+##' @return An object that represents an A-Frame Event.
+##' @export
+a_remove_entity_class <- function(className){
+  removal <- list(class = "remove_entity_class",
+                  className = className)
+  class(removal) <- c("list", "r2vr_message")
+  removal
+}
+
+## TODO: Done by hand to test - look into R way (roxygen etc.)
+
+##' Add an A-Frame entity from the scene
+##'
+##' Add the entity identified by a 'tag' and an 'id' input.
+##'
+##' @title a_add_entity
+##' @param tag primitive A-Frame entity.
+##' @param id the id of the new entity to be created
+##' @param className the class of the new entity to be created
+##' @param parentEntityId new entity nested within parent via its id
+##' @return An object that represents an A-Frame Event.
+##' @export
+a_add_entity <- function(tag, id, className = "", parentEntityId = ""){
+  add <- list(class = "add_entity",
+                  tag = tag,
+                  id = id,
+                  className = className,
+                  parentEntityId = parentEntityId)
+  class(add) <- c("list", "r2vr_message")
+  add
+}
+
+## TODO: Done by hand to test - look into R way (roxygen etc.)
+
+##' Check if annotations are correct or incorrect
+##'
+##' Display the annotated marker ring entities as green if correct or red if incorrect
+##'
+##' @title a_check
+##' @param imageId the image ID i.e. filename without extension
+##' @param goldStandard a list of annotated markers for the corresponding image
+##' @return An object that represents an A-Frame Event.
+##' @export
+a_check <- function(imageId, goldStandard){
+  check <- list(class = "check",
+              imageId = imageId,
+              goldStandard = goldStandard)
+  class(check) <- c("list", "r2vr_message")
+  check
+}
+
 ## Unexported helpers
 is_r2vr_message <- function(x) inherits(x, "r2vr_message")
 
