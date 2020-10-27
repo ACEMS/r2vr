@@ -93,7 +93,7 @@ animals <- shared_setup_scene("2d", "testing") # DON'T CHANGE
 
 ## COMMANDS - 2D Testing
 
-rm(list=ls())
+```{r}
 start()
 randomize_markers()
 go_to()
@@ -104,3 +104,4 @@ end()
 data.df <- read("https://r2vr.herokuapp.com/api/2d/testing")
 data.df <- read("https://r2vr.herokuapp.com/api/2d/evaluation")
 rm(list=ls())
+```

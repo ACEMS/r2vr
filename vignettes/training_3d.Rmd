@@ -100,6 +100,7 @@ animals <- shared_setup_scene("3d", "training") # DON'T CHANGE
 
 ## COMMANDS - 3D TRAINING
 
+```{r}
 start()
 fixed_markers()
 go_to()
@@ -110,3 +111,4 @@ check(3)
 end()
 data.df <- read("https://r2vr.herokuapp.com/api/3d/training")
 rm(list=ls())
+```
