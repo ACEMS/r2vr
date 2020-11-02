@@ -46,7 +46,7 @@ fixed_markers <- function(module = MODULE, image_paths_and_points = selected_ima
     for(point in 1:length(selected_image_points)) {
       ## Find the transformed x and y values
       x <- x_translation(selected_image_points[[point]]$x)
-      y <- y_translation(selected_image_points[[point]]$y)
+      y <- -y_translation(selected_image_points[[point]]$y)
       
       # Update the position for the number of points specified
       update_entities <- list(
