@@ -2,7 +2,7 @@ import { CustomColorsActionTypes } from './models/actions';
 
 const defaultState: Shared.CustomColors = {
   coral: '#FF95BC',
-  notCoral: '#969696',
+  notCoral: '#B8B27B',
   plane: '#FFFFFF',
   correct: '#00FF00',
   incorrect: '#FF0000',

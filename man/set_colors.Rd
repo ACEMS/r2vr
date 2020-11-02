@@ -7,7 +7,7 @@
 set_colors(
   marker = "#FFFFFF",
   coral = "#FF95BC",
-  not_coral = "#969696",
+  not_coral = "#B8B27B",
   text = "#000000",
   plane = "#FFFFFF",
   check_correct = "#00FF00",
@@ -44,7 +44,7 @@ set_colors()
 
 set_colors("#FFFFFF")
 
-set_colors("#FFFFFF", "#FF95BC", "#969696", "#000000", "#FFFFFF", "#00FF00", "#FF0000", "#00FF00", "#FF0000")
+set_colors("#FFFFFF", "#FF95BC", "#B8B27B", "#000000", "#FFFFFF", "#00FF00", "#FF0000", "#00FF00", "#FF0000")
 }
 
 }

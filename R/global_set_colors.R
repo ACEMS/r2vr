@@ -16,11 +16,11 @@
 #' 
 #' set_colors("#FFFFFF")
 #' 
-#' set_colors("#FFFFFF", "#FF95BC", "#969696", "#000000", "#FFFFFF", "#00FF00", "#FF0000", "#00FF00", "#FF0000")
+#' set_colors("#FFFFFF", "#FF95BC", "#B8B27B", "#000000", "#FFFFFF", "#00FF00", "#FF0000", "#00FF00", "#FF0000")
 #' }
 #'
 #' @export
-set_colors <- function(marker = "#FFFFFF", coral = "#FF95BC", not_coral = "#969696", text = "#000000", plane = "#FFFFFF", check_correct = "#00FF00", check_incorrect = "#FF0000", evaluation_selection = "#00FF00", cursor = "#FF0000") {
+set_colors <- function(marker = "#FFFFFF", coral = "#FF95BC", not_coral = "#B8B27B", text = "#000000", plane = "#FFFFFF", check_correct = "#00FF00", check_incorrect = "#FF0000", evaluation_selection = "#00FF00", cursor = "#FF0000") {
   if (!is.character(marker) || !is.character(coral) || !is.character(not_coral) || !is.character(text) || !is.character(plane) || !is.character(check_correct) || !is.character(check_incorrect) || !is.character(evaluation_selection) || !is.character(cursor)) {
     stop("Please enter either the HEX code or A-Frame color as a Character string")
   }
