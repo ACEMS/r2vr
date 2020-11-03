@@ -12,17 +12,18 @@ set_marker_and_props("3d")
 
 ## OPTIONAL: '?set_colors'
 # set_colors()
-set_colors(
-  marker = "#0000FF",
-  coral = "#FF00FF",
-  not_coral = "#FFFF00",
-  text = "#FFFFFF",
-  plane = "#000000",
-  check_correct = "#00FFFF",
-  check_incorrect = "#FFDDAA",
-  evaluation_selection = "#FF0000",
-  cursor = "#00FF00"
-)
+# set_colors(
+#   marker = "#0000FF",
+#   coral = "#FF00FF",
+#   not_coral = "#FFFF00",
+#   text = "#FFFFFF",
+#   plane = "#000000",
+#   check_correct = "#00FFFF",
+#   check_incorrect = "#FFDDAA",
+#   evaluation_selection = "#FF0000",
+#   cursor = "#00FF00"
+# )
+set_colors()
 
 R2VR_CDN <- "https://cdn.jsdelivr.net/gh/ACEMS/r2vr@experiment" # NOTE: Subject to change
 
@@ -69,6 +70,6 @@ animals <- shared_setup_scene("3d", "testing") # DON'T CHANGE
 # ask_question(1)
 # ask_question(2)
 # end()
-# data.df <- read("https://r2vr.herokuapp.com/api/3d/testing") # TODO: deploy
+# data.df <- read("https://r2vr.herokuapp.com/api/3d/testing")
 # data.df <- read("https://r2vr.herokuapp.com/api/3d/evaluation")
 # rm(list=ls())
