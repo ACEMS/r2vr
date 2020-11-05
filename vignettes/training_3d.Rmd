@@ -109,6 +109,6 @@ check(1)
 check(2)
 check(3)
 end()
-data.df <- read("https://r2vr.herokuapp.com/api/3d/training")
+training_3d.df <- read("https://r2vr.herokuapp.com/api/3d/training")
 rm(list=ls())
 ```
