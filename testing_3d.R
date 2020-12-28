@@ -25,26 +25,25 @@ set_marker_and_props("3d")
 # )
 set_colors()
 
-R2VR_CDN <- "https://cdn.jsdelivr.net/gh/ACEMS/r2vr@experiment" # NOTE: Subject to change
+R2VR_CDN <- "https://cdn.jsdelivr.net/gh/ACEMS/r2vr@master"
 
-R2VR_3D_IMAGES <- paste0(R2VR_CDN, "/inst/ext/images/3d/")
+R2VR_3D_IMAGES <- paste0(R2VR_CDN, "/inst/ext/images/3d_testing/")
 
 # TODO: Select images
 # NOTE: If have other local images on PC can change img_paths to be a vector of relative file location for the current working directory
 img_paths <- paste0(
   R2VR_3D_IMAGES,
-  c("100030039.jpg",
-    "120261897.jpg",
-    "130030287.jpg",
-    "130050093.jpg")
+  c("130010712.jpg",
+    "140040045.jpg",
+    "110060902.jpg")
 )
+
 
 img_paths_and_points <- list(
   # 3D image paths
   list(img = img_paths[1]),
   list(img = img_paths[2]),
-  list(img = img_paths[3]),
-  list(img = img_paths[4])
+  list(img = img_paths[3])
 )
 
 set_random_images(img_paths_and_points)
@@ -60,6 +59,8 @@ set_questions_and_responses(evaluation_questions)
 
 animals <- shared_setup_scene("3d", "testing") # DON'T CHANGE
 
+# vignette("testing_3d", package = "r2vr")
+
 ## COMMANDS - 3D Testing ##
 
 # rm(list=ls())
@@ -70,6 +71,6 @@ animals <- shared_setup_scene("3d", "testing") # DON'T CHANGE
 # ask_question(1)
 # ask_question(2)
 # end()
-# data.df <- read("https://r2vr.herokuapp.com/api/3d/testing")
-# data.df <- read("https://r2vr.herokuapp.com/api/3d/evaluation")
+# testing_3d.df <- read("https://r2vr.herokuapp.com/api/3d/testing")
+# evaluation_3d.df <- read("https://r2vr.herokuapp.com/api/3d/evaluation")
 # rm(list=ls())
